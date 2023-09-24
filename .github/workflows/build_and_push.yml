@@ -36,7 +36,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: wiretrustee/dashboard
+          images: ${{ secrets.DOCKER_USER }}/dashboard
       -
         name: Login to DockerHub
         if: github.event_name != 'pull_request'
