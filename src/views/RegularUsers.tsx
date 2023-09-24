@@ -86,10 +86,10 @@ export const RegularUsers = () => {
   useEffect(() => {
     const style = { marginTop: 85 };
     if (deleteUser.loading) {
-      message.loading({ content: "Deleting...", key: deleteKey, style });
+      message.loading({ content: "正在删除...", key: deleteKey, style });
     } else if (deleteUser.success) {
       message.success({
-        content: "User has been successfully deleted.",
+        content: "用户已成功删除。",
         key: deleteKey,
         duration: 2,
         style,
@@ -109,7 +109,7 @@ export const RegularUsers = () => {
       dispatch(userActions.resetDeletedUser(null));
     } else if (deleteUser.error) {
       message.error({
-        content: "Failed to delete user.",
+        content: "无法删除用户。",
         key: deleteKey,
         duration: 2,
         style,
@@ -269,9 +269,8 @@ export const RegularUsers = () => {
 
     const content = displayGroups?.map((g, i) => {
       const _g = g as Group;
-      const peersCount = ` - ${_g.peers_count || 0} ${
-        !_g.peers_count || parseInt(_g.peers_count) !== 1 ? "peers" : "peer"
-      } `;
+      const peersCount = ` - ${_g.peers_count || 0} ${!_g.peers_count || parseInt(_g.peers_count) !== 1 ? "peers" : "peer"
+        } `;
       return (
         <div key={i}>
           <Tag color="blue" style={{ marginRight: 3 }}>
@@ -313,14 +312,14 @@ export const RegularUsers = () => {
   useEffect(() => {
     if (savedUser.loading) {
       message.loading({
-        content: "Saving...",
+        content: "正在保存...",
         key: createKey,
         duration: 0,
         style: styleNotification,
       });
     } else if (savedUser.success) {
       message.success({
-        content: "User has been successfully saved.",
+        content: "用户已成功保存。",
         key: createKey,
         duration: 2,
         style: styleNotification,
@@ -330,7 +329,7 @@ export const RegularUsers = () => {
       dispatch(userActions.resetSavedUser(null));
       setShowGroupModal(false);
     } else if (savedUser.error) {
-      let errorMsg = "Failed to update user";
+      let errorMsg = "无法更新用户";
       switch (savedUser.error.statusCode) {
         case 412:
         case 403:
@@ -367,7 +366,7 @@ export const RegularUsers = () => {
       key: "edit",
       label: (
         <Button type="text" onClick={() => onClickEdit()}>
-          View
+          查看
         </Button>
       ),
     },
@@ -396,15 +395,14 @@ export const RegularUsers = () => {
         icon: <ExclamationCircleOutlined />,
         title: (
           <span className="font-500">
-            Are you sure you want to block {user.name? user.name : user.id}?
+            确定要阻止用户 {user.name ? user.name : user.id} 吗？
           </span>
         ),
         width: 600,
         content: (
           <Space direction="vertical" size="small">
             <Paragraph>
-              Blocking this user will disconnect their devices and disable
-              dashboard access.
+              阻止此用户将断开其设备连接并禁用仪表板访问权限。
             </Paragraph>
           </Space>
         ),
@@ -450,12 +448,12 @@ export const RegularUsers = () => {
   const handleDeleteUser = (user: UserDataTable) => {
     confirmModal.confirm({
       icon: <ExclamationCircleOutlined />,
-      title: <span className="font-500">Are you sure you want to delete {user.name? user.name : user.id}?</span>,
+      title: <span className="font-500">确定要删除用户 {user.name ? user.name : user.id} 吗？</span>,
       width: 500,
       content: (
         <Space direction="vertical" size="small">
           <Paragraph>
-            Deleting this user will remove their devices and remove dashboard access.</Paragraph>
+            删除此用户将删除其设备并删除仪表板访问权限。</Paragraph>
         </Space>
       ),
       onOk() {
@@ -478,9 +476,9 @@ export const RegularUsers = () => {
         <Row>
           <Col span={24}>
             <Paragraph>
-              Manage users and their permissions.
+              管理用户及其权限。
               {isNetBirdHosted()
-                ? "Same-domain email users are added automatically on first sign-in."
+                ? "同域邮箱用户将在首次登录时自动添加。"
                 : ""}
               <a
                 target="_blank"
@@ -488,7 +486,7 @@ export const RegularUsers = () => {
                 href="https://docs.netbird.io/how-to/add-users-to-your-network"
               >
                 {" "}
-                Learn more
+                了解更多
               </a>
             </Paragraph>
             <Space
@@ -502,7 +500,7 @@ export const RegularUsers = () => {
                     allowClear
                     value={textToSearch}
                     // onPressEnter={searchDataTable}
-                    placeholder="Search by name, email, groups or role..."
+                    placeholder="按姓名、电子邮件、组或角色搜索..."
                     onChange={onChangeTextToSearch}
                     className="input-search"
                   />
@@ -524,7 +522,7 @@ export const RegularUsers = () => {
                     <Row justify="end">
                       <Col>
                         <Button type="primary" onClick={onClickInviteUser}>
-                          Invite user
+                          邀请用户
                         </Button>
                       </Col>
                     </Row>
@@ -546,7 +544,7 @@ export const RegularUsers = () => {
                     pageSize,
                     showSizeChanger: false,
                     showTotal: (total, range) =>
-                      `Showing ${range[0]} to ${range[1]} of ${total} users`,
+                      `显示 ${range[0]} 至 ${range[1]} 个用户，共 ${total} 个`,
                   }}
                   className="card-table"
                   showSorterTooltip={false}
@@ -555,7 +553,7 @@ export const RegularUsers = () => {
                   dataSource={dataTable}
                 >
                   <Column
-                    title="Email"
+                    title="电子邮件"
                     dataIndex="email"
                     onFilter={(value: string | number | boolean, record) =>
                       (record as any).email.includes(value)
@@ -583,52 +581,52 @@ export const RegularUsers = () => {
 
                       if ((record as User).is_current) {
                         return (
-                            <>
-                              <div>
-                                {btn}
-                                <Tag color="blue">me</Tag>
-                              </div>
-                              {((record as User).last_login && <Text type={"secondary"} style={{paddingLeft: "15px"}}>Last login: {String(timeAgo((record as User).last_login))}</Text>)}
-                            </>
+                          <>
+                            <div>
+                              {btn}
+                              <Tag color="blue">我</Tag>
+                            </div>
+                            {((record as User).last_login && <Text type={"secondary"} style={{ paddingLeft: "15px" }}>上次登录：{String(timeAgo((record as User).last_login))}</Text>)}
+                          </>
                         );
                       }
 
                       if ((record as User).status === "invited") {
                         return (
-                            <>
-                              <div>
-                                {btn}
-                                <Tag color="gold">invited</Tag>
-                              </div>
-                              {((record as User).last_login && <Text type={"secondary"} style={{paddingLeft: "15px", paddingTop: "0px"}}>Last login: {String(timeAgo((record as User).last_login))}</Text>)}
-                            </>
+                          <>
+                            <div>
+                              {btn}
+                              <Tag color="gold">已邀请</Tag>
+                            </div>
+                            {((record as User).last_login && <Text type={"secondary"} style={{ paddingLeft: "15px", paddingTop: "0px" }}>上次登录：{String(timeAgo((record as User).last_login))}</Text>)}
+                          </>
                         );
                       }
 
                       if ((record as User).status === "blocked") {
                         return (
-                            <>
-                              <div>
-                                {btn}
-                                <Tag color="red">blocked</Tag>
-                              </div>
-                              {((record as User).last_login && <Text type={"secondary"} style={{paddingLeft: "15px"}}>Last login: {String(timeAgo((record as User).last_login))}</Text>)}
-                            </>
+                          <>
+                            <div>
+                              {btn}
+                              <Tag color="red">已阻止</Tag>
+                            </div>
+                            {((record as User).last_login && <Text type={"secondary"} style={{ paddingLeft: "15px" }}>上次登录：{String(timeAgo((record as User).last_login))}</Text>)}
+                          </>
                         );
                       }
 
                       return (
-                          <>
-                            <div>
-                              {btn}
-                            </div>
-                            {((record as User).last_login && <Text type={"secondary"} style={{paddingLeft: "15px", paddingTop: "0px"}}>Last login: {String(timeAgo((record as User).last_login))}</Text>)}
-                          </>
+                        <>
+                          <div>
+                            {btn}
+                          </div>
+                          {((record as User).last_login && <Text type={"secondary"} style={{ paddingLeft: "15px", paddingTop: "0px" }}>上次登录：{String(timeAgo((record as User).last_login))}</Text>)}
+                        </>
                       );
                     }}
                   />
                   <Column
-                    title="Name"
+                    title="姓名"
                     dataIndex="name"
                     onFilter={(value: string | number | boolean, record) =>
                       (record as any).name.includes(value)
@@ -638,7 +636,7 @@ export const RegularUsers = () => {
                     }
                   />
                   <Column
-                    title="Groups"
+                    title="组"
                     dataIndex="groupsCount"
                     align="center"
                     render={(text, record: UserDataTable, index) => {
@@ -650,7 +648,7 @@ export const RegularUsers = () => {
                     }}
                   />
                   <Column
-                    title="Role"
+                    title="角色"
                     dataIndex="role"
                     onFilter={(value: string | number | boolean, record) =>
                       (record as any).role.includes(value)
@@ -661,7 +659,7 @@ export const RegularUsers = () => {
                   />
                   {isAdmin && (
                     <Column
-                      title="Block user"
+                      title="阻止用户"
                       align="center"
                       width="150px"
                       dataIndex="is_blocked"
@@ -679,7 +677,7 @@ export const RegularUsers = () => {
 
                         if (record.is_current) {
                           return (
-                            <Tooltip title="You can't block or unblock yourself">
+                            <Tooltip title="您无法阻止或解除阻止自己">
                               <Empty
                                 image={""}
                                 description={""}
@@ -696,7 +694,7 @@ export const RegularUsers = () => {
 
                   {isAdmin && (
                     <Column
-                      title="Delete user"
+                      title="删除用户"
                       align="center"
                       width="150px"
                       // dataIndex="is_blocked"
@@ -711,13 +709,13 @@ export const RegularUsers = () => {
                               handleDeleteUser(userRecord);
                             }}
                           >
-                            Delete
+                            删除
                           </Button>
                         );
 
                         if (record.is_current) {
                           return (
-                            <Tooltip title="You can't delete yourself">
+                            <Tooltip title="您无法删除自己">
                               <Empty
                                 image={""}
                                 description={""}

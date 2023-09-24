@@ -82,8 +82,8 @@ export const Nameservers = () => {
   const [showTutorial, setShowTutorial] = useState(false);
 
   const optionsAllEnabled = [
-    { label: "All", value: "all" },
-    { label: "Enabled", value: "enabled" },
+    { label: "全部", value: "all" },
+    { label: "已启用", value: "enabled" },
   ];
 
   useEffect(() => {
@@ -213,13 +213,12 @@ export const Nameservers = () => {
     let name = record ? record.name : "";
     confirm({
       icon: <ExclamationCircleOutlined />,
-      title: 'Delete Nameserver group "' + name + '"',
+      title: '删除命名服务器组 "' + name + '"',
       width: 600,
       content: (
         <Space direction="vertical" size="small">
           <Paragraph>
-            Are you sure you want to delete this nameserver group from your
-            account?
+            确定要从您的帐户中删除此命名服务器组吗？
           </Paragraph>
         </Space>
       ),
@@ -269,9 +268,8 @@ export const Nameservers = () => {
 
     const content = displayGroups?.map((g, i) => {
       const _g = g as Group;
-      const peersCount = ` - ${_g.peers_count || 0} ${
-        !_g.peers_count || parseInt(_g.peers_count) !== 1 ? "peers" : "peer"
-      } `;
+      const peersCount = ` - ${_g.peers_count || 0} ${!_g.peers_count || parseInt(_g.peers_count) !== 1 ? "peers" : "peer"
+        } `;
       return (
         <div key={i}>
           <Tag color="blue" style={{ marginRight: 3 }}>
@@ -325,7 +323,7 @@ export const Nameservers = () => {
         {domains.length}
       </Button>
     ) : (
-      <Tag>ALL</Tag>
+      <Tag>全部</Tag>
     );
     if (!domains || domains!.length < 1) {
       return btn;
@@ -373,14 +371,14 @@ export const Nameservers = () => {
   useEffect(() => {
     if (savedNSGroup.loading) {
       message.loading({
-        content: "Saving...",
+        content: "保存中...",
         key: createKey,
         duration: 0,
         style: styleNotification,
       });
     } else if (savedNSGroup.success) {
       message.success({
-        content: "Nameserver has been successfully saved.",
+        content: "命名服务器已成功保存。",
         key: createKey,
         duration: 2,
         style: styleNotification,
@@ -394,11 +392,10 @@ export const Nameservers = () => {
       );
       dispatch(nsGroupActions.resetSavedNameServerGroup(null));
     } else if (savedNSGroup.error) {
-      let errorMsg = "Failed to update nameserver group";
+      let errorMsg = "更新命名服务器组失败";
       switch (savedNSGroup.error.statusCode) {
         case 403:
-          errorMsg =
-            "Failed to update nameserver group. You might not have enough permissions.";
+          errorMsg = "更新命名服务器组失败。您可能没有足够的权限。";
           break;
         default:
           errorMsg = savedNSGroup.error.data.message
@@ -423,25 +420,24 @@ export const Nameservers = () => {
   useEffect(() => {
     if (deleteNSGroup.loading) {
       message.loading({
-        content: "Deleting...",
+        content: "删除中...",
         key: createDeleteKey,
         duration: 0,
         style: styleNotification,
       });
     } else if (deleteNSGroup.success) {
       message.success({
-        content: "Nameserver has been deleted successfully.",
+        content: "命名服务器已成功删除。",
         key: createDeleteKey,
         duration: 2,
         style: styleNotification,
       });
       dispatch(nsGroupActions.resetDeletedNameServerGroup(null));
     } else if (deleteNSGroup.error) {
-      let errorMsg = "Failed to delete nameserver group";
+      let errorMsg = "删除命名服务器组失败";
       switch (deleteNSGroup.error.statusCode) {
         case 403:
-          errorMsg =
-            "Failed to delete nameserver group. You might not have enough permissions.";
+          errorMsg = "删除命名服务器组失败。您可能没有足够的权限。";
           break;
         default:
           errorMsg = deleteNSGroup.error.data.message
@@ -501,26 +497,26 @@ export const Nameservers = () => {
       <>
         {nsGroup.length ? (
           <Paragraph style={{ marginTop: "5px" }}>
-            Add nameservers for domain name resolution in your NetBird network.
+            在您的 NetBird 网络中添加用于域名解析的命名服务器。
             <a
               target="_blank"
               rel="noreferrer"
               href="https://docs.netbird.io/how-to/manage-dns-in-your-network"
             >
               {" "}
-              Learn more
+              了解更多
             </a>
           </Paragraph>
         ) : (
           <Paragraph style={{ marginTop: "5px" }} type={"secondary"}>
-            Add nameservers for domain name resolution in your NetBird network.
+            在您的 NetBird 网络中添加用于域名解析的命名服务器。
             <a
               target="_blank"
               rel="noreferrer"
               href="https://docs.netbird.io/how-to/manage-dns-in-your-network"
             >
               {" "}
-              Learn more
+              了解更多
             </a>
           </Paragraph>
         )}
@@ -531,7 +527,7 @@ export const Nameservers = () => {
                 allowClear
                 value={textToSearch}
                 // onPressEnter={searchDataTable}
-                placeholder="Search by name, domain or nameservers..."
+                placeholder="按名称、域名或命名服务器搜索..."
                 onChange={onChangeTextToSearch}
               />
             </Col>
@@ -565,7 +561,7 @@ export const Nameservers = () => {
                       onClick={onClickAddNewNSGroup}
                       disabled={savedNSGroup.loading}
                     >
-                      Add nameserver
+                      添加命名服务器
                     </Button>
                   )}
                 </Col>
@@ -594,7 +590,7 @@ export const Nameservers = () => {
                 }}
               >
                 <Title level={4} style={{ textAlign: "center" }}>
-                  Create Nameserver
+                  创建命名服务器
                 </Title>
                 <Paragraph
                   style={{
@@ -602,15 +598,15 @@ export const Nameservers = () => {
                     whiteSpace: "pre-line",
                   }}
                 >
-                  It looks like you don't have any nameservers. {"\n"}
-                  Get started by adding one to your network.
+                  您似乎没有任何命名服务器。{"\n"}
+                  通过向您的网络添加一个来开始。
                   <a
                     target="_blank"
                     rel="noreferrer"
                     href="https://docs.netbird.io/how-to/manage-dns-in-your-network"
                   >
                     {" "}
-                    Learn more
+                    了解更多
                   </a>
                 </Paragraph>
                 <Button
@@ -618,7 +614,7 @@ export const Nameservers = () => {
                   type="primary"
                   onClick={() => onClickAddNewNSGroup()}
                 >
-                  Add nameserver
+                  添加命名服务器
                 </Button>
               </Space>
             ) : (
@@ -627,13 +623,12 @@ export const Nameservers = () => {
                   pageSize,
                   showSizeChanger: false,
                   showTotal: (total, range) =>
-                    `Showing ${range[0]} to ${range[1]} of ${total} nameservers`,
+                    `显示 ${range[0]} 到 ${range[1]} 共 ${total} 个命名服务器`,
                 }}
-                className={`access-control-table ${
-                  showTutorial
+                className={`access-control-table ${showTutorial
                     ? "card-table card-table-no-placeholder"
                     : "card-table"
-                }`}
+                  }`}
                 showSorterTooltip={false}
                 scroll={{ x: true }}
                 style={{ minHeight: "300px" }}
@@ -641,7 +636,7 @@ export const Nameservers = () => {
                 dataSource={dataTable}
               >
                 <Column
-                  title="Name"
+                  title="名称"
                   dataIndex="name"
                   onFilter={(value: string | number | boolean, record) =>
                     (record as any).name.includes(value)
@@ -667,7 +662,7 @@ export const Nameservers = () => {
                   }}
                 />
                 <Column
-                  title="Enabled"
+                  title="已启用"
                   dataIndex="enabled"
                   align="center"
                   render={(text: Boolean, record) => {
@@ -684,7 +679,7 @@ export const Nameservers = () => {
                   }}
                 />
                 <Column
-                  title="Match domains"
+                  title="匹配域名"
                   dataIndex="domains"
                   align="center"
                   render={(text, record: NameserverGroupDataTable) => {
@@ -692,7 +687,7 @@ export const Nameservers = () => {
                   }}
                 />
                 <Column
-                  title="Nameservers"
+                  title="命名服务器"
                   dataIndex="nameservers"
                   render={(nameservers: NameServer[]) => (
                     <>
@@ -703,7 +698,7 @@ export const Nameservers = () => {
                   )}
                 />
                 <Column
-                  title="Distribution groups"
+                  title="分组"
                   dataIndex="groupsCount"
                   render={(text, record: NameserverGroupDataTable) => {
                     return renderPopoverGroups(text, record.groups, record);
@@ -723,7 +718,7 @@ export const Nameservers = () => {
                         }
                         danger={true}
                       >
-                        Delete
+                        删除
                       </Button>
                     );
                   }}

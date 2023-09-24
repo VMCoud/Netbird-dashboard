@@ -72,7 +72,7 @@ export const AccessControl = () => {
   const { onChangePageSize, pageSizeOptions, pageSize } = usePageSizeHelpers();
   const { getTokenSilently } = useGetTokenSilently();
   const dispatch = useDispatch();
- 
+
   const policies = useSelector((state: RootState) => state.policy.data);
   const failed = useSelector((state: RootState) => state.policy.failed);
   const loading = useSelector((state: RootState) => state.policy.loading);
@@ -101,13 +101,13 @@ export const AccessControl = () => {
   const [groupPopupVisible, setGroupPopupVisible] = useState("");
 
   const optionsAllEnabled = [
-    { label: "All", value: "all" },
-    { label: "Enabled", value: "enabled" },
-    { label: "Disabled", value: "disabled" },
+    { label: "全部", value: "all" },
+    { label: "启用", value: "enabled" },
+    { label: "禁用", value: "disabled" },
   ];
 
   const getSourceDestinationLabel = (data: Group[]): string => {
-    return !data ? "No group" : data[0].name;
+    return !data ? "无组" : data[0].name;
   };
 
   const isShowTutorial = (policy: Policy[]): boolean => {
@@ -221,14 +221,14 @@ export const AccessControl = () => {
   useEffect(() => {
     if (savedPolicy.loading) {
       message.loading({
-        content: "Saving...",
+        content: "保存中...",
         key: saveKey,
         duration: 0,
         style: styleNotification,
       });
     } else if (savedPolicy.success) {
       message.success({
-        content: "Rule has been successfully saved.",
+        content: "规则已成功保存。",
         key: saveKey,
         duration: 2,
         style: styleNotification,
@@ -241,8 +241,7 @@ export const AccessControl = () => {
       dispatch(policyActions.resetSavedPolicy(null));
     } else if (savedPolicy.error) {
       message.error({
-        content:
-          "Failed to update rule. You might not have enough permissions.",
+        content: "更新规则失败。您可能没有足够的权限。",
         key: saveKey,
         duration: 2,
         style: styleNotification,
@@ -256,10 +255,10 @@ export const AccessControl = () => {
   useEffect(() => {
     const style = { marginTop: 85 };
     if (deletedPolicy.loading) {
-      message.loading({ content: "Deleting...", key: deleteKey, style });
+      message.loading({ content: "删除中...", key: deleteKey, style });
     } else if (deletedPolicy.success) {
       message.success({
-        content: "Rule has been successfully disabled.",
+        content: "规则已成功禁用。",
         key: deleteKey,
         duration: 2,
         style,
@@ -267,8 +266,7 @@ export const AccessControl = () => {
       dispatch(policyActions.resetDeletedPolicy(null));
     } else if (deletedPolicy.error) {
       message.error({
-        content:
-          "Failed to remove rule. You might not have enough permissions.",
+        content: "删除规则失败。您可能没有足够的权限。",
         key: deleteKey,
         duration: 2,
         style,
@@ -298,12 +296,12 @@ export const AccessControl = () => {
     setPolicyToAction(record as PolicyDataTable);
     confirm({
       icon: <ExclamationCircleOutlined />,
-      title: <span data-testid="confirm-delete-modal-title" className="font-500">Delete rule {record.name}</span>,
+      title: <span data-testid="confirm-delete-modal-title" className="font-500">删除规则 {record.name}</span>,
       width: 500,
       content: (
         <Space direction="vertical" size="small">
           <Paragraph>
-            Are you sure you want to delete this rule from your account?
+            您确定要从您的账户中删除此规则吗？
           </Paragraph>
         </Space>
       ),
@@ -331,10 +329,10 @@ export const AccessControl = () => {
           {policyToAction && (
             <>
               <Title level={5}>
-                Deactivate rule "{policyToAction ? policyToAction.name : ""}"
+                禁用规则 "{policyToAction ? policyToAction.name : ""}"
               </Title>
               <Paragraph>
-                Are you sure you want to deactivate peer from your account?
+                您确定要从您的账户中禁用此规则吗？
               </Paragraph>
             </>
           )}
@@ -580,31 +578,29 @@ export const AccessControl = () => {
           <Container className="container-main">
             <Row>
               <Col span={24}>
-                <Title className="page-heading">Access Control</Title>
+                <Title className="page-heading">访问控制</Title>
                 {policies.length ? (
                   <Paragraph style={{ marginTop: "5px" }}>
-                    Create rules to manage access in your network and define
-                    what peers can connect.
+                    创建规则以管理网络访问，并定义哪些对等可以连接。
                     <a
                       target="_blank"
                       rel="noreferrer"
                       href="https://docs.netbird.io/how-to/manage-network-access"
                     >
                       {" "}
-                      Learn more
+                      了解更多
                     </a>
                   </Paragraph>
                 ) : (
                   <Paragraph style={{ marginTop: "5px" }} type={"secondary"}>
-                    Create rules to manage access in your network and define
-                    what peers can connect.
+                    创建规则以管理网络访问，并定义哪些对等方可以连接。
                     <a
                       target="_blank"
                       rel="noreferrer"
                       href="https://docs.netbird.io/how-to/manage-network-access"
                     >
                       {" "}
-                      Learn more
+                      了解更多
                     </a>
                   </Paragraph>
                 )}
@@ -620,7 +616,7 @@ export const AccessControl = () => {
                         allowClear
                         value={textToSearch}
                         // onPressEnter={searchDataTable}
-                        placeholder="Search by name and description..."
+                        placeholder="按名称和描述搜索..."
                         onChange={onChangeTextToSearch}
                       />
                     </Col>
@@ -671,7 +667,7 @@ export const AccessControl = () => {
                               disabled={savedPolicy.loading}
                               onClick={onClickAddNewPolicy}
                             >
-                              Add rule
+                              添加规则
                             </Button>
                           </Col>
                         </Row>
@@ -700,7 +696,7 @@ export const AccessControl = () => {
                         }}
                       >
                         <Title level={4} style={{ textAlign: "center" }}>
-                          Create New Rule
+                          创建新规则
                         </Title>
                         <Paragraph
                           style={{
@@ -708,15 +704,15 @@ export const AccessControl = () => {
                             whiteSpace: "pre-line",
                           }}
                         >
-                          It looks like you don't have any rules. {"\n"}
-                          Get started with access control by adding a new one.
+                          您似乎没有任何规则。 {"\n"}
+                          通过添加新规则开始访问控制。
                           <a
                             target="_blank"
                             rel="noreferrer"
                             href="https://docs.netbird.io/how-to/manage-network-access"
                           >
                             {" "}
-                            Learn more
+                            了解更多
                           </a>
                         </Paragraph>
                         <Button
@@ -725,7 +721,7 @@ export const AccessControl = () => {
                           type="primary"
                           onClick={() => onClickAddNewPolicy()}
                         >
-                          Add rule
+                          添加规则
                         </Button>
                       </Space>
                     ) : (
@@ -738,7 +734,7 @@ export const AccessControl = () => {
                           responsive: true,
                           showSizeChanger: false,
                           showTotal: (total, range) =>
-                            `Showing ${range[0]} to ${range[1]} of ${total} rules`,
+                            `显示 ${range[0]} 到 ${range[1]} 共 ${total} 条规则`,
                           onChange: (page, pageSize) => {
                             setCurrentPage(page);
                           },
@@ -755,7 +751,7 @@ export const AccessControl = () => {
                         dataSource={dataTable}
                       >
                         <Column
-                          title="Name"
+                          title="名称"
                           dataIndex="name"
                           onFilter={(
                             value: string | number | boolean,
@@ -771,7 +767,7 @@ export const AccessControl = () => {
                             ).description.trim();
                             return (
                               <Tooltip
-                                title={desc !== "" ? desc : "no description"}
+                                title={desc !== "" ? desc : "无描述"}
                                 arrowPointAtCenter
                               >
                                 <span
@@ -787,7 +783,7 @@ export const AccessControl = () => {
                           }}
                         />
                         <Column
-                          title="Enabled"
+                          title="启用"
                           dataIndex="enabled"
                           render={(
                             text: Boolean,
@@ -806,7 +802,7 @@ export const AccessControl = () => {
                           }}
                         />
                         <Column
-                          title="Sources"
+                          title="源"
                           dataIndex="sourceLabel"
                           render={(text, record: PolicyDataTable, index) => {
                             return renderPopoverGroups(
@@ -817,7 +813,7 @@ export const AccessControl = () => {
                           }}
                         />
                         <Column
-                          title="Direction"
+                          title="方向"
                           dataIndex="bidirectional"
                           render={(text, record: PolicyDataTable, index) => {
                             const s = {
@@ -827,19 +823,19 @@ export const AccessControl = () => {
                             if (record.bidirectional) {
                               return (
                                 <Tag color="green" style={s}>
-                                  <img src={bidirect} alt="bi icon" />
+                                  <img src={bidirect} alt="双向图标" />
                                 </Tag>
                               );
                             }
                             return (
                               <Tag color="processing" style={s}>
-                                <img src={outbound} alt="out icon" />
+                                <img src={outbound} alt="出站图标" />
                               </Tag>
                             );
                           }}
                         />
                         <Column
-                          title="Destinations"
+                          title="目标"
                           dataIndex="destinationLabel"
                           render={(text, record: PolicyDataTable, index) => {
                             return renderPopoverGroups(
@@ -850,7 +846,7 @@ export const AccessControl = () => {
                           }}
                         />
                         <Column
-                          title="Protocol"
+                          title="协议"
                           dataIndex="protocol"
                           render={(text, record: PolicyDataTable, index) => {
                             return (
@@ -867,7 +863,7 @@ export const AccessControl = () => {
                           }}
                         />
                         <Column
-                          title="Ports"
+                          title="端口"
                           dataIndex="ports"
                           render={(text, record: PolicyDataTable, index) => {
                             return renderPorts(record.ports);
@@ -886,7 +882,7 @@ export const AccessControl = () => {
                                 }
                                 onClick={() => showConfirmDelete(record)}
                               >
-                                Delete
+                                删除
                               </Button>
                             );
                           }}

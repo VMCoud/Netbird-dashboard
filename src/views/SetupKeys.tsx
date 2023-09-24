@@ -78,8 +78,8 @@ export const SetupKeys = () => {
   const showTutorial = !dataTable.length;
 
   const optionsValidAll = [
-    { label: "Valid", value: "valid" },
-    { label: "All", value: "all" },
+    { label: "有效", value: "valid" },
+    { label: "全部", value: "all" },
   ];
 
   const [confirmModal, confirmModalContextHolder] = Modal.useModal();
@@ -87,10 +87,10 @@ export const SetupKeys = () => {
   const transformDataTable = (d: SetupKey[]): SetupKeyDataTable[] => {
     return d.map(
       (p) =>
-        ({
-          ...p,
-          groupsCount: p.auto_groups ? p.auto_groups.length : 0,
-        } as SetupKeyDataTable)
+      ({
+        ...p,
+        groupsCount: p.auto_groups ? p.auto_groups.length : 0,
+      } as SetupKeyDataTable)
     );
   };
 
@@ -136,13 +136,13 @@ export const SetupKeys = () => {
   useEffect(() => {
     if (deletedSetupKey.loading) {
       message.loading({
-        content: "Deleting...",
+        content: "删除中...",
         key: deleteKey,
         style: styleNotification,
       });
     } else if (deletedSetupKey.success) {
       message.success({
-        content: "Setup key has been successfully removed.",
+        content: "成功删除设置密钥。",
         key: deleteKey,
         duration: 2,
         style: styleNotification,
@@ -156,8 +156,7 @@ export const SetupKeys = () => {
       dispatch(setupKeyActions.resetDeletedSetupKey(null));
     } else if (deletedSetupKey.error) {
       message.error({
-        content:
-          "Failed to delete setup key. You might not have enough permissions.",
+        content: "删除设置密钥失败。可能权限不足。",
         key: deleteKey,
         duration: 2,
         style: styleNotification,
@@ -173,7 +172,7 @@ export const SetupKeys = () => {
   useEffect(() => {
     if (savedSetupKey.loading) {
       message.loading({
-        content: "Saving...",
+        content: "保存中...",
         key: createKey,
         duration: 1,
         style: styleNotification,
@@ -187,8 +186,7 @@ export const SetupKeys = () => {
       setShowGroupModal(false);
     } else if (savedSetupKey.error) {
       message.error({
-        content:
-          "Failed to update setup key. You might not have enough permissions.",
+        content: "更新设置密钥失败。可能权限不足。",
         key: createKey,
         duration: 2,
         style: styleNotification,
@@ -241,11 +239,11 @@ export const SetupKeys = () => {
     let name = setupKeyToAction ? setupKeyToAction.name : "";
     confirmModal.confirm({
       icon: <ExclamationCircleOutlined />,
-      title: <span className="font-500">Revoke setupKey {name}</span>,
+      title: <span className="font-500">撤销设置密钥 {name}</span>,
       width: 500,
       content: (
         <Space direction="vertical" size="small">
-          <Paragraph>Are you sure you want to revoke key?</Paragraph>
+          <Paragraph>确定要撤销密钥吗？</Paragraph>
         </Space>
       ),
       onOk() {
@@ -372,9 +370,8 @@ export const SetupKeys = () => {
 
     const content = displayGroups?.map((g, i) => {
       const _g = g as Group;
-      const peersCount = ` - ${_g.peers_count || 0} ${
-        !_g.peers_count || parseInt(_g.peers_count) !== 1 ? "peers" : "peer"
-      } `;
+      const peersCount = ` - ${_g.peers_count || 0} ${!_g.peers_count || parseInt(_g.peers_count) !== 1 ? "peers" : "peer"
+        } `;
       return (
         <div key={i}>
           <Tag color="blue" style={{ marginRight: 3 }}>
@@ -412,31 +409,29 @@ export const SetupKeys = () => {
         {!setupEditKeyVisible && (
           <Row>
             <Col span={24}>
-              <Title className="page-heading">Setup Keys</Title>
+              <Title className="page-heading">设置密钥</Title>
               {setupKeys.length ? (
                 <Paragraph style={{ marginTop: "5px" }}>
-                  Setup keys are pre-authentication keys that allow to register
-                  new machines in your network.
+                  设置密钥是预认证密钥，允许在您的网络中注册新设备。
                   <a
                     target="_blank"
                     rel="noreferrer"
                     href="https://docs.netbird.io/how-to/register-machines-using-setup-keys"
                   >
                     {" "}
-                    Learn more
+                    了解更多
                   </a>
                 </Paragraph>
               ) : (
                 <Paragraph style={{ marginTop: "5px" }} type={"secondary"}>
-                  Setup key is a pre-authentication key that allows to register
-                  new machines in your network
+                  设置密钥是预认证密钥，允许在您的网络中注册新设备。
                   <a
                     target="_blank"
                     rel="noreferrer"
                     href="https://docs.netbird.io/how-to/register-machines-using-setup-keys"
                   >
                     {" "}
-                    Learn more
+                    了解更多
                   </a>
                 </Paragraph>
               )}
@@ -452,7 +447,7 @@ export const SetupKeys = () => {
                       allowClear
                       value={textToSearch}
                       // onPressEnter={searchDataTable}
-                      placeholder="Search by name, type or key prefix..."
+                      placeholder="按名称、类型或密钥前缀搜索..."
                       onChange={onChangeTextToSearch}
                     />
                   </Col>
@@ -493,7 +488,7 @@ export const SetupKeys = () => {
                             type="primary"
                             onClick={onClickAddNewSetupKey}
                           >
-                            Add key
+                            添加密钥
                           </Button>
                         </Col>
                       </Row>
@@ -524,7 +519,7 @@ export const SetupKeys = () => {
                       }}
                     >
                       <Title level={4} style={{ textAlign: "center" }}>
-                        Create Setup Key
+                        创建设置密钥
                       </Title>
                       <Paragraph
                         style={{
@@ -532,16 +527,14 @@ export const SetupKeys = () => {
                           whiteSpace: "pre-line",
                         }}
                       >
-                        Add a setup key to register new machines in your
-                        network. {"\n"} The key links machines to your account
-                        during initial setup.{" "}
+                        添加设置密钥以在您的网络中注册新设备。{"\n"}该密钥将在初始设置期间将设备链接到您的帐户。{" "}
                         <a
                           target="_blank"
                           rel="noreferrer"
                           href="https://docs.netbird.io/how-to/register-machines-using-setup-keys"
                         >
                           {" "}
-                          Learn more
+                          了解更多
                         </a>
                       </Paragraph>
                       <Button
@@ -549,7 +542,7 @@ export const SetupKeys = () => {
                         type="primary"
                         onClick={() => onClickAddNewSetupKey()}
                       >
-                        Add setup key
+                        添加设置密钥
                       </Button>
                     </Space>
                   </Card>
@@ -560,7 +553,7 @@ export const SetupKeys = () => {
                         pageSize,
                         showSizeChanger: false,
                         showTotal: (total, range) =>
-                          `Showing ${range[0]} to ${range[1]} of ${total} setup keys`,
+                          `显示第 ${range[0]} 到第 ${range[1]} 条，共 ${total} 条设置密钥`,
                       }}
                       className="card-table"
                       showSorterTooltip={false}
@@ -570,7 +563,7 @@ export const SetupKeys = () => {
                       style={{ minHeight: "300px" }}
                     >
                       <Column
-                        title="Name"
+                        title="名称"
                         dataIndex="name"
                         onFilter={(value: string | number | boolean, record) =>
                           (record as any).name.includes(value)
@@ -609,7 +602,7 @@ export const SetupKeys = () => {
                         defaultSortOrder="ascend"
                       />
                       <Column
-                        title="Type"
+                        title="类型"
                         dataIndex="type"
                         onFilter={(value: string | number | boolean, record) =>
                           (record as any).type.includes(value)
@@ -620,10 +613,10 @@ export const SetupKeys = () => {
                         render={(text, record, index) => {
                           let sk = record as SetupKeyDataTable;
                           let expiry = sk.ephemeral ? (
-                            <Tooltip title="Peers that are offline for over 10 minutes will be removed automatically">
+                            <Tooltip title="超过10分钟离线的设备将自动移除">
                               <Tag>
                                 <Text type="secondary" style={{ fontSize: 10 }}>
-                                  Ephemeral
+                                  临时性
                                 </Text>
                               </Tag>
                             </Tooltip>
@@ -639,7 +632,7 @@ export const SetupKeys = () => {
                         }}
                       />
                       <Column
-                        title="Key"
+                        title="密钥"
                         dataIndex="key"
                         onFilter={(value: string | number | boolean, record) =>
                           (record as any).key.includes(value)
@@ -655,7 +648,7 @@ export const SetupKeys = () => {
                       />
 
                       <Column
-                        title="Last Used"
+                        title="上次使用"
                         dataIndex="last_used"
                         sorter={(a, b) =>
                           (a as any).last_used.localeCompare(
@@ -664,12 +657,12 @@ export const SetupKeys = () => {
                         }
                         render={(text, record, index) => {
                           return !(record as SetupKey).used_times
-                            ? "never"
+                            ? "从未使用"
                             : timeAgo(text);
                         }}
                       />
                       <Column
-                        title="Groups"
+                        title="分组"
                         dataIndex="groupsCount"
                         align="center"
                         render={(text, record: SetupKeyDataTable, index) => {
@@ -681,7 +674,7 @@ export const SetupKeys = () => {
                         }}
                       />
                       <Column
-                        title="Expires"
+                        title="过期时间"
                         dataIndex="expires"
                         render={(text, record, index) => {
                           return formatDate(text);
@@ -701,7 +694,7 @@ export const SetupKeys = () => {
                                 showConfirmRevoke(record as SetupKeyDataTable)
                               }
                             >
-                              Revoke
+                              撤销
                             </Button>
                           );
                         }}

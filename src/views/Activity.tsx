@@ -58,9 +58,6 @@ export const Activity = () => {
       })
     );
   }, []);
-  // useEffect(() => {
-  //   setDataTable(transformDataTable(events));
-  // }, [events]);
 
   useEffect(() => {
     setDataTable(transformDataTable(filterDataTable("")));
@@ -107,11 +104,6 @@ export const Activity = () => {
     setTextToSearch(e.target.value);
     storeFilterState("activityFilter", "search", e.target.value);
   };
-
-  // const searchDataTable = () => {
-  //   const data = filterDataTable();
-  //   setDataTable(transformDataTable(data));
-  // };
 
   const getActivityRow = (objectType: string, name: string, text: string) => {
     return (
@@ -166,6 +158,7 @@ export const Activity = () => {
     }
     return body;
   };
+
   const renderInitiator = (event: EventDataTable) => {
     let body = <></>;
     if (event.initiator_id == "sys") {
@@ -419,7 +412,6 @@ export const Activity = () => {
                   <Input
                     allowClear
                     value={textToSearch}
-                    // onPressEnter={searchDataTable}
                     placeholder="Search..."
                     onChange={onChangeTextToSearch}
                   />

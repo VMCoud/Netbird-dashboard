@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch} from "react-redux";
-import {Container} from "../components/Container";
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from "react-redux";
+import { Container } from "../components/Container";
 import {
     Col,
     Row,
@@ -21,39 +21,39 @@ export const AddPeer = () => {
 
     const detectOS = () => {
         let os = 1;
-        if (navigator.userAgent.indexOf("Win")!==-1) os=2;
-        if (navigator.userAgent.indexOf("Mac")!==-1) os=3;
-        if (navigator.userAgent.indexOf("X11")!==-1) os=1;
-        if (navigator.userAgent.indexOf("Linux")!==-1) os=1
-        return os
+        if (navigator.userAgent.indexOf("Win") !== -1) os = 2;
+        if (navigator.userAgent.indexOf("Mac") !== -1) os = 3;
+        if (navigator.userAgent.indexOf("X11") !== -1) os = 1;
+        if (navigator.userAgent.indexOf("Linux") !== -1) os = 1;
+        return os;
     }
     const [openTab, setOpenTab] = useState(detectOS);
 
     useEffect(() => {
     }, [])
 
-    const onChangeTab = (key: string) => {};
+    const onChangeTab = (key: string) => { };
 
     return (
         <>
-            <Container style={{paddingTop: "40px"}}>
+            <Container style={{ paddingTop: "40px" }}>
                 <Row>
                     <Col span={24}>
-                        <Title level={4}>Add Peer</Title>
-                        <Paragraph>To get started with NetBird just install the app and log in.</Paragraph>
+                        <Title level={4}>添加节点</Title>
+                        <Paragraph>要开始使用 NetBird，只需安装应用并登录。</Paragraph>
                         <Space direction="vertical" size="large" style={{ display: 'flex' }}>
                             <Tabs defaultActiveKey={openTab.toString()} onChange={onChangeTab} tabPosition="top" animated={{ inkBar: true, tabPane: false }}>
                                 <TabPane tab="Ubuntu" key="1">
-                                    <UbuntuTab/>
+                                    <UbuntuTab />
                                 </TabPane>
                                 <TabPane tab="Windows" key="2">
-                                    <WindowsTab/>
+                                    <WindowsTab />
                                 </TabPane>
                                 <TabPane tab="MacOS" key="3">
-                                    <MacTab/>
+                                    <MacTab />
                                 </TabPane>
-                                <TabPane tab="Other" key="4">
-                                    <OtherTab/>
+                                <TabPane tab="其他" key="4">
+                                    <OtherTab />
                                 </TabPane>
                             </Tabs>
                         </Space>
@@ -65,3 +65,4 @@ export const AddPeer = () => {
 }
 
 export default AddPeer;
+

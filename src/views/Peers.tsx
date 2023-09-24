@@ -97,8 +97,8 @@ export const Peers = () => {
   const [confirmModal, confirmModalContextHolder] = Modal.useModal();
 
   const optionsOnOff = [
-    { label: "Online", value: "on" },
-    { label: "All", value: "all" },
+    { label: "在线", value: "on" },
+    { label: "全部", value: "all" },
   ];
 
   const transformDataTable = (d: Peer[]): PeerDataTable[] => {
@@ -217,10 +217,10 @@ export const Peers = () => {
   useEffect(() => {
     const style = { marginTop: 85 };
     if (deletedPeer.loading) {
-      message.loading({ content: "Deleting...", key: deleteKey, style });
+      message.loading({ content: "正在删除...", key: deleteKey, style });
     } else if (deletedPeer.success) {
       message.success({
-        content: "Peer has been successfully removed.",
+        content: "已成功删除 Peer。",
         key: deleteKey,
         duration: 2,
         style,
@@ -228,8 +228,7 @@ export const Peers = () => {
       dispatch(peerActions.resetDeletedPeer(null));
     } else if (deletedPeer.error) {
       message.error({
-        content:
-          "Failed to delete peer. You might not have enough permissions.",
+        content: "删除 Peer 失败。您可能没有足够的权限。",
         key: deleteKey,
         duration: 2,
         style,
@@ -248,7 +247,7 @@ export const Peers = () => {
     const t = searchText
       ? searchText.toLowerCase().trim()
       : textToSearch.toLowerCase().trim();
-    
+
     let f: Peer[] = filter(peers, (f: Peer) => {
       let userEmail: string | null;
       const u = users?.find((u) => u.id === f.user_id)?.email;
@@ -314,13 +313,13 @@ export const Peers = () => {
 
     let content = (
       <Paragraph>
-        Are you sure you want to delete peer from your account?
+        确定要从您的帐户中删除 Peer 吗？
       </Paragraph>
     );
     let contentModule = <div>{content}</div>;
     if (peerRoutes.length) {
       let contentWithRoutes =
-        "Removing this peer will disable the following routes: " + peerRoutes;
+        "删除此 Peer 将禁用以下路由: " + peerRoutes;
       let B = (
         <Alert
           message={contentWithRoutes}
@@ -338,8 +337,7 @@ export const Peers = () => {
               message={
                 <div>
                   <>
-                    This peer is part of one or more network routes. Removing
-                    this peer will disable the following routes:
+                    此 Peer 是一个或多个网络路由的一部分。删除此 Peer 将禁用以下路由:
                   </>
                   <List
                     dataSource={peerRoutes}
@@ -365,7 +363,7 @@ export const Peers = () => {
     let name = record ? record.name : "";
     confirmModal.confirm({
       icon: <ExclamationCircleOutlined />,
-      title: <span className="font-500">Delete peer {name}</span>,
+      title: <span className="font-500">删除 Peer {name}</span>,
       width: 600,
       content: contentModule,
       onOk() {
@@ -386,15 +384,15 @@ export const Peers = () => {
     confirmModal.confirm({
       icon: <ExclamationCircleOutlined />,
       title: (
-        <span className="font-500">Enable SSH Server for {record.name} ?</span>
+        <span className="font-500">为 {record.name} 启用 SSH 服务器？</span>
       ),
       width: 600,
       content:
-        "Experimental feature. Enabling this option allows remote SSH access to this machine from other connected network participants.",
+        "实验性功能。启用此选项允许其他连接的网络参与者从远程访问此计算机。",
       onOk() {
         handleSwitchSSH(record, true);
       },
-      onCancel() {},
+      onCancel() { },
     });
   };
 
@@ -463,9 +461,8 @@ export const Peers = () => {
   ) => {
     const content = groups?.map((g, i) => {
       const _g = g as Group;
-      const peersCount = ` - ${_g.peers_count || 0} ${
-        !_g.peers_count || parseInt(_g.peers_count) !== 1 ? "peers" : "peer"
-      } `;
+      const peersCount = ` - ${_g.peers_count || 0} ${!_g.peers_count || parseInt(_g.peers_count) !== 1 ? "peers" : "peer"
+        } `;
       return (
         <div key={i}>
           <Tag color="blue" style={{ marginRight: 3 }}>
@@ -519,7 +516,7 @@ export const Peers = () => {
           keyMessage={peer.key}
           toCopy={peer.ip}
           body={peer.ip}
-          messageText={"IP copied"}
+          messageText={"已复制 IP"}
           styleNotification={{}}
         />
       );
@@ -532,7 +529,7 @@ export const Peers = () => {
             keyMessage={peer.dns_label}
             toCopy={peer.dns_label}
             body={peer.dns_label}
-            messageText={"Peer domain copied"}
+            messageText={"已复制 Peer 域名"}
             styleNotification={{}}
           />
         </Row>
@@ -542,7 +539,7 @@ export const Peers = () => {
             keyMessage={peer.ip}
             toCopy={peer.ip}
             body={<Text type="secondary">{peer.ip}</Text>}
-            messageText={"Peer IP copied"}
+            messageText={"已复制 Peer IP"}
             style={{ marginTop: "-10px" }}
             styleNotification={{}}
           />
@@ -563,13 +560,13 @@ export const Peers = () => {
     );
 
     let loginExpire = peer.login_expired ? (
-      <Tooltip title="The peer is offline and needs to be re-authenticated because its login has expired ">
+      <Tooltip title="该 Peer 离线，需要重新验证登录">
         <Tag color="red">
           <Text
             style={{ fontSize: "10px", color: "rgba(210, 64, 64, 0.85)" }}
             type={"secondary"}
           >
-            needs login
+            需要登录
           </Text>
         </Tag>
       </Tooltip>
@@ -581,7 +578,7 @@ export const Peers = () => {
     let expiry = !peer.login_expiration_enabled ? (
       <Tag>
         <Text type="secondary" style={{ fontSize: 10 }}>
-          expiration disabled
+          禁用过期时间
         </Text>
       </Tag>
     ) : null;
@@ -638,13 +635,13 @@ export const Peers = () => {
                 <Title className="page-heading">{isAdmin ? "Peers" : "My peers"}</Title>
                 {peers.length ? (
                   <Paragraph style={{ marginTop: "5px" }}>
-                    {isAdmin ? "A list of all machines and devices connected to your private network. Use this view to manage peers" :
-                        "A list of all your machines and devices that you connected to NetBird."}
+                    {isAdmin ? "您私有网络中连接的所有机器和设备的列表。使用此视图管理 Peers" :
+                      "您连接到 NetBird 的所有机器和设备的列表。"}
                   </Paragraph>
                 ) : (
                   <Paragraph style={{ marginTop: "5px" }} type={"secondary"}>
-                    {isAdmin ? "A list of all machines and devices connected to your private network. Use this view to manage peers" :
-                        "A list of all your machines and devices that you connected to NetBird."}
+                    {isAdmin ? "您私有网络中连接的所有机器和设备的列表。使用此视图管理 Peers" :
+                      "您连接到 NetBird 的所有机器和设备的列表。"}
                   </Paragraph>
                 )}
 
@@ -659,7 +656,7 @@ export const Peers = () => {
                         allowClear
                         value={textToSearch}
                         // onPressEnter={searchDataTable}
-                        placeholder="Search by name, IP, owner, or group..."
+                        placeholder="按名称、IP、所有者或组进行搜索..."
                         onChange={onChangeTextToSearch}
                       />
                     </Col>
@@ -695,7 +692,7 @@ export const Peers = () => {
                       {isAdmin && (
                         <Select
                           mode="tags"
-                          placeholder="Filter by groups"
+                          placeholder="按组筛选"
                           tagRender={blueTagRender}
                           // dropdownRender={dropDownRender}
                           optionFilterProp="serchValue"
@@ -723,7 +720,7 @@ export const Peers = () => {
                               type="primary"
                               onClick={() => setAddPeerModalOpen(true)}
                             >
-                              Add peer
+                              添加 Peer
                             </Button>
                           )}
                         </Col>
@@ -752,7 +749,7 @@ export const Peers = () => {
                         }}
                       >
                         <Title level={4} style={{ textAlign: "center" }}>
-                          Get Started
+                          入门指南
                         </Title>
                         <Paragraph
                           style={{
@@ -760,9 +757,8 @@ export const Peers = () => {
                             whiteSpace: "pre-line",
                           }}
                         >
-                          It looks like you don't have any connected machines.{" "}
-                          {"\n"}
-                          Get started by adding one to your network.
+                          看起来您还没有连接任何机器。{"\n"}
+                          通过添加一台机器到您的网络开始使用。
                         </Paragraph>
                         <Button
                           data-testid="add-new-peer-button"
@@ -770,7 +766,7 @@ export const Peers = () => {
                           type="primary"
                           onClick={() => setAddPeerModalOpen(true)}
                         >
-                          Add new peer
+                          添加新的 Peer
                         </Button>
                       </Space>
                     ) : (
@@ -779,13 +775,12 @@ export const Peers = () => {
                           pageSize,
                           showSizeChanger: false,
                           showTotal: (total, range) =>
-                            `Showing ${range[0]} to ${range[1]} of ${total} peers`,
+                            `显示 ${range[0]} 至 ${range[1]} 共 ${total} 个 Peer`,
                         }}
-                        className={`access-control-table ${
-                          showTutorial
+                        className={`access-control-table ${showTutorial
                             ? "card-table card-table-no-placeholder"
                             : "card-table"
-                        }`}
+                          }`}
                         showSorterTooltip={false}
                         scroll={{ x: true }}
                         loading={tableSpin(loading)}
@@ -793,7 +788,7 @@ export const Peers = () => {
                         style={{ minHeight: "300px" }}
                       >
                         <Column
-                          title="Name"
+                          title="名称"
                           dataIndex="name"
                           onFilter={(
                             value: string | number | boolean,
@@ -809,7 +804,7 @@ export const Peers = () => {
                           }}
                         />
                         <Column
-                          title="Address"
+                          title="地址"
                           dataIndex="ip"
                           sorter={(a, b) => {
                             const _a = (a as any).ip.split(".");
@@ -833,7 +828,7 @@ export const Peers = () => {
                         {isAdmin && (
                           <>
                             <Column
-                              title="Groups"
+                              title="组"
                               dataIndex="groupsCount"
                               align="center"
                               render={(text, record: PeerDataTable, index) => {
@@ -845,7 +840,7 @@ export const Peers = () => {
                               }}
                             />
                             <Column
-                              title="SSH Server"
+                              title="SSH 服务器"
                               dataIndex="ssh_enabled"
                               align="center"
                               render={(e, record: PeerDataTable, index) => {
@@ -869,7 +864,7 @@ export const Peers = () => {
 
                                 if (isWindows) {
                                   return (
-                                    <Tooltip title="SSH server feature is not yet supported on Windows">
+                                    <Tooltip title="Windows 暂不支持 SSH 服务器功能">
                                       {toggle}
                                     </Tooltip>
                                   );
@@ -881,32 +876,32 @@ export const Peers = () => {
                           </>
                         )}
                         <Column
-                          title="LastSeen"
+                          title="最后在线"
                           dataIndex="last_seen"
                           render={(text, record, index) => {
                             let dt = new Date(text);
                             return (
                               <Popover content={dt.toLocaleString()}>
                                 {(record as PeerDataTable).connected
-                                  ? "just now"
+                                  ? "刚刚"
                                   : timeAgo(text)}
                               </Popover>
                             );
                           }}
                         />
                         <Column
-                          title="OS"
+                          title="操作系统"
                           dataIndex="os"
                           render={(text, record, index) => {
                             return formatOS(text);
                           }}
                         />
                         <Column
-                          title="Version"
+                          title="版本"
                           dataIndex="version"
                           render={(text, record, index) => {
                             if (text === "development") {
-                              return "dev";
+                              return "开发版";
                             }
                             return text;
                           }}
@@ -925,7 +920,7 @@ export const Peers = () => {
                                   showConfirmDelete(record as PeerDataTable)
                                 }
                               >
-                                Delete
+                                删除
                               </Button>
                             );
                           }}
@@ -949,11 +944,11 @@ export const Peers = () => {
             data-testid="add-peer-modal"
           >
             <AddPeerPopup
-              greeting={!hadFirstRun ? "Hi there!" : ""}
+              greeting={!hadFirstRun ? "您好！" : ""}
               headline={
                 !hadFirstRun
-                  ? "It's time to add your first device."
-                  : "Add new peer"
+                  ? "现在是时候添加您的第一台设备了。"
+                  : "添加新的 Peer"
               }
             />
           </Modal>

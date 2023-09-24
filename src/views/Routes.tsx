@@ -91,8 +91,8 @@ export const Routes = () => {
 
   const [peerNameToIP, peerIPToName] = initPeerMaps(peers);
   const optionsAllEnabled = [
-    { label: "Enabled", value: "enabled" },
-    { label: "All", value: "all" },
+    { label: "启用", value: "enabled" },
+    { label: "全部", value: "all" },
   ];
 
   const itemsMenuAction = [
@@ -100,7 +100,7 @@ export const Routes = () => {
       key: "view",
       label: (
         <Button type="text" block onClick={() => onClickViewRoute("test")}>
-          View
+          查看
         </Button>
       ),
     },
@@ -108,7 +108,7 @@ export const Routes = () => {
       key: "delete",
       label: (
         <Button type="text" block onClick={() => showConfirmDelete("test")}>
-          Delete
+          删除
         </Button>
       ),
     },
@@ -229,7 +229,7 @@ export const Routes = () => {
 
   useEffect(() => {
     setGroupedDataTable(
-      filterGroupedDataTable(transformGroupedDataTable(routes, peers),"")
+      filterGroupedDataTable(transformGroupedDataTable(routes, peers), "")
     );
   }, [textToSearch, optionAllEnable]);
 
@@ -247,14 +247,14 @@ export const Routes = () => {
     const style = { marginTop: 85 };
     if (deletedRoute.loading) {
       message.loading({
-        content: "Deleting...",
+        content: "正在删除...",
         duration: 0,
         key: deleteKey,
         style,
       });
     } else if (deletedRoute.success) {
       message.success({
-        content: "Route has been successfully deleted.",
+        content: "路由已成功删除。",
         key: deleteKey,
         duration: 2,
         style,
@@ -262,8 +262,7 @@ export const Routes = () => {
       dispatch(routeActions.resetDeletedRoute(null));
     } else if (deletedRoute.error) {
       message.error({
-        content:
-          "Failed to delete route. You might not have enough permissions.",
+        content: "删除路由失败。您可能没有足够的权限。",
         key: deleteKey,
         duration: 2,
         style,
@@ -295,13 +294,11 @@ export const Routes = () => {
     let name = selectedRoute ? selectedRoute.network_id : "";
     confirm({
       icon: <ExclamationCircleOutlined />,
-      title: <span className="font-500">Delete network route {name}</span>,
+      title: <span className="font-500">删除网络路由 {name}</span>,
       width: 600,
       content: (
         <Space direction="vertical" size="small">
-          <Paragraph>
-            Are you sure you want to delete this route from your account?
-          </Paragraph>
+          <Paragraph>您确定要从您的帐户中删除此路由吗？</Paragraph>
         </Space>
       ),
       okType: "danger",
@@ -420,9 +417,8 @@ export const Routes = () => {
 
     const content = displayGroups?.map((g, i) => {
       const _g = g as Group;
-      const peersCount = ` - ${_g.peers_count || 0} ${
-        !_g.peers_count || parseInt(_g.peers_count) !== 1 ? "peers" : "peer"
-      } `;
+      const peersCount = ` - ${_g.peers_count || 0} ${!_g.peers_count || parseInt(_g.peers_count) !== 1 ? "peers" : "peer"
+        } `;
       return (
         <div key={i}>
           <Tag color="blue" style={{ marginRight: 3 }}>
@@ -464,7 +460,7 @@ export const Routes = () => {
     );
   };
 
-  const callback = (key: any) => {};
+  const callback = (key: any) => { };
 
   const getAccordianHeader = (record: any) => {
     return (
@@ -481,20 +477,20 @@ export const Routes = () => {
         <p>
           {record.routesCount > 1 ? (
             <>
-              <Tag color="green">on</Tag>
+              <Tag color="green">开启</Tag>
               <Button
                 type="link"
                 style={{ padding: "0" }}
                 onClick={(event) => setRouteAndView(record, event)}
               >
-                Add Routing Peer
+                添加路由对等
               </Button>
             </>
           ) : (
             <>
               <Tag color="default">
                 <Text type="secondary" style={{ fontSize: 12 }}>
-                  off
+                  关闭
                 </Text>
               </Tag>
               <Button
@@ -502,7 +498,7 @@ export const Routes = () => {
                 style={{ padding: "0" }}
                 onClick={(event) => setRouteAndView(record, event)}
               >
-                Configure
+                配置
               </Button>
             </>
           )}
@@ -515,7 +511,7 @@ export const Routes = () => {
             }}
             onClick={(event) => showConfirmationDeleteAllRoutes(record, event)}
           >
-            Delete
+            删除
           </Button>
         </p>
       </div>
@@ -528,13 +524,12 @@ export const Routes = () => {
     let name = selectedGroup ? selectedGroup.network_id : "";
     confirm({
       icon: <ExclamationCircleOutlined />,
-      title: <span className="font-500">Delete routes to network {name}</span>,
+      title: <span className="font-500">删除到网络 {name} 的所有路由</span>,
       width: 600,
       content: (
         <Space direction="vertical" size="small">
           <Paragraph>
-            This operation will delete all routes to the network {name}. Are you
-            sure?
+            此操作将删除到网络 {name} 的所有路由。确定吗？
           </Paragraph>
           <Alert
             message={
@@ -570,7 +565,7 @@ export const Routes = () => {
           })
         );
       },
-      onCancel() {},
+      onCancel() { },
     });
   };
 
@@ -591,32 +586,30 @@ export const Routes = () => {
           <Container className="container-main">
             <Row>
               <Col span={24} style={{ marginBottom: "20px" }}>
-                <Title className="page-heading">Network Routes</Title>
+                <Title className="page-heading">网络路由</Title>
 
                 {routes.length ? (
                   <Paragraph style={{ marginTop: "5px" }}>
-                    Network routes allow you to access other networks like LANs
-                    and VPCs without installing NetBird on every resource.
+                    网络路由允许您访问其他网络，如局域网和虚拟私有云，而无需在每个资源上安装 NetBird。
                     <a
                       target="_blank"
                       rel="noreferrer"
                       href="https://docs.netbird.io/how-to/routing-traffic-to-private-networks"
                     >
                       {" "}
-                      Learn more
+                      了解更多
                     </a>
                   </Paragraph>
                 ) : (
                   <Paragraph style={{ marginTop: "5px" }} type={"secondary"}>
-                    Network routes allow you to access other networks like LANs
-                    and VPCs without installing NetBird on every resource.
+                    网络路由允许您访问其他网络，如局域网和虚拟私有云，而无需在每个资源上安装 NetBird。
                     <a
                       target="_blank"
                       rel="noreferrer"
                       href="https://docs.netbird.io/how-to/routing-traffic-to-private-networks"
                     >
                       {" "}
-                      Learn more
+                      了解更多
                     </a>
                   </Paragraph>
                 )}
@@ -632,7 +625,7 @@ export const Routes = () => {
                         allowClear
                         value={textToSearch}
                         // onPressEnter={searchDataTable}
-                        placeholder="Search by network, range or name..."
+                        placeholder="按网络、范围或名称搜索..."
                         onChange={onChangeTextToSearch}
                       />
                     </Col>
@@ -673,7 +666,7 @@ export const Routes = () => {
                               disabled={savedRoute.loading}
                               onClick={onClickAddNewRoute}
                             >
-                              Add route
+                              添加路由
                             </Button>
                           </Col>
                         </Row>
@@ -853,7 +846,7 @@ export const Routes = () => {
                   }}
                 >
                   <Title level={4} style={{ textAlign: "center" }}>
-                    Create New Route
+                    创建新路由
                   </Title>
                   <Paragraph
                     style={{
@@ -861,15 +854,15 @@ export const Routes = () => {
                       whiteSpace: "pre-line",
                     }}
                   >
-                    It looks like you don't have any routes. {"\n"}
-                    Access LANs and VPC by adding a network route.
+                    看起来您还没有任何路由。 {"\n"}
+                    通过添加网络路由来访问局域网和虚拟私有云。
                     <a
                       target="_blank"
                       rel="noreferrer"
                       href="https://docs.netbird.io/how-to/routing-traffic-to-private-networks"
                     >
                       {" "}
-                      Learn more
+                      了解更多
                     </a>
                   </Paragraph>
                   <Button
@@ -877,7 +870,7 @@ export const Routes = () => {
                     type="primary"
                     onClick={() => onClickAddNewRoute()}
                   >
-                    Add route
+                    添加路由
                   </Button>
                 </Space>
               </Card>
@@ -885,9 +878,9 @@ export const Routes = () => {
               <div className="routes-accordian">
                 <Collapse onChange={callback}>
                   <div className="accordian-header">
-                    <p>Network Identifier</p>
-                    <p>Network Range</p>
-                    <p>High Availability</p>
+                    <p>网络标识符</p>
+                    <p>网络范围</p>
+                    <p>高可用性</p>
                   </div>
 
                   {groupedDataTable &&
@@ -896,10 +889,10 @@ export const Routes = () => {
                       return (
                         <Panel header={getAccordianHeader(record)} key={index}>
                           <div className="accordian-inner-header">
-                            <p>Routing Peer</p>
-                            <p>Metric</p>
-                            <p>Enabled</p>
-                            <p>Groups</p>
+                            <p>路由对等</p>
+                            <p>度量</p>
+                            <p>启用</p>
+                            <p>分组</p>
                           </div>
                           {record.groupedRoutes &&
                             record.groupedRoutes.length &&
@@ -953,7 +946,7 @@ export const Routes = () => {
                                         )
                                       }
                                     >
-                                      Delete
+                                      删除
                                     </Button>
                                   </p>
                                 </div>

@@ -78,18 +78,14 @@ export const ServiceUsers = () => {
     );
   }, [savedUser, deletedUser]);
 
-  // useEffect(() => {
-  //   setDataTable(transformDataTable(users));
-  // }, [users, groups]);
-
-    useEffect(() => {
-      if (users.length > 0) {
-        setShowTutorial(false);
-      } else {
-        setShowTutorial(true);
-      }
-      // setDataTable(transformDataTable(filterDataTable()));
-    }, [users]);
+  useEffect(() => {
+    if (users.length > 0) {
+      setShowTutorial(false);
+    } else {
+      setShowTutorial(true);
+    }
+    // setDataTable(transformDataTable(filterDataTable()));
+  }, [users]);
 
   useEffect(() => {
     if (!loading && groups.length) {
@@ -130,11 +126,6 @@ export const ServiceUsers = () => {
     storeFilterState("serviceUserFilter", "search", e.target.value);
   };
 
-  // const searchDataTable = () => {
-  //   const data = filterDataTable();
-  //   setDataTable(transformDataTable(data));
-  // };
-
   const onClickCreateServiceUser = () => {
     dispatch(userActions.setUser(null as unknown as User));
     dispatch(userActions.setAddServiceUserPopupVisible(true));
@@ -144,14 +135,14 @@ export const ServiceUsers = () => {
   useEffect(() => {
     if (savedUser.loading) {
       message.loading({
-        content: "Saving...",
+        content: "保存中...",
         key: createKey,
         duration: 0,
         style: styleNotification,
       });
     } else if (savedUser.success) {
       message.success({
-        content: "User has been successfully saved.",
+        content: "用户已成功保存。",
         key: createKey,
         duration: 2,
         style: styleNotification,
@@ -160,7 +151,7 @@ export const ServiceUsers = () => {
       dispatch(userActions.setSavedUser({ ...savedUser, success: false }));
       dispatch(userActions.resetSavedUser(null));
     } else if (savedUser.error) {
-      let errorMsg = "Failed to update user";
+      let errorMsg = "无法更新用户";
       switch (savedUser.error.statusCode) {
         case 412:
         case 403:
@@ -198,13 +189,11 @@ export const ServiceUsers = () => {
   const handleDeleteUser = (user: UserDataTable) => {
     confirmModal.confirm({
       icon: <ExclamationCircleOutlined />,
-      title: <span className="font-500">Delete token {user.name}</span>,
+      title: <span className="font-500">删除服务用户 {user.name}</span>,
       width: 500,
       content: (
         <Space direction="vertical" size="small">
-          <Paragraph>
-            Are you sure you want to delete this service user?
-          </Paragraph>
+          <Paragraph>确定要删除此服务用户吗？</Paragraph>
         </Space>
       ),
       onOk() {
@@ -227,8 +216,6 @@ export const ServiceUsers = () => {
     });
   };
 
-
-
   return (
     <>
       {!user && (
@@ -237,28 +224,26 @@ export const ServiceUsers = () => {
             <Col span={24}>
               {users.length ? (
                 <Paragraph style={{ marginTop: "5px" }}>
-                  Use service users to create API tokens and avoid losing
-                  automated access.{" "}
+                  使用服务用户创建 API 令牌，避免失去自动访问权限。{" "}
                   <a
                     target="_blank"
                     rel="noreferrer"
                     href="https://docs.netbird.io/how-to/access-netbird-public-api"
                   >
                     {" "}
-                    Learn more
+                    了解更多
                   </a>
                 </Paragraph>
               ) : (
                 <Paragraph style={{ marginTop: "5px" }} type={"secondary"}>
-                  Use service users to create API tokens and avoid losing
-                  automated access.{" "}
+                  使用服务用户创建 API 令牌，避免失去自动访问权限。{" "}
                   <a
                     target="_blank"
                     rel="noreferrer"
                     href="https://docs.netbird.io/how-to/access-netbird-public-api"
                   >
                     {" "}
-                    Learn more
+                    了解更多
                   </a>
                 </Paragraph>
               )}
@@ -272,8 +257,7 @@ export const ServiceUsers = () => {
                     <Input
                       allowClear
                       value={textToSearch}
-                      // onPressEnter={searchDataTable}
-                      placeholder="Search by name or role..."
+                      placeholder="按名称或角色搜索..."
                       onChange={onChangeTextToSearch}
                       disabled={showTutorial}
                     />
@@ -307,7 +291,7 @@ export const ServiceUsers = () => {
                             type="primary"
                             onClick={onClickCreateServiceUser}
                           >
-                            Add Service User
+                            添加服务用户
                           </Button>
                         </Col>
                       </Row>
@@ -330,7 +314,7 @@ export const ServiceUsers = () => {
                         pageSize,
                         showSizeChanger: false,
                         showTotal: (total, range) =>
-                          `Showing ${range[0]} to ${range[1]} of ${total} service users`,
+                          `显示 ${range[0]} 至 ${range[1]}，共 ${total} 个服务用户`,
                       }}
                       className="card-table"
                       showSorterTooltip={false}
@@ -339,7 +323,7 @@ export const ServiceUsers = () => {
                       dataSource={dataTable}
                     >
                       <Column
-                        title="Name"
+                        title="名称"
                         dataIndex="name"
                         onFilter={(value: string | number | boolean, record) =>
                           (record as any).name.includes(value)
@@ -366,7 +350,7 @@ export const ServiceUsers = () => {
                         }}
                       />
                       <Column
-                        title="Status"
+                        title="状态"
                         dataIndex="status"
                         align="center"
                         onFilter={(value: string | number | boolean, record) =>
@@ -376,7 +360,7 @@ export const ServiceUsers = () => {
                           (a as any).status.localeCompare((b as any).status)
                         }
                         render={(text, record, index) => {
-                          if (text == "active") {
+                          if (text === "active") {
                             return <Tag color="green">{text}</Tag>;
                           } else if (text === "invited") {
                             return <Tag color="gold">{text}</Tag>;
@@ -385,7 +369,7 @@ export const ServiceUsers = () => {
                         }}
                       />
                       <Column
-                        title="Role"
+                        title="角色"
                         dataIndex="role"
                         onFilter={(value: string | number | boolean, record) =>
                           (record as any).role.includes(value)
@@ -409,7 +393,7 @@ export const ServiceUsers = () => {
                                 handleDeleteUser(userRecord);
                               }}
                             >
-                              Delete
+                              删除
                             </Button>
                           );
                         }}
@@ -428,7 +412,7 @@ export const ServiceUsers = () => {
                       }}
                     >
                       <Title level={4} style={{ textAlign: "center" }}>
-                        Create Service User
+                        创建服务用户
                       </Title>
                       <Paragraph
                         style={{
@@ -436,15 +420,15 @@ export const ServiceUsers = () => {
                           whiteSpace: "pre-line",
                         }}
                       >
-                        It looks like you don't have any service users. {"\n"}
-                        Get started by adding one to your network.
+                        看起来您还没有任何服务用户。{"\n"}
+                        通过添加一个服务用户来开始使用您的网络。
                         <a
                           target="_blank"
                           rel="noreferrer"
                           href="https://docs.netbird.io/how-to/access-netbird-public-api"
                         >
                           {" "}
-                          Learn more
+                          了解更多
                         </a>
                       </Paragraph>
                       <Button
@@ -452,7 +436,7 @@ export const ServiceUsers = () => {
                         type="primary"
                         onClick={() => onClickCreateServiceUser()}
                       >
-                        Add service user
+                        添加服务用户
                       </Button>
                     </Space>
                   )}

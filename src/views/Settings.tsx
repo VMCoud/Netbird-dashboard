@@ -70,8 +70,8 @@ export const Settings = () => {
   );
 
   const optionsOnOff = [
-    { label: "Used", value: "used" },
-    { label: "Unused", value: "unused" },
+    { label: "已使用", value: "used" },
+    { label: "未使用", value: "unused" },
   ];
 
   const [groupsClicked, setGroupsClicked] = useState(false);
@@ -85,7 +85,7 @@ export const Settings = () => {
       : ""
   );
 
-  const {} = useGetGroupTagHelpers();
+  const { } = useGetGroupTagHelpers();
 
   const accounts = useSelector((state: RootState) => state.account.data);
   const failed = useSelector((state: RootState) => state.account.failed);
@@ -202,7 +202,7 @@ export const Settings = () => {
   useEffect(() => {
     if (accounts.length < 1) {
       console.debug(
-        "invalid account data returned from the Management API",
+        "无效的账户数据返回自管理API",
         accounts
       );
       return;
@@ -214,7 +214,7 @@ export const Settings = () => {
       settings: account.settings,
       peer_login_expiration_formatted: secondsToExpiresIn(
         account.settings.peer_login_expiration,
-        ["hour", "day"]
+        ["小时", "天"]
       ),
       peer_login_expiration_enabled:
         account.settings.peer_login_expiration_enabled,
@@ -361,14 +361,14 @@ export const Settings = () => {
   useEffect(() => {
     if (updatedAccount.loading) {
       message.loading({
-        content: "Saving...",
+        content: "正在保存...",
         key: updatingSettings,
         duration: 0,
         style: styleNotification,
       });
     } else if (updatedAccount.success) {
       message.success({
-        content: "Account settings have been successfully saved.",
+        content: "账户设置已成功保存。",
         key: updatingSettings,
         duration: 2,
         style: styleNotification,
@@ -382,7 +382,7 @@ export const Settings = () => {
         settings: updatedAccount.data.settings,
         peer_login_expiration_formatted: secondsToExpiresIn(
           updatedAccount.data.settings.peer_login_expiration,
-          ["hour", "day"]
+          ["小时", "天"]
         ),
         peer_login_expiration_enabled:
           updatedAccount.data.settings.peer_login_expiration_enabled,
@@ -394,11 +394,11 @@ export const Settings = () => {
       } as FormAccount;
       setFormAccount(fAccount);
     } else if (updatedAccount.error) {
-      let errorMsg = "Failed to update account settings";
+      let errorMsg = "更新账户设置失败";
       switch (updatedAccount.error.statusCode) {
         case 403:
           errorMsg =
-            "Failed to update account settings. You might not have enough permissions.";
+            "更新账户设置失败。您可能没有足够的权限。";
           break;
         default:
           errorMsg = updatedAccount.error.data.message
@@ -428,7 +428,7 @@ export const Settings = () => {
         });
       })
       .catch((errorInfo) => {
-        let msg = "please check the fields and try again";
+        let msg = "请检查字段并重试";
         if (errorInfo.errorFields) {
           msg = errorInfo.errorFields[0].errors[0];
         }
@@ -460,18 +460,18 @@ export const Settings = () => {
       formAccount.peer_login_expiration_enabled
     ) {
       let content = newValues.peer_login_expiration_enabled
-        ? "Enabling peer expiration will cause some peers added with the SSO login to disconnect, and re-authentication will be required. Do you want to enable peer login expiration?"
-        : "Disabling peer expiration will cause peers added with the SSO login never to expire. For security reasons, keeping peers expiring periodically is usually better. Do you want to disable peer login expiration?";
+        ? "启用对等登录过期将导致使用SSO登录添加的某些对等方断开连接，并需要重新进行身份验证。您想要启用对等登录过期吗？"
+        : "禁用对等登录过期将导致使用SSO登录添加的对等方永不过期。出于安全原因，通常最好定期让对等方过期。您想要禁用对等登录过期吗？";
       confirmModal.confirm({
         icon: <ExclamationCircleOutlined />,
-        title: "Before you update your account settings.",
+        title: "在更新您的账户设置之前。",
         width: 600,
-        okText: newValues.peer_login_expiration_enabled ? "Enable" : "Disable",
+        okText: newValues.peer_login_expiration_enabled ? "启用" : "禁用",
         content: content,
         onOk() {
           saveAccount(newValues);
         },
-        onCancel() {},
+        onCancel() { },
       });
     } else {
       saveAccount(newValues);
@@ -505,12 +505,12 @@ export const Settings = () => {
   const showConfirmDelete = (record: any) => {
     confirm({
       icon: <ExclamationCircleOutlined />,
-      title: <span className="font-500">Delete group {record.name}</span>,
-      okText: "Delete",
+      title: <span className="font-500">删除组 {record.name}</span>,
+      okText: "删除",
       width: 600,
       content: (
         <Space direction="vertical" size="small">
-          <Paragraph>Are you sure you want to delete this group?</Paragraph>
+          <Paragraph>您确定要删除此组吗？</Paragraph>
         </Space>
       ),
       okType: "danger",
@@ -522,17 +522,17 @@ export const Settings = () => {
           })
         );
       },
-      onCancel() {},
+      onCancel() { },
     });
   };
   const deleteKey = "deleting";
   useEffect(() => {
     const style = { marginTop: 85 };
     if (deleteGroup.loading) {
-      message.loading({ content: "Deleting...", key: deleteKey, style });
+      message.loading({ content: "正在删除...", key: deleteKey, style });
     } else if (deleteGroup.success) {
       message.success({
-        content: "Group has been successfully deleted.",
+        content: "组已成功删除。",
         key: deleteKey,
         duration: 2,
         style,
@@ -541,7 +541,7 @@ export const Settings = () => {
     } else if (deleteGroup.error) {
       message.error({
         content:
-          "Failed to remove group. You might not have enough permissions.",
+          "无法删除组。您可能没有足够的权限。",
         key: deleteKey,
         duration: 2,
         style,
@@ -590,15 +590,15 @@ export const Settings = () => {
 
   const items: MenuItem[] = [
     getItem(
-      "System settings",
+      "系统设置",
       "sub2",
       <SettingOutlined />,
-      [getItem("Authentication", "auth"), getItem("Groups", "groups")],
+      [getItem("身份验证", "auth"), getItem("用户组", "groups")],
       "group"
     ),
   ];
 
-  useEffect(() => {}, [groupsClicked, billingClicked, authClicked]);
+  useEffect(() => { }, [groupsClicked, billingClicked, authClicked]);
   const renderSettingForm = () => {
     return (
       <Form
@@ -616,7 +616,7 @@ export const Settings = () => {
               marginBottom: "20px",
             }}
           >
-            {groupsClicked ? "User groups" : "Authentication"}
+            {groupsClicked ? "用户组" : "身份验证"}
           </div>
           <div className={groupsClicked ? "d-none" : ""}>
             <Row>
@@ -643,12 +643,9 @@ export const Settings = () => {
                           fontWeight: "500",
                         }}
                       >
-                        Peer login expiration{" "}
+                        对等登录过期{" "}
                         <Tooltip
-                          title="Peer login expiration allows to periodically
-                                request re-authentication of peers that were
-                                added with the SSO login. You can disable the
-                                expiration per peer in the peers tab."
+                          title="对等登录过期允许定期要求使用SSO登录添加的对等方重新进行身份验证。您可以在对等方选项卡中禁用对等方的过期。"
                         >
                           <Text
                             style={{
@@ -670,8 +667,7 @@ export const Settings = () => {
                           marginBottom: "0",
                         }}
                       >
-                        Request periodic re-authentication of peers registered
-                        with SSO
+                        请求定期对使用SSO登录添加的对等方进行重新身份验证
                       </Paragraph>
                     </div>
                   </div>
@@ -687,7 +683,7 @@ export const Settings = () => {
                     fontWeight: "500",
                   }}
                 >
-                  Peer login expires in
+                  对等登录过期时间
                 </label>
                 <Paragraph
                   type={"secondary"}
@@ -697,8 +693,7 @@ export const Settings = () => {
                     marginBottom: "5px",
                   }}
                 >
-                  Time after which every peer added with SSO login will require
-                  re-authentication
+                  每个使用SSO登录添加的对等方需要重新进行身份验证的时间
                 </Paragraph>
               </Col>
             </Row>
@@ -710,10 +705,10 @@ export const Settings = () => {
               <ExpiresInInput
                 disabled={!formPeerExpirationEnabled}
                 options={Array.of(
-                  { key: "hour", title: "Hours" },
+                  { key: "hour", title: "小时" },
                   {
                     key: "day",
-                    title: "Days",
+                    title: "天",
                   }
                 )}
               />
@@ -744,8 +739,8 @@ export const Settings = () => {
                           fontWeight: "500",
                         }}
                       >
-                        Enable user group propagation
-                        <Tooltip title="The user group propagation will take effect on the next auto-groups update for a user.">
+                        启用用户组传播
+                        <Tooltip title="用户组传播将在下次自动更新用户组时生效。">
                           <Text
                             style={{
                               marginLeft: "5px",
@@ -766,8 +761,7 @@ export const Settings = () => {
                           marginBottom: "0",
                         }}
                       >
-                        Allow group propagation from user’s auto-groups to
-                        peers, sharing membership information
+                        允许将用户的自动用户组传播给对等方，共享成员信息
                       </Paragraph>
                     </div>
                   </div>
@@ -800,7 +794,7 @@ export const Settings = () => {
                               fontWeight: "500",
                             }}
                           >
-                            Enable JWT group sync
+                            启用JWT组同步
                           </label>
                           <Paragraph
                             type={"secondary"}
@@ -810,8 +804,7 @@ export const Settings = () => {
                               marginBottom: "0",
                             }}
                           >
-                            Extract & sync groups from JWT claims with user’s
-                            auto-groups, auto-creating groups from tokens.
+                            从JWT声明中提取和同步用户的自动用户组，从令牌自动创建用户组。
                           </Paragraph>
                         </div>
                       </div>
@@ -827,7 +820,7 @@ export const Settings = () => {
                         fontWeight: "500",
                       }}
                     >
-                      JWT claim
+                      JWT声明
                     </label>
                     <Paragraph
                       type={"secondary"}
@@ -837,8 +830,7 @@ export const Settings = () => {
                         marginBottom: "5px",
                       }}
                     >
-                      Specify the JWT claim for extracting group names, e.g.,
-                      roles or groups, to add to account groups
+                      指定从中提取组名的JWT声明，例如角色或组，以添加到帐户组
                     </Paragraph>
                   </Col>
                 </Row>
@@ -869,20 +861,19 @@ export const Settings = () => {
             className={groupsClicked ? "d-none" : ""}
           >
             <Text type={"secondary"}>
-              Learn more about
+              了解更多关于
               <a
                 target="_blank"
                 rel="noreferrer"
                 href="https://docs.netbird.io/how-to/enforce-periodic-user-authentication"
               >
-                {" "}
-                login expiration
+                登录过期
               </a>
             </Text>
           </Col>
           <Form.Item style={{ marginBottom: "0" }}>
             <Button type="primary" htmlType="submit">
-              Save
+              保存
             </Button>
           </Form.Item>
         </Card>
@@ -893,9 +884,9 @@ export const Settings = () => {
     <>
       <Container style={{ paddingTop: "40px" }}>
         {/*<Title className="page-heading">Settings</Title>
-        <Paragraph type="secondary">
-          Manage the settings of your account
-        </Paragraph>*/}
+<Paragraph type="secondary">
+  Manage the settings of your account
+</Paragraph>*/}
         <Row style={{ gap: "10px", flexFlow: "row" }} className="setting-nav">
           <Col span={4}>
             <Menu
@@ -938,7 +929,7 @@ export const Settings = () => {
                             fontWeight: "500",
                           }}
                         >
-                          Groups
+                          用户组
                         </Paragraph>
                         <Row
                           gutter={21}
@@ -960,8 +951,7 @@ export const Settings = () => {
                                 whiteSpace: "pre-line",
                               }}
                             >
-                              Here is the overview of the groups of your
-                              account. You can delete the unused ones.
+                              这是您帐户的用户组概述。您可以删除未使用的用户组。
                             </Paragraph>
                           </Col>
                         </Row>
@@ -980,7 +970,7 @@ export const Settings = () => {
                               allowClear
                               value={textToSearch}
                               // onPressEnter={searchDataTable}
-                              placeholder="Search by group name"
+                              placeholder="按组名搜索"
                               onChange={onChangeTextToSearch}
                             />
                           </Col>
@@ -1027,14 +1017,14 @@ export const Settings = () => {
                             pageSize,
                             showSizeChanger: false,
                             showTotal: (total, range) =>
-                              `Showing ${range[0]} to ${range[1]} of ${total} groups`,
+                              `显示 ${range[0]} 到 ${range[1]} 共 ${total} 个组`,
                           }}
                           loading={TableSpin(
                             groupsLoading ||
-                              setupKeysLoading ||
-                              policiesLoading ||
-                              routesLoading ||
-                              nsGrouploading
+                            setupKeysLoading ||
+                            policiesLoading ||
+                            routesLoading ||
+                            nsGrouploading
                           )}
                           dataSource={filterGroup}
                         >
@@ -1079,7 +1069,7 @@ export const Settings = () => {
                                           fontSize: "12px",
                                         }}
                                       >
-                                        Peers
+                                        对等方
                                       </Paragraph>
                                       <Paragraph
                                         type={"secondary"}
@@ -1113,7 +1103,7 @@ export const Settings = () => {
                                           fontSize: "12px",
                                         }}
                                       >
-                                        Access Controls
+                                        访问控制
                                       </Paragraph>
                                       <Paragraph
                                         type={"secondary"}
@@ -1183,7 +1173,7 @@ export const Settings = () => {
                                           fontSize: "12px",
                                         }}
                                       >
-                                        Routes
+                                        路由
                                       </Paragraph>
                                       <Paragraph
                                         type={"secondary"}
@@ -1217,7 +1207,7 @@ export const Settings = () => {
                                           fontSize: "12px",
                                         }}
                                       >
-                                        Setup Keys
+                                        设置密钥
                                       </Paragraph>
                                       <Paragraph
                                         type={"secondary"}
@@ -1252,7 +1242,7 @@ export const Settings = () => {
                                           fontSize: "12px",
                                         }}
                                       >
-                                        Users
+                                        用户
                                       </Paragraph>
                                       <Paragraph
                                         type={"secondary"}
@@ -1281,7 +1271,7 @@ export const Settings = () => {
                                   className="delete-button"
                                   title={
                                     isButtonDisabled
-                                      ? "Remove dependencies to this group to delete it."
+                                      ? "删除依赖于此组的内容后才能删除该组。"
                                       : ""
                                   }
                                 >
@@ -1293,7 +1283,7 @@ export const Settings = () => {
                                       showConfirmDelete(record);
                                     }}
                                   >
-                                    Delete
+                                    删除
                                   </Button>
                                 </Tooltip>
                               );

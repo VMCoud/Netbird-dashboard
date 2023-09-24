@@ -27,7 +27,7 @@ export const Users = () => {
     const userItems: TabsProps['items'] = [
         {
             key: 'Users',
-            label: 'Users',
+            label: '用户',
             children: <RegularUsers/>,
         },
     ]
@@ -35,7 +35,7 @@ export const Users = () => {
     const adminOnlyItems: TabsProps['items'] = [
         {
             key: 'Service Users',
-            label: 'Service Users',
+            label: '服务用户',
             children: <ServiceUsers/>,
         },
     ]

@@ -42,12 +42,12 @@ export const DNS = () => {
   const items: TabsProps["items"] = [
     {
       key: nsTabKey,
-      label: "Nameservers",
+      label: "名称服务器",
       children: <Nameservers />,
     },
     {
       key: "2",
-      label: "Settings",
+      label: "设置",
       children: <DNSSettingsForm />,
     },
   ];

@@ -76,14 +76,14 @@ export const DNSSettingsForm = () => {
   useEffect(() => {
     if (savedDNSSettings.loading) {
       message.loading({
-        content: "Saving...",
+        content: "保存中...",
         key: createKey,
         duration: 0,
         style: styleNotification,
       });
     } else if (savedDNSSettings.success) {
       message.success({
-        content: "DNS settings has been successfully saved.",
+        content: "DNS设置已成功保存。",
         key: createKey,
         duration: 2,
         style: styleNotification,
@@ -96,11 +96,10 @@ export const DNSSettingsForm = () => {
       );
       dispatch(dnsSettingsActions.resetSavedDNSSettings(null));
     } else if (savedDNSSettings.error) {
-      let errorMsg = "Failed to update DNS settings";
+      let errorMsg = "更新DNS设置失败";
       switch (savedDNSSettings.error.statusCode) {
         case 403:
-          errorMsg =
-            "Failed to update DNS settings. You might not have enough permissions.";
+          errorMsg = "更新DNS设置失败。您可能没有足够的权限。";
           break;
         default:
           errorMsg = savedDNSSettings.error.data.message
@@ -137,7 +136,7 @@ export const DNSSettingsForm = () => {
         );
       })
       .catch((errorInfo) => {
-        let msg = "please check the fields and try again";
+        let msg = "请检查字段并重试";
         if (errorInfo.errorFields) {
           msg = errorInfo.errorFields[0].errors[0];
         }
@@ -160,7 +159,7 @@ export const DNSSettingsForm = () => {
 
   return (
     <>
-      <Paragraph>Manage your account's DNS settings</Paragraph>
+      <Paragraph>管理您的帐户DNS设置</Paragraph>
       <Col>
         <Form
           name="basic"
@@ -178,7 +177,7 @@ export const DNSSettingsForm = () => {
                   marginBottom: "20px",
                 }}
               >
-                DNS Management
+                DNS管理
               </div>
               <Row>
                 <Col span={10}>
@@ -189,7 +188,7 @@ export const DNSSettingsForm = () => {
                       fontWeight: "500",
                     }}
                   >
-                    Disable DNS management for these groups
+                    禁用以下组的DNS管理
                   </label>
                   <Paragraph
                     type={"secondary"}
@@ -199,8 +198,7 @@ export const DNSSettingsForm = () => {
                       marginBottom: "5px",
                     }}
                   >
-                    Peers in these groups will require manual domain name
-                    resolution
+                    这些组中的同行需要手动域名解析
                   </Paragraph>
                 </Col>
               </Row>
@@ -227,7 +225,7 @@ export const DNSSettingsForm = () => {
                   </Form.Item>
                   <Form.Item style={{ marginBottom: "0" }}>
                     <Button type="primary" htmlType="submit">
-                      Save
+                      保存
                     </Button>
                   </Form.Item>
                 </Col>
