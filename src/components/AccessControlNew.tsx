@@ -284,7 +284,7 @@ const AccessControlNew = () => {
       <Divider style={{ margin: "8px 0" }} />
       <Row style={{ padding: "0 8px 4px" }}>
         <Col flex="auto">
-          <Text type={"secondary"}>按"Enter"键添加新组</Text>
+          <Text type={"secondary"}>Add new groups by pressing "Enter"</Text>
         </Col>
         <Col flex="none">
           <svg
@@ -311,7 +311,7 @@ const AccessControlNew = () => {
       <Row style={{ padding: "0 8px 4px" }}>
         <Col flex="auto">
           <span style={{ color: "#9CA3AF" }}>
-            按"Enter"键添加新端口
+            Add new ports by pressing "Enter"
           </span>
         </Col>
         <Col flex="none">
@@ -339,7 +339,7 @@ const AccessControlNew = () => {
   const selectValidator = (_: RuleObject, value: string[]) => {
     let hasSpaceNamed = [];
     if (!value.length) {
-      return Promise.reject(new Error("请输入至少一个组"));
+      return Promise.reject(new Error("Enter at least one group"));
     }
 
     value.forEach(function (v: string) {
@@ -350,7 +350,7 @@ const AccessControlNew = () => {
 
     if (hasSpaceNamed.length) {
       return Promise.reject(
-        new Error("组名不能只包含空格")
+        new Error("Group names with just spaces are not allowed")
       );
     }
 
@@ -369,7 +369,7 @@ const AccessControlNew = () => {
       });
       if (failed) {
         return Promise.reject(
-          new Error("端口值必须在1到65535范围内")
+          new Error("Port value must be in 1..65535 range")
         );
       }
     }
@@ -378,7 +378,7 @@ const AccessControlNew = () => {
 
   const selectPortProtocolValidator = (_: RuleObject, value: string[]) => {
     if (!formPolicy.bidirectional && value.length === 0) {
-      return Promise.reject(new Error("定向流量需要指定端口"));
+      return Promise.reject(new Error("Directional traffic require ports"));
     }
     return Promise.resolve();
   };
@@ -436,14 +436,15 @@ const AccessControlNew = () => {
           footer={
             <Space style={{ display: "flex", justifyContent: "end" }}>
               <Button onClick={onCancel} disabled={savedPolicy.loading}>
-                取消
+                Cancel
               </Button>
               <Button
                 type="primary"
                 disabled={savedPolicy.loading}
                 onClick={handleFormSubmit}
               >
-                创建规则
+                {" "}
+                Create rule
               </Button>
             </Space>
           }
@@ -469,7 +470,7 @@ const AccessControlNew = () => {
                       fontWeight: "500",
                     }}
                   >
-                    创建规则
+                    Create rule
                   </Paragraph>
                   <Paragraph
                     type={"secondary"}
@@ -482,7 +483,7 @@ const AccessControlNew = () => {
                       marginBottom: "4px",
                     }}
                   >
-                    使用此规则限制对资源组的访问
+                    Use this rule to restrict access to groups of resources
                   </Paragraph>
                   <Row align="top">
                     <Col flex="auto">
@@ -493,13 +494,13 @@ const AccessControlNew = () => {
                           fontWeight: "500",
                         }}
                       >
-                        规则名称
+                        Rule name
                       </Paragraph>
                       <Paragraph
                         type={"secondary"}
                         style={{ marginTop: "-2px", marginBottom: "8px" }}
                       >
-                        为您的规则设置一个易于识别的名称
+                        Set an easily identifiable name for your rule
                       </Paragraph>
                       <Form.Item
                         name="name"
@@ -508,13 +509,13 @@ const AccessControlNew = () => {
                         rules={[
                           {
                             required: true,
-                            message: "请为此访问规则添加名称",
+                            message: "Please add a name for this access rule",
                             whitespace: true,
                           },
                         ]}
                       >
                         <Input
-                          placeholder={'例如："开发人员到服务器"'}
+                          placeholder={'e.g., "Devs to Servers"'}
                           autoComplete="off"
                         />
                       </Form.Item>
@@ -533,18 +534,18 @@ const AccessControlNew = () => {
                             formPolicy.description
                           ) : (
                             <span style={{ textDecoration: "underline" }}>
-                              添加描述
+                              Add description
                             </span>
                           )}
                         </div>
                       ) : (
                         <Form.Item
                           name="description"
-                          label="描述"
+                          label="Description"
                           style={{ marginTop: 24, fontWeight: "500" }}
                         >
                           <Input
-                            placeholder="添加描述..."
+                            placeholder="Add description..."
                             ref={inputDescriptionRef}
                             onPressEnter={() => toggleEditDescription(false)}
                             onBlur={() => toggleEditDescription(false)}
@@ -561,14 +562,14 @@ const AccessControlNew = () => {
                   <Col span={10}>
                     <Form.Item
                       name="tagSourceGroups"
-                      label="来源"
+                      label="Source"
                       rules={[{ validator: selectValidator }]}
                       style={{ fontWeight: "500" }}
                     >
                       <Select
                         mode="tags"
                         style={{ width: "100%", fontWeight: "500" }}
-                        placeholder="选择组"
+                        placeholder="Select groups"
                         tagRender={blueTagRender}
                         onChange={handleChangeSource}
                         dropdownRender={dropDownRenderGroups}
@@ -717,14 +718,14 @@ const AccessControlNew = () => {
                   <Col span={10}>
                     <Form.Item
                       name="tagDestinationGroups"
-                      label="目标"
+                      label="Destination"
                       rules={[{ validator: selectValidator }]}
                       style={{ fontWeight: "500" }}
                     >
                       <Select
                         mode="tags"
                         style={{ width: "100%", fontWeight: "500" }}
-                        placeholder="选择组"
+                        placeholder="Select groups"
                         tagRender={blueTagRender}
                         onChange={handleChangeDestination}
                         dropdownRender={dropDownRenderGroups}
@@ -745,13 +746,14 @@ const AccessControlNew = () => {
                   type={"secondary"}
                   style={{ marginTop: "-15px", marginBottom: "30px" }}
                 >
-                  要更改流量方向和端口，请在下面选择TCP或UDP协议
+                  To change traffic direction and ports, select TCP or UDP
+                  protocol below
                 </Paragraph>
               </Col>
               <Col span={24}>
                 <Form.Item
                   name="protocol"
-                  label="协议"
+                  label="Protocol"
                   style={{ fontWeight: "500" }}
                   className="tag-box"
                 >
@@ -763,7 +765,7 @@ const AccessControlNew = () => {
                       marginBottom: "8px",
                     }}
                   >
-                    仅允许指定的网络协议
+                    Allow only specified network protocols
                   </Paragraph>
                   <Select
                     className="menlo-font"
@@ -788,7 +790,7 @@ const AccessControlNew = () => {
                       display: "inline-block",
                     }}
                   >
-                    端口
+                    Ports
                   </label>
                   <Paragraph
                     type={"secondary"}
@@ -798,7 +800,7 @@ const AccessControlNew = () => {
                       marginBottom: "8px",
                     }}
                   >
-                    仅允许访问指定端口的网络流量和访问
+                    Allow network traffic and access only to specified ports
                   </Paragraph>
                 </div>
 
@@ -812,7 +814,7 @@ const AccessControlNew = () => {
                         maxWidth: "260px",
                         fontWeight: "500",
                       }}
-                      placeholder={<Text>全部</Text>}
+                      placeholder={<Text>Select ports</Text>}
                       className="menlo-font"
                       value={formPolicyCopy}
                       disabled={true}
@@ -826,12 +828,12 @@ const AccessControlNew = () => {
                     rules={[
                       {
                         message:
-                          "定向流量需要至少一个端口",
+                          "Directional traffic requires at least one port",
                         validator: selectPortProtocolValidator,
                         required: false,
                       },
                       {
-                        message: "端口值必须在1到65535范围内",
+                        message: "Port value must be in 1..65535 range",
                         validator: selectPortRangeValidator,
                         required: false,
                       },
@@ -848,13 +850,13 @@ const AccessControlNew = () => {
                       placeholder={
                         formPolicy.protocol === "all" ||
                         formPolicy.protocol === "icmp" ? (
-                          "全部"
+                          "All"
                         ) : (
                           <div
                             color={"rgba(0,0,0,0.25)"}
                             className="arimo-font"
                           >
-                            选择端口
+                            Select ports
                           </div>
                         )
                       }
@@ -872,7 +874,8 @@ const AccessControlNew = () => {
                             <Tag style={{ marginRight: 3 }}>{m}</Tag>
                           </Option>
                         ))}
-                    </Select                  </Form.Item>
+                    </Select>
+                  </Form.Item>
                 )}
               </Col>
               <Col span={24}>
@@ -896,7 +899,7 @@ const AccessControlNew = () => {
                           fontWeight: "500",
                         }}
                       >
-                        启用
+                        Enabled
                       </label>
                       <Paragraph
                         type={"secondary"}
@@ -907,8 +910,8 @@ const AccessControlNew = () => {
                         }}
                       >
                         {formPolicy.enabled
-                          ? "禁用此规则以后应用"
-                          : "启用此规则以立即应用"}
+                          ? "Disable this rule to apply it later"
+                          : "Enable this rule to apply it immediately"}
                       </Paragraph>
                     </div>
                   </div>
@@ -919,13 +922,14 @@ const AccessControlNew = () => {
                 style={{ marginTop: "10px", marginBottom: "24px" }}
               >
                 <Text type={"secondary"}>
-                  了解更多关于
+                  Learn more about
                   <a
                     target="_blank"
                     rel="noreferrer"
                     href="https://docs.netbird.io/how-to/manage-network-access"
                   >
-                    访问控制
+                    {" "}
+                    access controls
                   </a>
                 </Text>
               </Col>

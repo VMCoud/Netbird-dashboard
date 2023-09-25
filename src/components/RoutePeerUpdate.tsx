@@ -182,7 +182,7 @@ const RoutePeerUpdate = () => {
 
   const peerValidator = (_: RuleObject, value: string) => {
     if (value == "") {
-      return Promise.reject(new Error("请选择一个路由对等体"));
+      return Promise.reject(new Error("Please select routing one peer"));
     }
 
     return Promise.resolve();
@@ -194,7 +194,9 @@ const RoutePeerUpdate = () => {
       if (newGroups.length > 0) {
         return Promise.reject(
           new Error(
-            "您不能从组更新视图中添加新的组，请移除：" + newGroups.join(", ")
+            "You can't add new Groups from the group update view, please remove:\"" +
+              newGroups +
+              '"'
           )
         );
       }
@@ -226,14 +228,14 @@ const RoutePeerUpdate = () => {
   useEffect(() => {
     if (savedRoute.loading) {
       message.loading({
-        content: "保存中...",
+        content: "Saving...",
         key: saveKey,
         duration: 0,
         style: styleNotification,
       });
     } else if (savedRoute.success) {
       message.success({
-        content: "路由已成功更新。",
+        content: "Route has been successfully updated.",
         key: saveKey,
         duration: 2,
         style: styleNotification,
@@ -244,10 +246,11 @@ const RoutePeerUpdate = () => {
       dispatch(routeActions.setSavedRoute({ ...savedRoute, success: false }));
       dispatch(routeActions.resetSavedRoute(null));
     } else if (savedRoute.error) {
-      let errorMsg = "更新网络路由失败";
+      let errorMsg = "Failed to update network route";
       switch (savedRoute.error.statusCode) {
         case 403:
-          errorMsg = "更新网络路由失败。您可能没有足够的权限。";
+          errorMsg =
+            "Failed to update network route. You might not have enough permissions.";
           break;
         default:
           errorMsg = savedRoute.error.data.message
@@ -273,7 +276,7 @@ const RoutePeerUpdate = () => {
           style={{ marginBottom: "25px" }}
           items={[
             {
-              title: <a onClick={onBreadcrumbUsersClick}>网络路由</a>,
+              title: <a onClick={onBreadcrumbUsersClick}>Network Routes</a>,
             },
             {
               title: formRoute.network_id,
@@ -339,18 +342,18 @@ const RoutePeerUpdate = () => {
                               formRoute.description
                             ) : (
                               <span style={{ textDecoration: "underline" }}>
-                                添加描述
+                                Add description
                               </span>
                             )}
                           </div>
                         ) : (
                           <Form.Item
                             name="description"
-                            label="描述"
+                            label="Description"
                             style={{ marginTop: 24, fontWeight: 500 }}
                           >
                             <Input
-                              placeholder="添加描述..."
+                              placeholder="Add description..."
                               ref={inputDescriptionRef}
                               onPressEnter={() => toggleEditDescription(false)}
                               onBlur={() => toggleEditDescription(false)}
@@ -388,7 +391,7 @@ const RoutePeerUpdate = () => {
                             fontWeight: "500",
                           }}
                         >
-                          启用
+                          Enabled
                         </label>
                         <Paragraph
                           type={"secondary"}
@@ -398,7 +401,7 @@ const RoutePeerUpdate = () => {
                             marginBottom: "0",
                           }}
                         >
-                          您可以启用或禁用路由
+                          You can enable or disable the route
                         </Paragraph>
                       </div>
                     </div>
@@ -413,7 +416,7 @@ const RoutePeerUpdate = () => {
                       fontWeight: "500",
                     }}
                   >
-                    路由对等体
+                    Routing Peer
                   </label>
                   <Paragraph
                     type={"secondary"}
@@ -423,7 +426,7 @@ const RoutePeerUpdate = () => {
                       marginBottom: "5px",
                     }}
                   >
-                    为网络CIDR分配一个路由对等体
+                    Assign a peer as a routing peer for the Network CIDR
                   </Paragraph>
                   <Form.Item
                     name="peer"
@@ -433,7 +436,7 @@ const RoutePeerUpdate = () => {
                     <Select
                       showSearch
                       style={{ width: "100%" }}
-                      placeholder="选择对等体"
+                      placeholder="Select Peer"
                       dropdownRender={peerDropDownRender}
                       options={options}
                       allowClear={true}
@@ -448,7 +451,7 @@ const RoutePeerUpdate = () => {
                       fontWeight: "500",
                     }}
                   >
-                    分发组
+                    Distribution groups
                   </label>
                   <Paragraph
                     type={"secondary"}
@@ -458,7 +461,8 @@ const RoutePeerUpdate = () => {
                       marginBottom: "5px",
                     }}
                   >
-                    将此路由广播到属于以下组的对等体
+                    Advertise this route to peers that belong to the following
+                    groups
                   </Paragraph>
                   <Form.Item
                     name="groups"
@@ -469,7 +473,7 @@ const RoutePeerUpdate = () => {
                     <Select
                       mode="tags"
                       style={{ width: "100%" }}
-                      placeholder="将组与网络路由关联"
+                      placeholder="Associate groups with the network route"
                       tagRender={blueTagRender}
                       onChange={handleChangeTags}
                       dropdownRender={dropDownRender}
@@ -505,7 +509,7 @@ const RoutePeerUpdate = () => {
                             textDecoration: "underline",
                           }}
                         >
-                          更多设置
+                          More settings
                         </Paragraph>
                       }
                       className="system-info-panel"
@@ -532,7 +536,7 @@ const RoutePeerUpdate = () => {
                                     fontWeight: "500",
                                   }}
                                 >
-                                  伪装
+                                  Masquerade
                                 </label>
                                 <Paragraph
                                   type={"secondary"}
@@ -542,7 +546,9 @@ const RoutePeerUpdate = () => {
                                     marginBottom: "0",
                                   }}
                                 >
-                                  允许访问您的私有网络，无需在本地路由器或其他设备上配置路由。
+                                  Allow access to your private networks without
+                                  configuring routes on your local routers or
+                                  other devices.
                                 </Paragraph>
                               </div>
                             </div>
@@ -557,7 +563,7 @@ const RoutePeerUpdate = () => {
                               fontWeight: "500",
                             }}
                           >
-                            路由度量
+                            Metric
                           </label>
                           <Paragraph
                             type={"secondary"}
@@ -567,7 +573,7 @@ const RoutePeerUpdate = () => {
                               marginBottom: "5px",
                             }}
                           >
-                            较低的度量表示较高优先级的路由
+                            Lower metrics indicating higher priority routes
                           </Paragraph>
                           <Row>
                             <Col span={12}>
@@ -597,14 +603,14 @@ const RoutePeerUpdate = () => {
                 }}
               >
                 <Button onClick={onCancel} disabled={savedRoute.loading}>
-                  取消
+                  Cancel
                 </Button>
                 <Button
                   type="primary"
                   disabled={savedRoute.loading}
                   onClick={handleFormSubmit}
                 >
-                  保存
+                  Save
                 </Button>
               </Col>
             </Form>
