@@ -106,7 +106,7 @@ body {
 }
 
 .select-rows-per-page-en .ant-select-selector::before {
-  content: 'Rows per page';
+  content: '每页行数';
   width: 104px;
   align-self: center;
 }

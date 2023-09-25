@@ -325,7 +325,7 @@ const NameServerGroupUpdate = (props: any) => {
                   fontWeight: "500",
                 }}
               >
-                Enabled
+                启用
               </label>
               <Paragraph
                 type={"secondary"}
@@ -336,8 +336,8 @@ const NameServerGroupUpdate = (props: any) => {
                 }}
               >
                 {formNSGroup.enabled
-                  ? "Disable this server if you don't want the configuration to apply immediately"
-                  : " Enable this server if you want the configuration to apply immediately"}
+                  ? "如果不想立即应用配置，请禁用此服务器"
+                  : "如果想立即应用配置，请启用此服务器"}
               </Paragraph>
             </div>
           </div>
@@ -354,7 +354,7 @@ const NameServerGroupUpdate = (props: any) => {
               display: "block",
             }}
           >
-            Nameservers
+            域名服务器
           </label>
 
           {!!fields.length && (
@@ -364,12 +364,12 @@ const NameServerGroupUpdate = (props: any) => {
               </Col>
               <Col span={10} style={{ textAlign: "left" }}>
                 <Text style={{ color: "#818183", paddingLeft: "5px" }}>
-                  Nameserver IP
+                  域名服务器 IP
                 </Text>
               </Col>
               <Col span={4} style={{ textAlign: "left" }}>
                 <Text style={{ color: "#818183", paddingLeft: "5px" }}>
-                  Port
+                  端口
                 </Text>
               </Col>
               <Col span={4} />
@@ -383,7 +383,7 @@ const NameServerGroupUpdate = (props: any) => {
                     style={{ margin: "3px" }}
                     name={[field.name, "ns_type"]}
                     rules={[
-                      { required: true, message: "Missing first protocol" },
+                      { required: true, message: "缺少第一个协议" },
                     ]}
                     initialValue={"udp"}
                   >
@@ -403,7 +403,7 @@ const NameServerGroupUpdate = (props: any) => {
                     rules={[{ validator: ipValidator }]}
                   >
                     <Input
-                      placeholder="e.g. X.X.X.X"
+                      placeholder="例如：X.X.X.X"
                       style={{ width: "100%" }}
                       autoComplete="off"
                     />
@@ -413,10 +413,10 @@ const NameServerGroupUpdate = (props: any) => {
                   <Form.Item
                     style={{ margin: "1px" }}
                     name={[field.name, "port"]}
-                    rules={[{ required: true, message: "Missing port" }]}
+                    rules={[{ required: true, message: "缺少端口" }]}
                     initialValue={53}
                   >
-                    <InputNumber placeholder="Port" style={{ width: "100%" }} />
+                    <InputNumber placeholder="端口" style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col
@@ -448,7 +448,7 @@ const NameServerGroupUpdate = (props: any) => {
                   disabled={fields.length > 1}
                   icon={<PlusOutlined />}
                 >
-                  Add Nameserver
+                  添加域名服务器
                 </Button>
                 <Form.ErrorList errors={errors} />
               </Form.Item>
@@ -476,7 +476,7 @@ const NameServerGroupUpdate = (props: any) => {
                 fontWeight: "500",
               }}
             >
-              Match domains
+              匹配域名
             </label>
             <Paragraph
               type={"secondary"}
@@ -485,7 +485,7 @@ const NameServerGroupUpdate = (props: any) => {
                 marginBottom: "10px",
               }}
             >
-              Add domain if you want to have a specific one
+              如果您想有特定的域名，请添加
             </Paragraph>
           </Col>
         </Space>
@@ -501,7 +501,7 @@ const NameServerGroupUpdate = (props: any) => {
                 rules={[{ validator: domainValidator }]}
               >
                 <Input
-                  placeholder="e.g. example.com"
+                  placeholder="例如：example.com"
                   style={{ width: "100%" }}
                   autoComplete="off"
                 />
@@ -536,7 +536,7 @@ const NameServerGroupUpdate = (props: any) => {
               icon={<PlusOutlined />}
               style={{ marginTop: "5px", maxWidth: "280px" }}
             >
-              Add Domain
+              添加域名
             </Button>
           </Form.Item>
         </Col>
@@ -580,148 +580,145 @@ const NameServerGroupUpdate = (props: any) => {
             onValuesChange={onChange}
           >
             <Row gutter={16}>
-              
-                <span className={isGroupUpdateView ? "d-none" : ""}>
-                  <Col span={24}>
-                    <Header
-                      style={{
-                        border: "none",
-                      }}
-                    >
-                      <Row align="top">
-                        <Col flex="auto">
-                          {!editName && formNSGroup.id ? (
-                            <div
-                              className={
-                                "access-control input-text ant-drawer-title"
-                              }
-                              onClick={() => toggleEditName(true)}
-                              style={{
-                                fontSize: "22px",
-                                margin: " 0px 0px 10px",
-                                cursor: "pointer",
-                                fontWeight: "500",
-                                lineHeight: "24px",
-                              }}
-                            >
-                              {formNSGroup.id
-                                ? formNSGroup.name
-                                : "New nameserver group"}
-                            </div>
-                          ) : (
-                            <Row>
-                              <Col span={8}>
-                                <div style={{ lineHeight: "15px" }}>
-                                  <label
-                                    style={{
-                                      color: "rgba(0, 0, 0, 0.88)",
-                                      fontSize: "14px",
-                                      fontWeight: "500",
-                                    }}
-                                  >
-                                    Name
-                                  </label>
-                                  <Form.Item
-                                    name="name"
-                                    rules={[
-                                      {
-                                        required: true,
-                                        message:
-                                          "Please add an identifier for this nameserver group",
-                                        whitespace: true,
-                                      },
-                                      {
-                                        validator: nameValidator,
-                                      },
-                                    ]}
-                                    style={{
-                                      marginBottom: "10px",
-                                      marginTop: "10px",
-                                    }}
-                                  >
-                                    <Input
-                                      placeholder="e.g. Public DNS"
-                                      ref={inputNameRef}
-                                      onPressEnter={() => toggleEditName(false)}
-                                      onBlur={() => toggleEditName(false)}
-                                      autoComplete="off"
-                                      maxLength={40}
-                                    />
-                                  </Form.Item>
-                                </div>
-                              </Col>
-                            </Row>
-                          )}
-                          {!editDescription ? (
-                            <div
-                              className={
-                                "access-control input-text ant-drawer-subtitle"
-                              }
-                              style={{ margin: "0 0 39px 0px" }}
-                              onClick={() => toggleEditDescription(true)}
-                            >
-                              {formNSGroup.description &&
-                              formNSGroup.description.trim() !== ""
-                                ? formNSGroup.description
-                                : "Add description"}
-                            </div>
-                          ) : (
-                            <Row>
-                              <Col span={8} style={{ marginBottom: "15px" }}>
-                                <div
+              <span className={isGroupUpdateView ? "d-none" : ""}>
+                <Col span={24}>
+                  <Header
+                    style={{
+                      border: "none",
+                    }}
+                  >
+                    <Row align="top">
+                      <Col flex="auto">
+                        {!editName && formNSGroup.id ? (
+                          <div
+                            className={
+                              "access-control input-text ant-drawer-title"
+                            }
+                            onClick={() => toggleEditName(true)}
+                            style={{
+                              fontSize: "22px",
+                              margin: " 0px 0px 10px",
+                              cursor: "pointer",
+                              fontWeight: "500",
+                              lineHeight: "24px",
+                            }}
+                          >
+                            {formNSGroup.id
+                              ? formNSGroup.name
+                              : "新的域名服务器组"}
+                          </div>
+                        ) : (
+                          <Row>
+                            <Col span={8}>
+                              <div style={{ lineHeight: "15px" }}>
+                                <label
                                   style={{
-                                    lineHeight: "15px",
-                                    marginTop: "24px",
+                                    color: "rgba(0, 0, 0, 0.88)",
+                                    fontSize: "14px",
+                                    fontWeight: "500",
                                   }}
                                 >
-                                  <label
-                                    style={{
-                                      color: "rgba(0, 0, 0, 0.88)",
-                                      fontSize: "14px",
-                                      fontWeight: "500",
-                                    }}
-                                  >
-                                    Description
-                                  </label>
-                                  <Form.Item
-                                    name="description"
-                                    style={{ marginTop: "8px" }}
-                                  >
-                                    <Input
-                                      placeholder="Add description..."
-                                      ref={inputDescriptionRef}
-                                      onPressEnter={() =>
-                                        toggleEditDescription(false)
-                                      }
-                                      onBlur={() =>
-                                        toggleEditDescription(false)
-                                      }
-                                      autoComplete="off"
-                                    />
-                                  </Form.Item>
-                                </div>
-                              </Col>
-                            </Row>
-                          )}
-                        </Col>
-                      </Row>
-                    </Header>
-                  </Col>
+                                  名称
+                                </label>
+                                <Form.Item
+                                  name="name"
+                                  rules={[
+                                    {
+                                      required: true,
+                                      message: "请为此域名服务器组添加一个标识符",
+                                      whitespace: true,
+                                    },
+                                    {
+                                      validator: nameValidator,
+                                    },
+                                  ]}
+                                  style={{
+                                    marginBottom: "10px",
+                                    marginTop: "10px",
+                                  }}
+                                >
+                                  <Input
+                                    placeholder="例如：公共 DNS"
+                                    ref={inputNameRef}
+                                    onPressEnter={() => toggleEditName(false)}
+                                    onBlur={() => toggleEditName(false)}
+                                    autoComplete="off"
+                                    maxLength={40}
+                                  />
+                                </Form.Item>
+                              </div>
+                            </Col>
+                          </Row>
+                        )}
+                        {!editDescription ? (
+                          <div
+                            className={
+                              "access-control input-text ant-drawer-subtitle"
+                            }
+                            style={{ margin: "0 0 39px 0px" }}
+                            onClick={() => toggleEditDescription(true)}
+                          >
+                            {formNSGroup.description &&
+                            formNSGroup.description.trim() !== ""
+                              ? formNSGroup.description
+                              : "添加描述"}
+                          </div>
+                        ) : (
+                          <Row>
+                            <Col span={8} style={{ marginBottom: "15px" }}>
+                              <div
+                                style={{
+                                  lineHeight: "15px",
+                                  marginTop: "24px",
+                                }}
+                              >
+                                <label
+                                  style={{
+                                    color: "rgba(0, 0, 0, 0.88)",
+                                    fontSize: "14px",
+                                    fontWeight: "500",
+                                  }}
+                                >
+                                  描述
+                                </label>
+                                <Form.Item
+                                  name="description"
+                                  style={{ marginTop: "8px" }}
+                                >
+                                  <Input
+                                    placeholder="添加描述..."
+                                    ref={inputDescriptionRef}
+                                    onPressEnter={() =>
+                                      toggleEditDescription(false)
+                                    }
+                                    onBlur={() =>
+                                      toggleEditDescription(false)
+                                    }
+                                    autoComplete="off"
+                                  />
+                                </Form.Item>
+                              </div                            </Col>
+                          </Row>
+                        )}
+                      </Col>
+                    </Row>
+                  </Header>
+                </Col>
 
-                  <Col span={24} style={{ marginBottom: "15px" }}>
-                    <Form.List
-                      name="nameservers"
-                      rules={[{ validator: formListValidator }]}
-                    >
-                      {renderNSList}
-                    </Form.List>
-                  </Col>
+                <Col span={24} style={{ marginBottom: "15px" }}>
+                  <Form.List
+                    name="nameservers"
+                    rules={[{ validator: formListValidator }]}
+                  >
+                    {renderNSList}
+                  </Form.List>
+                </Col>
 
-                  <Col span={24} style={{ marginBottom: "15px" }}>
-                    <Form.List name="domains">{renderDomains}</Form.List>
-                  </Col>
-                </span>
-               
+                <Col span={24} style={{ marginBottom: "15px" }}>
+                  <Form.List name="domains">{renderDomains}</Form.List>
+                </Col>
+              </span>
+
               <Col span={24} style={{ marginBottom: "15px" }}>
                 <label
                   style={{
@@ -732,7 +729,7 @@ const NameServerGroupUpdate = (props: any) => {
                     display: "block",
                   }}
                 >
-                  Distribution groups
+                  分发组
                 </label>
                 <Form.Item
                   name="groups"
@@ -742,7 +739,7 @@ const NameServerGroupUpdate = (props: any) => {
                   <Select
                     mode="tags"
                     style={{ width: "100%" }}
-                    placeholder="Associate groups with the NS group"
+                    placeholder="将组与域名服务器组关联"
                     tagRender={blueTagRender}
                     onChange={handleChangeTags}
                     dropdownRender={dropDownRender}
@@ -770,14 +767,14 @@ const NameServerGroupUpdate = (props: any) => {
                   }}
                 >
                   <Button onClick={onCancel} disabled={savedNSGroup.loading}>
-                    Cancel
+                    取消
                   </Button>
                   <Button
                     type="primary"
                     onClick={handleFormSubmit}
                     disabled={savedNSGroup.loading}
                   >
-                    Save
+                    保存
                   </Button>
                 </Space>
               </Col>

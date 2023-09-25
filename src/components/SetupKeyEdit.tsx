@@ -55,7 +55,7 @@ const SetupKeyNew = (props: any) => {
   const savedSetupKey = useSelector(
     (state: RootState) => state.setupKey.savedSetupKey
   );
- 
+
   const groups = useSelector((state: RootState) => state.group.data);
 
   const [form] = Form.useForm();
@@ -98,7 +98,7 @@ const SetupKeyNew = (props: any) => {
       exp: moment(setupKey.expires),
       last: moment(setupKey.last_used),
     } as FormSetupKey;
-     form.setFieldsValue(fSetupKey);
+    form.setFieldsValue(fSetupKey);
     setFormSetupKey(fSetupKey);
   }, [setupKey]);
 
@@ -126,7 +126,7 @@ const SetupKeyNew = (props: any) => {
       await form.validateFields();
     } catch (e) {
       const errorFields = (e as any).errorFields;
-     }
+    }
 
     const setupKeyToSave = createSetupKeyToSave();
     dispatch(
@@ -257,14 +257,14 @@ const SetupKeyNew = (props: any) => {
     dispatch(personalAccessTokenActions.resetPersonalAccessTokens(null));
     setVisibleNewSetupKey(false);
   };
-   return (
+  return (
     <>
       {!isGroupUpdateView && (
         <Breadcrumb
           style={{ marginBottom: "25px" }}
           items={[
             {
-              title: <a onClick={onBreadcrumbUsersClick}>Setup Keys</a>,
+              title: <a onClick={onBreadcrumbUsersClick}>设置密钥</a>,
             },
             {
               title: setupKey.name,
@@ -315,7 +315,7 @@ const SetupKeyNew = (props: any) => {
                       margin: 0,
                     }}
                   >
-                    Key
+                    密钥
                     <Tag
                       color={`${
                         formSetupKey.state === "valid" ? "green" : "red"
@@ -359,12 +359,12 @@ const SetupKeyNew = (props: any) => {
                         fontWeight: "500",
                       }}
                     ></Paragraph>
-                    Type{" "}
+                    类型{" "}
                     {formSetupKey.ephemeral ? (
-                      <Tooltip title="Peers that are offline for over 10 minutes will be removed automatically">
+                      <Tooltip title="离线超过10分钟的节点将自动移除">
                         <Tag>
                           <Text type="secondary" style={{ fontSize: 10 }}>
-                            Ephemeral
+                            临时
                           </Text>
                         </Tag>
                       </Tooltip>
@@ -376,7 +376,7 @@ const SetupKeyNew = (props: any) => {
                     <Input
                       disabled
                       value={
-                        formSetupKey.type === "one-off" ? "One-off" : "Reusable"
+                        formSetupKey.type === "one-off" ? "一次性" : "可重复使用"
                       }
                       suffix={<LockOutlined style={{ color: "#BFBFBF" }} />}
                       style={{ marginTop: "8px" }}
@@ -399,8 +399,8 @@ const SetupKeyNew = (props: any) => {
                         fontWeight: "500",
                       }}
                     ></Paragraph>
-                    {/* {formSetupKey.type === "one-off" ? "One-off" : "Reusable"}, */}
-                    Available uses
+                    {/* {formSetupKey.type === "one-off" ? "一次性" : "可重复使用"}, */}
+                    可用次数
                   </Paragraph>
                   <Col>
                     <Input
@@ -408,7 +408,7 @@ const SetupKeyNew = (props: any) => {
                       value={
                         formSetupKey.type === "reusable" &&
                         formSetupKey.usage_limit === 0
-                          ? "unlimited"
+                          ? "无限制"
                           : formSetupKey.usage_limit - formSetupKey.used_times
                       }
                       suffix={<LockOutlined style={{ color: "#BFBFBF" }} />}
@@ -422,7 +422,7 @@ const SetupKeyNew = (props: any) => {
               {!isGroupUpdateView && (
                 <Col xs={24} sm={24} md={5} lg={5} xl={5} xxl={5} span={5}>
                   <Paragraph style={{ margin: 0, fontWeight: "500" }}>
-                    Expires
+                    过期时间
                   </Paragraph>
                   <Row>
                     <Input
@@ -457,7 +457,7 @@ const SetupKeyNew = (props: any) => {
                     fontWeight: "500",
                   }}
                 >
-                  Auto-assigned groups
+                  自动分配的群组
                 </Paragraph>
 
                 <Col span={24}>
@@ -469,7 +469,7 @@ const SetupKeyNew = (props: any) => {
                     <Select
                       mode="tags"
                       style={{ width: "100%" }}
-                      placeholder="Associate groups with the key"
+                      placeholder="将群组与密钥关联"
                       tagRender={blueTagRender}
                       dropdownRender={dropDownRender}
                       // enabled only when we have a new key !setupkey.id or when the key is valid
@@ -499,13 +499,13 @@ const SetupKeyNew = (props: any) => {
           }}
           key={0}
         >
-          <Button onClick={onCancel}>Cancel</Button>
+          <Button onClick={onCancel}>取消</Button>
           <Button
             type="primary"
             disabled={savedSetupKey.loading || !changesDetected()}
             onClick={handleFormSubmit}
           >
-            {`${formSetupKey.id ? "Save" : "Create"} key`}
+            {`${formSetupKey.id ? "保存" : "创建"}密钥`}
           </Button>
         </Container>
       </Card>

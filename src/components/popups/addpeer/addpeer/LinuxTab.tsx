@@ -8,14 +8,14 @@ export const OtherTab = () => {
   const [steps, _] = useState([
     {
       key: 1,
-      title: "For other installation options check our documentation.",
+      title: "查看我们的文档以了解其他安装选项。",
       commands: (
         <Button
           type="primary"
           href={`https://docs.netbird.io/how-to/getting-started#binary-install`}
           target="_blank"
         >
-          Documentation
+          文档
         </Button>
       ),
       copied: false,

@@ -635,12 +635,12 @@ export const Peers = () => {
                 <Title className="page-heading">{isAdmin ? "Peers" : "My peers"}</Title>
                 {peers.length ? (
                   <Paragraph style={{ marginTop: "5px" }}>
-                    {isAdmin ? "您私有网络中连接的所有机器和设备的列表。使用此视图管理 Peers" :
+                    {isAdmin ? "您私有网络中连接的所有机器和设备的列表。使用此视图管理设备" :
                       "您连接到 NetBird 的所有机器和设备的列表。"}
                   </Paragraph>
                 ) : (
                   <Paragraph style={{ marginTop: "5px" }} type={"secondary"}>
-                    {isAdmin ? "您私有网络中连接的所有机器和设备的列表。使用此视图管理 Peers" :
+                    {isAdmin ? "您私有网络中连接的所有机器和设备的列表。使用此视图管理设备" :
                       "您连接到 NetBird 的所有机器和设备的列表。"}
                   </Paragraph>
                 )}
@@ -720,7 +720,7 @@ export const Peers = () => {
                               type="primary"
                               onClick={() => setAddPeerModalOpen(true)}
                             >
-                              添加 Peer
+                              添加设备
                             </Button>
                           )}
                         </Col>
@@ -766,7 +766,7 @@ export const Peers = () => {
                           type="primary"
                           onClick={() => setAddPeerModalOpen(true)}
                         >
-                          添加新的 Peer
+                          添加新的设备
                         </Button>
                       </Space>
                     ) : (
@@ -775,7 +775,7 @@ export const Peers = () => {
                           pageSize,
                           showSizeChanger: false,
                           showTotal: (total, range) =>
-                            `显示 ${range[0]} 至 ${range[1]} 共 ${total} 个 Peer`,
+                            `显示 ${range[0]} 至 ${range[1]} 共 ${total} 个设备`,
                         }}
                         className={`access-control-table ${showTutorial
                             ? "card-table card-table-no-placeholder"
@@ -948,7 +948,7 @@ export const Peers = () => {
               headline={
                 !hadFirstRun
                   ? "现在是时候添加您的第一台设备了。"
-                  : "添加新的 Peer"
+                  : "添加新的设备"
               }
             />
           </Modal>

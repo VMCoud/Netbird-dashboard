@@ -15,7 +15,7 @@ export const UbuntuTab = () => {
   const [steps, setSteps] = useState([
     {
       key: 1,
-      title: "Add repository",
+      title: "添加仓库",
       commands: [
         `sudo apt install ca-certificates curl gnupg -y`,
         `curl -L https://pkgs.wiretrustee.com/debian/public.key | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/wiretrustee.gpg`,
@@ -31,12 +31,12 @@ export const UbuntuTab = () => {
     } as StepCommand,
     {
       key: 2,
-      title: "Install NetBird",
+      title: "安装NetBird",
       commands: [
         `sudo apt-get update`,
-        `# for CLI only`,
+        `# 仅CLI`,
         `sudo apt-get install netbird`,
-        `# for GUI package`,
+        `# GUI包`,
         `sudo apt-get install netbird-ui`,
       ].join("\n"),
       commandsForCopy: [
@@ -49,7 +49,7 @@ export const UbuntuTab = () => {
     } as StepCommand,
     {
       key: 3,
-      title: "Run NetBird and log in the browser",
+      title: "运行NetBird并在浏览器中登录",
       commands: formatNetBirdUP(),
       commandsForCopy: formatNetBirdUP(),
       copied: false,
@@ -68,7 +68,7 @@ export const UbuntuTab = () => {
 
   return (
     <div style={{ marginTop: 10 }}>
-      <Text style={{ fontWeight: "bold" }}>Install with one command</Text>
+      <Text style={{ fontWeight: "bold" }}>一键安装</Text>
       <div
         style={{
           fontSize: ".85em",
@@ -99,7 +99,7 @@ export const UbuntuTab = () => {
           curl -fsSL https://pkgs.netbird.io/install.sh | sh
         </SyntaxHighlighter>
       </div>
-      <Text style={{ fontWeight: "bold" }}>Or install manually on Ubuntu</Text>
+      <Text style={{ fontWeight: "bold" }}>或在Ubuntu上手动安装</Text>
       <div style={{ marginTop: 5 }}>
         <TabSteps stepsItems={steps} />
       </div>

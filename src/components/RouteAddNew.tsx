@@ -193,7 +193,7 @@ const RouteAddNew = (selectedPeer: any) => {
     form
       .validateFields()
       .then(() => {
-        if (!setupNewRouteHA || formRoute.peer != "") {
+        if (!setupNewRouteHA || formRoute.peer !== "") {
           const routeToSave = createRouteToSave(formRoute);
           dispatch(
             routeActions.saveRoute.request({
@@ -204,7 +204,7 @@ const RouteAddNew = (selectedPeer: any) => {
         } else {
           let groupedDataTable = transformGroupedDataTable(routes, peers);
           groupedDataTable.forEach((group) => {
-            if (group.key == previousRouteKey) {
+            if (group.key === previousRouteKey) {
               group.groupedRoutes.forEach((route) => {
                 let updateRoute: FormRoute = {
                   ...formRoute,
@@ -212,7 +212,7 @@ const RouteAddNew = (selectedPeer: any) => {
                   peer: route.peer,
                   metric: route.metric,
                   enabled:
-                    formRoute.enabled != group.enabled
+                    formRoute.enabled !== group.enabled
                       ? formRoute.enabled
                       : route.enabled,
                 };
@@ -293,7 +293,7 @@ const RouteAddNew = (selectedPeer: any) => {
   };
 
   const peerValidator = (_: RuleObject, value: string) => {
-    if (value == "" && newRoute) {
+    if (value === "" && newRoute) {
       return Promise.reject(new Error("Please select routing one peer"));
     }
 
@@ -301,7 +301,7 @@ const RouteAddNew = (selectedPeer: any) => {
   };
 
   const selectPreValidator = (obj: RuleObject, value: string[]) => {
-    if (setupNewRouteHA && formRoute.peer == "") {
+    if (setupNewRouteHA && formRoute.peer === "") {
       let [, newGroups] = getExistingAndToCreateGroupsLists(value);
       if (newGroups.length > 0) {
         return Promise.reject(
@@ -453,7 +453,7 @@ const RouteAddNew = (selectedPeer: any) => {
                       marginBottom: "25px",
                     }}
                   >
-                    Add route
+                    添加路由
                   </Paragraph>
 
                   {!!selectedPeer.selectedPeer && (
@@ -465,7 +465,7 @@ const RouteAddNew = (selectedPeer: any) => {
                           fontWeight: "500",
                         }}
                       >
-                        Routing Peer
+                        路由对等点
                       </label>
                       <Paragraph
                         type={"secondary"}
@@ -475,7 +475,7 @@ const RouteAddNew = (selectedPeer: any) => {
                           marginBottom: "5px",
                         }}
                       >
-                        Assign a peer as a routing peer for the Network CIDR
+                        为网络CIDR分配一个路由对等点
                       </Paragraph>
                       <Form.Item
                         name="peer"
@@ -484,7 +484,7 @@ const RouteAddNew = (selectedPeer: any) => {
                         <Select
                           showSearch
                           style={{ width: "100%" }}
-                          placeholder="Select Peer"
+                          placeholder="选择对等点"
                           dropdownRender={peerDropDownRender}
                           options={options}
                           allowClear={true}
@@ -503,7 +503,7 @@ const RouteAddNew = (selectedPeer: any) => {
                           }
                           onClick={() => toggleEditName(true)}
                         >
-                          {formRoute.id ? formRoute.network_id : "New Route"}
+                          {formRoute.id ? formRoute.network_id : "新路由"}
                         </div>
                       ) : (
                         <div style={{ marginBottom: "15px" }}>
@@ -516,7 +516,7 @@ const RouteAddNew = (selectedPeer: any) => {
                                   fontWeight: "500",
                                 }}
                               >
-                                Network Identifier
+                                网络标识符
                               </label>
                               <Paragraph
                                 type={"secondary"}
@@ -526,15 +526,14 @@ const RouteAddNew = (selectedPeer: any) => {
                                   marginBottom: "5px",
                                 }}
                               >
-                                Add a unique cryptographic key that is assigned
-                                to each device
+                                添加一个唯一的加密密钥，分配给每个设备
                               </Paragraph>
                               <CreatableSelect
                                 isClearable
                                 className="ant-select-selector-custom"
                                 options={testOptions}
                                 onChange={onNetworkChange}
-                                placeholder="Select an existing network or add a new one"
+                                placeholder="选择一个现有网络或添加一个新的"
                                 classNamePrefix="react-select"
                               />
                             </>
@@ -548,7 +547,7 @@ const RouteAddNew = (selectedPeer: any) => {
                                   fontWeight: "500",
                                 }}
                               >
-                                Network Identifier
+                                网络标识符
                               </label>
                               <Paragraph
                                 type={"secondary"}
@@ -558,8 +557,7 @@ const RouteAddNew = (selectedPeer: any) => {
                                   marginBottom: "5px",
                                 }}
                               >
-                                Add a unique cryptographic key that is assigned
-                                to each device
+                                添加一个唯一的加密密钥，分配给每个设备
                               </Paragraph>
                               <Form.Item
                                 name="network_id"
@@ -568,14 +566,13 @@ const RouteAddNew = (selectedPeer: any) => {
                                 rules={[
                                   {
                                     required: true,
-                                    message:
-                                      "Please add an identifier for this access route",
+                                    message: "请为此访问路由添加标识符",
                                     whitespace: true,
                                   },
                                 ]}
                               >
                                 <Input
-                                  placeholder="for example “e.g. aws-eu-central-1-vpc”"
+                                  placeholder="例如“aws-eu-central-1-vpc”"
                                   ref={inputNameRef}
                                   disabled={!setupNewRouteHA && !newRoute}
                                   onPressEnter={() => toggleEditName(false)}
@@ -602,18 +599,18 @@ const RouteAddNew = (selectedPeer: any) => {
                             formRoute.description
                           ) : (
                             <span style={{ textDecoration: "underline" }}>
-                              Add description
+                              添加描述
                             </span>
                           )}
                         </div>
                       ) : (
                         <Form.Item
                           name="description"
-                          label="Description"
+                          label="描述"
                           style={{ marginTop: 24, fontWeight: 500 }}
                         >
                           <Input
-                            placeholder="Add description..."
+                            placeholder="添加描述..."
                             ref={inputDescriptionRef}
                             disabled={!setupNewRouteHA && !newRoute}
                             onPressEnter={() => toggleEditDescription(false)}
@@ -638,7 +635,7 @@ const RouteAddNew = (selectedPeer: any) => {
                     fontWeight: "500",
                   }}
                 >
-                  Network Range
+                  网络范围
                 </label>
                 <Paragraph
                   type={"secondary"}
@@ -648,7 +645,7 @@ const RouteAddNew = (selectedPeer: any) => {
                     marginBottom: "5px",
                   }}
                 >
-                  Add a private IP address range
+                  添加一个私有IP地址范围
                 </Paragraph>
                 <Form.Item
                   name="network"
@@ -656,7 +653,7 @@ const RouteAddNew = (selectedPeer: any) => {
                   rules={[{ validator: networkRangeValidator }]}
                 >
                   <Input
-                    placeholder="for example “172.16.0.0/16”"
+                    placeholder="例如“172.16.0.0/16”"
                     disabled={(!setupNewRouteHA && !newRoute) || enableNetwork}
                     autoComplete="off"
                     minLength={9}
@@ -674,7 +671,7 @@ const RouteAddNew = (selectedPeer: any) => {
                       fontWeight: "500",
                     }}
                   >
-                    Routing Peer
+                    路由对等点
                   </label>
                   <Paragraph
                     type={"secondary"}
@@ -684,13 +681,13 @@ const RouteAddNew = (selectedPeer: any) => {
                       marginBottom: "5px",
                     }}
                   >
-                    Assign a peer as a routing peer for the Network CIDR
+                    为网络CIDR分配一个路由对等点
                   </Paragraph>
                   <Form.Item name="peer" rules={[{ validator: peerValidator }]}>
                     <Select
                       showSearch
                       style={{ width: "100%" }}
-                      placeholder="Select Peer"
+                      placeholder="选择对等点"
                       dropdownRender={peerDropDownRender}
                       options={options}
                       allowClear={true}
@@ -707,7 +704,7 @@ const RouteAddNew = (selectedPeer: any) => {
                     fontWeight: "500",
                   }}
                 >
-                  Distribution groups
+                  分发组
                 </label>
                 <Paragraph
                   type={"secondary"}
@@ -717,8 +714,7 @@ const RouteAddNew = (selectedPeer: any) => {
                     marginBottom: "5px",
                   }}
                 >
-                  Advertise this route to peers that belong to the following
-                  groups
+                  将此路由广播给属于以下组的对等点
                 </Paragraph>
                 <Form.Item
                   name="groups"
@@ -728,7 +724,7 @@ const RouteAddNew = (selectedPeer: any) => {
                   <Select
                     mode="tags"
                     style={{ width: "100%" }}
-                    placeholder="Associate groups with the network route"
+                    placeholder="将组与网络路由关联"
                     tagRender={blueTagRender}
                     onChange={handleChangeTags}
                     dropdownRender={dropDownRender}
@@ -764,7 +760,7 @@ const RouteAddNew = (selectedPeer: any) => {
                           fontWeight: "500",
                         }}
                       >
-                        Enabled
+                        启用
                       </label>
                       <Paragraph
                         type={"secondary"}
@@ -774,7 +770,7 @@ const RouteAddNew = (selectedPeer: any) => {
                           marginBottom: "0",
                         }}
                       >
-                        You can enable or disable the route
+                        您可以启用或禁用路由
                       </Paragraph>
                     </div>
                   </div>
@@ -802,7 +798,7 @@ const RouteAddNew = (selectedPeer: any) => {
                           textDecoration: "underline",
                         }}
                       >
-                        More settings
+                        更多设置
                       </Paragraph>
                     }
                     className="system-info-panel"
@@ -830,7 +826,7 @@ const RouteAddNew = (selectedPeer: any) => {
                                   fontWeight: "500",
                                 }}
                               >
-                                Masquerade
+                                伪装
                               </label>
                               <Paragraph
                                 type={"secondary"}
@@ -840,9 +836,7 @@ const RouteAddNew = (selectedPeer: any) => {
                                   marginBottom: "0",
                                 }}
                               >
-                                Allow access to your private networks without
-                                configuring routes on your local routers or
-                                other devices.
+                                允许访问您的私有网络，而无需在本地路由器或其他设备上配置路由。
                               </Paragraph>
                             </div>
                           </div>
@@ -857,7 +851,7 @@ const RouteAddNew = (selectedPeer: any) => {
                             fontWeight: "500",
                           }}
                         >
-                          Metric
+                          度量值
                         </label>
                         <Paragraph
                           type={"secondary"}
@@ -867,7 +861,7 @@ const RouteAddNew = (selectedPeer: any) => {
                             marginBottom: "5px",
                           }}
                         >
-                          Lower metrics indicating higher priority routes
+                          较低的度量值表示较高优先级的路由
                         </Paragraph>
                         <Row>
                           <Col span={12}>
@@ -891,14 +885,14 @@ const RouteAddNew = (selectedPeer: any) => {
                 style={{ marginTop: "24px", marginBottom: "12px" }}
               >
                 <Text type={"secondary"}>
-                  Learn more about
+                  了解更多关于
                   <a
                     target="_blank"
                     rel="noreferrer"
                     href="https://docs.netbird.io/how-to/routing-traffic-to-private-networks"
                   >
                     {" "}
-                    network routes
+                   网络路由
                   </a>
                 </Text>
               </Col>

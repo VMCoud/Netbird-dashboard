@@ -9,7 +9,7 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { CheckOutlined, CopyOutlined } from "@ant-design/icons";
 import { copyToClipboard } from "../../../../utils/common";
-import {getConfig} from "../../../../config";
+import { getConfig } from "../../../../config";
 const { grpcApiOrigin } = getConfig();
 
 const { Panel } = Collapse;
@@ -23,18 +23,16 @@ export const LinuxTab = () => {
       key: 1,
       title: (
         <Row>
-          <Text>Download and run MacOS installer: </Text>
+          <Text>下载并运行 MacOS 安装程序：</Text>
           <Tooltip
             title={
               <text>
-                If you don't know what chip your Mac has, you can find out by
-                clicking on the Apple logo in the top left corner of your screen
-                and selecting 'About This Mac'. For more information click{" "}
+                如果您不知道您的 Mac 使用的芯片类型，可以点击屏幕左上角的苹果图标，选择“关于本机”查看。详细信息请点击{" "}
                 <a
                   href="https://support.apple.com/en-us/HT211814"
                   target="_blank"
                 >
-                  here
+                  这里
                 </a>
               </text>
             }
@@ -58,7 +56,7 @@ export const LinuxTab = () => {
             type="primary"
             href="https://pkgs.netbird.io/macos/amd64"
           >
-            Download for Intel
+            下载 Intel 版本
           </Button>
           <Button
             data-testid="download-m1-m2-button"
@@ -66,30 +64,34 @@ export const LinuxTab = () => {
             type="default"
             href="https://pkgs.netbird.io/macos/arm64"
           >
-            Download for M1 & M2
+            下载 M1 & M2 版本
           </Button>
         </Row>
       ),
       copied: false,
     } as StepCommand,
-    ... grpcApiOrigin ? [{
-      key: 2,
-      title: 'Click on "Settings" from the NetBird icon in your system tray and enter the following "Management URL"',
-      commands: grpcApiOrigin,
-      commandsForCopy: grpcApiOrigin,
-      copied: false,
-      showCopyButton: false,
-    }] : [],
+    ...grpcApiOrigin
+      ? [
+          {
+            key: 2,
+            title: '点击系统托盘上的 NetBird 图标中的 "设置"，并输入以下 "管理 URL"',
+            commands: grpcApiOrigin,
+            commandsForCopy: grpcApiOrigin,
+            copied: false,
+            showCopyButton: false,
+          },
+        ]
+      : [],
     {
       key: 2 + (grpcApiOrigin ? 1 : 0),
-      title: 'Click on "Connect" from the NetBird icon in your system tray',
+      title: '点击系统托盘上的 NetBird 图标中的 "连接"',
       commands: "",
       copied: false,
       showCopyButton: false,
     },
     {
-      key: 3 + (grpcApiOrigin) ? 1 : 0,
-      title: "Sign up using your email address",
+      key: 3 + (grpcApiOrigin ? 1 : 0),
+      title: "使用您的电子邮件地址进行注册",
       commands: "",
       copied: false,
       showCopyButton: false,
@@ -99,7 +101,7 @@ export const LinuxTab = () => {
   const [steps, setSteps] = useState([
     {
       key: 1,
-      title: "Download and install Homebrew",
+      title: "下载并安装 Homebrew",
       commands: (
         <Button
           style={{ marginTop: "5px" }}
@@ -107,18 +109,18 @@ export const LinuxTab = () => {
           href="https://brew.sh/"
           target="_blank"
         >
-          Download Brew
+          下载 Brew
         </Button>
       ),
       copied: false,
     } as StepCommand,
     {
       key: 2,
-      title: "Install NetBird:",
+      title: "安装 NetBird：",
       commands: [
-        `# for CLI only`,
+        `# 仅 CLI 版本`,
         `brew install netbirdio/tap/netbird`,
-        `# for GUI package`,
+        `# GUI 版本`,
         `brew install --cask netbirdio/tap/netbird-ui`,
       ].join("\n"),
       commandsForCopy: [
@@ -130,7 +132,7 @@ export const LinuxTab = () => {
     } as StepCommand,
     {
       key: 3,
-      title: "Start NetBird daemon:",
+      title: "启动 NetBird 守护进程：",
       commands: [
         `sudo netbird service install`,
         `sudo netbird service start`,
@@ -144,7 +146,7 @@ export const LinuxTab = () => {
     } as StepCommand,
     {
       key: 4,
-      title: "Run NetBird and log in the browser:",
+      title: "在浏览器中运行 NetBird 并登录：",
       commands: formatNetBirdUP(),
       commandsForCopy: formatNetBirdUP(),
       copied: false,
@@ -160,10 +162,10 @@ export const LinuxTab = () => {
       setCopied(false);
     }, 2000);
   };
-    
+
   return (
     <div style={{ marginTop: 10 }}>
-      <Text style={{ fontWeight: "bold" }}>Install on MacOS</Text>
+      <Text style={{ fontWeight: "bold" }}>在 MacOS 上安装</Text>
       <div style={{ marginTop: 5, marginBottom: 5 }}>
         <TabSteps stepsItems={quickSteps} />
       </div>
@@ -172,11 +174,11 @@ export const LinuxTab = () => {
       <Collapse bordered={false} style={{ backgroundColor: "unset" }}>
         <Panel
           className="CustomPopupCollapse"
-          header={<Text strong={true}>Or install via command line</Text>}
+          header={<Text strong={true}>或通过命令行安装</Text>}
           key="1"
         >
           <div style={{ marginLeft: "25px" }}>
-            <Text style={{ fontWeight: "bold" }}>Install with one command</Text>
+            <Text style={{ fontWeight: "bold" }}>使用一条命令安装</Text>
             <div
               style={{
                 fontSize: ".85em",
@@ -208,7 +210,7 @@ export const LinuxTab = () => {
               </SyntaxHighlighter>
             </div>
             <Text style={{ fontWeight: "bold" }}>
-              Or install manually with HomeBrew
+              或使用 HomeBrew 手动安装
             </Text>
             <div style={{ marginTop: 5 }}>
               <TabSteps stepsItems={steps} />

@@ -168,7 +168,7 @@ const PeerUpdate = (props: any) => {
       name: formPeer.name ? formPeer.name : peer.name,
       groupsNames: gs_name,
       userEmail: users?.find((u) => u.id === peer.user_id)?.email,
-      last_seen: peer.connected ? "just now" : String(timeAgo(peer.last_seen)),
+      last_seen: peer.connected ? "刚刚" : String(timeAgo(peer.last_seen)),
       ui_version: peer.ui_version
         ? peer.ui_version.replace("netbird-desktop-ui/", "")
         : "",
@@ -180,11 +180,13 @@ const PeerUpdate = (props: any) => {
   useEffect(() => {}, [users]);
 
   const routeAddAllowed = (os: string): boolean => {
-    return os !== ""
-        && !os.toLowerCase().startsWith("darwin")
-        && !os.toLowerCase().startsWith("windows")
-        && !os.toLowerCase().startsWith("android")
-  }
+    return (
+      os !== "" &&
+      !os.toLowerCase().startsWith("darwin") &&
+      !os.toLowerCase().startsWith("windows") &&
+      !os.toLowerCase().startsWith("android")
+    );
+  };
 
   const toggleEditName = (status: boolean, value?: string) => {
     setEditName(status);
@@ -269,7 +271,7 @@ const PeerUpdate = (props: any) => {
       <Row style={{ padding: "0 8px 4px" }}>
         <Col flex="auto">
           <span style={{ color: "#9CA3AF" }}>
-            Add new group by pressing "Enter"
+            通过按下 "Enter" 键添加新组
           </span>
         </Col>
         <Col flex="none">
@@ -396,13 +398,13 @@ const PeerUpdate = (props: any) => {
       const style = { marginTop: 85 };
       if (savedGroups.loading) {
         message.loading({
-          content: "Updating peer groups...",
+          content: "正在更新对等组...",
           key: saveGroupsKey,
           style,
         });
       } else if (savedGroups.success) {
         message.success({
-          content: "Peer groups have been successfully updated.",
+          content: "对等组已成功更新。",
           key: saveGroupsKey,
           duration: 2,
           style,
@@ -415,7 +417,7 @@ const PeerUpdate = (props: any) => {
       } else if (savedGroups.error) {
         message.error({
           content:
-            "Failed to update peer groups. You might not have enough permissions.",
+            "无法更新对等组。您可能没有足够的权限。",
           key: saveGroupsKey,
           duration: 2,
           style,
@@ -430,7 +432,7 @@ const PeerUpdate = (props: any) => {
     const style = { marginTop: 85 };
     if (updatedPeers.loading) {
       message.loading({
-        content: "Updating peer...",
+        content: "正在更新对等...",
         key: updatePeerKey,
         duration: 0,
         style,
@@ -441,14 +443,14 @@ const PeerUpdate = (props: any) => {
       (!noUpdateToName() || !noUpdateToLoginExpiration())
     ) {
       message.loading({
-        content: "Updating peer...",
+        content: "正在更新对等...",
         key: updatePeerKey,
         duration: 0,
         style,
       });
     } else if (updatedPeers.success) {
       message.success({
-        content: "Peer has been successfully updated.",
+        content: "对等已成功更新。",
         key: updatePeerKey,
         duration: 2,
         style,
@@ -505,7 +507,7 @@ const PeerUpdate = (props: any) => {
     let isAllPresent = false;
 
     if (!value.length) {
-      return Promise.reject(new Error("Please enter ate least one group"));
+      return Promise.reject(new Error("请至少输入一个组"));
     }
 
     const val = getGroupNamesFromIDs(value);
@@ -519,12 +521,12 @@ const PeerUpdate = (props: any) => {
     });
 
     if (!isAllPresent) {
-      return Promise.reject(new Error("The All group can't be removed"));
+      return Promise.reject(new Error("无法删除 All 组"));
     }
 
     if (hasSpaceNamed.length) {
       return Promise.reject(
-        new Error("Group names with just spaces are not allowed")
+        new Error("不允许只有空格的组名")
       );
     }
 
@@ -538,12 +540,12 @@ const PeerUpdate = (props: any) => {
   const showConfirmDelete = (routeId: string, name: string) => {
     confirm({
       icon: <ExclamationCircleOutlined />,
-      title: <span className="font-500">Delete network route {name}</span>,
+      title: <span className="font-500">删除网络路由 {name}</span>,
       width: 600,
       content: (
         <Space direction="vertical" size="small">
           <Paragraph>
-            Are you sure you want to delete this route from your account?
+            确定要从您的帐户中删除此路由吗？
           </Paragraph>
         </Space>
       ),
@@ -595,14 +597,14 @@ const PeerUpdate = (props: any) => {
   useEffect(() => {
     if (savedRoute.loading) {
       message.loading({
-        content: "Saving...",
+        content: "正在保存...",
         key: saveKey,
         duration: 0,
         style: styleNotification,
       });
     } else if (savedRoute.success) {
       message.success({
-        content: "Route has been successfully updated.",
+        content: "路由已成功更新。",
         key: saveKey,
         duration: 2,
         style: styleNotification,
@@ -611,11 +613,11 @@ const PeerUpdate = (props: any) => {
       dispatch(routeActions.setSavedRoute({ ...savedRoute, success: false }));
       dispatch(routeActions.resetSavedRoute(null));
     } else if (savedRoute.error) {
-      let errorMsg = "Failed to update network route";
+      let errorMsg = "无法更新网络路由";
       switch (savedRoute.error.statusCode) {
         case 403:
           errorMsg =
-            "Failed to update network route. You might not have enough permissions.";
+            "无法更新网络路由。您可能没有足够的权限。";
           break;
         default:
           errorMsg = savedRoute.error.data.message
@@ -638,10 +640,10 @@ const PeerUpdate = (props: any) => {
   useEffect(() => {
     const style = { marginTop: 85 };
     if (deletedRoute.loading) {
-      message.loading({ content: "Deleting...", key: deleteKey, style });
+      message.loading({ content: "正在删除...", key: deleteKey, style });
     } else if (deletedRoute.success) {
       message.success({
-        content: "Route has been successfully deleted.",
+        content: "路由已成功删除。",
         key: deleteKey,
         duration: 2,
         style,
@@ -650,7 +652,7 @@ const PeerUpdate = (props: any) => {
     } else if (deletedRoute.error) {
       message.error({
         content:
-          "Failed to remove route. You might not have enough permissions.",
+          "无法删除路由。您可能没有足够的权限。",
         key: deleteKey,
         duration: 2,
         style,
@@ -668,7 +670,7 @@ const PeerUpdate = (props: any) => {
               style={{ marginBottom: "25px" }}
               items={[
                 {
-                  title: <a onClick={onBreadcrumbUsersClick}>Peers</a>,
+                  title: <a onClick={onBreadcrumbUsersClick}>设备</a>,
                 },
                 {
                   title: formPeer.ip,
@@ -724,7 +726,7 @@ const PeerUpdate = (props: any) => {
                                 <div>
                                   {!formPeer.connected &&
                                   formPeer.login_expired ? (
-                                    <Tooltip title="The peer is offline and needs to be re-authenticated because its login has expired ">
+                                    <Tooltip title="该对等体离线，并且需要重新验证，因为其登录已过期">
                                       <Tag color="red">
                                         <Text
                                           style={{
@@ -733,7 +735,7 @@ const PeerUpdate = (props: any) => {
                                           }}
                                           type={"secondary"}
                                         >
-                                          needs login
+                                          需要登录
                                         </Text>
                                       </Tag>
                                     </Tooltip>
@@ -748,13 +750,12 @@ const PeerUpdate = (props: any) => {
                               <Space direction={"vertical"} size="small">
                                 <Form.Item
                                   name="name"
-                                  label="Name"
+                                  label="名称"
                                   style={{ margin: "1px" }}
                                   rules={[
                                     {
                                       required: true,
-                                      message:
-                                        "Please add a new name for this peer",
+                                      message: "请为此对等体添加一个新名称",
                                       whitespace: true,
                                     },
                                     { validator: nameValidator },
@@ -770,8 +771,8 @@ const PeerUpdate = (props: any) => {
                                   />
                                 </Form.Item>
                                 <Form.Item
-                                  label="Domain name preview"
-                                  tooltip="If the domain name already exists, we add an increment number suffix to it"
+                                  label="域名预览"
+                                  tooltip="如果域名已经存在，我们会在其后添加递增的数字后缀"
                                   style={{ margin: "1px" }}
                                 >
                                   <Paragraph>
@@ -834,7 +835,7 @@ const PeerUpdate = (props: any) => {
                     <Col lg={5} md={24}>
                       <Form.Item
                         name="dns_label"
-                        label="Domain name"
+                        label="域名"
                         style={{ fontWeight: "500" }}
                       >
                         <Input
@@ -849,7 +850,7 @@ const PeerUpdate = (props: any) => {
                     <Col lg={4} md={24}>
                       <Form.Item
                         name="last_seen"
-                        label="Last seen"
+                        label="上次在线时间"
                         style={{ fontWeight: "500" }}
                       >
                         <Input
@@ -886,7 +887,7 @@ const PeerUpdate = (props: any) => {
                           size="small"
                         />
                         <div>
-                          <span className="font-500">Login expiration</span>
+                          <span className="font-500">登录过期</span>
                           <Paragraph
                             type={"secondary"}
                             style={{
@@ -896,8 +897,7 @@ const PeerUpdate = (props: any) => {
                               margin: "0",
                             }}
                           >
-                            Login expiration SSO login peers require
-                            re-authentication when their login expires
+                            SSO 登录对等体在其登录过期时需要重新验证
                           </Paragraph>
                         </div>
                       </div>
@@ -912,10 +912,10 @@ const PeerUpdate = (props: any) => {
                       fontWeight: "500",
                     }}
                   >
-                    Groups
+                    组
                   </Paragraph>
                   <Text type={"secondary"}>
-                    Use groups to control what this peer can access
+                    使用组来控制此对等体可以访问的内容
                   </Text>
                   <Form.Item
                     name="groupsNames"
@@ -925,7 +925,7 @@ const PeerUpdate = (props: any) => {
                     <Select
                       mode="tags"
                       style={{ width: "100%", marginTop: 5 }}
-                      placeholder="Select groups..."
+                      placeholder="选择组..."
                       tagRender={tagRender}
                       dropdownRender={dropDownRender}
                       onChange={handleChangeTags}
@@ -949,7 +949,7 @@ const PeerUpdate = (props: any) => {
                   }}
                 >
                   <Button onClick={onCancel} disabled={savedGroups.loading}>
-                    Cancel
+                    取消
                   </Button>
                   <Button
                     type="primary"
@@ -962,7 +962,7 @@ const PeerUpdate = (props: any) => {
                     }
                     onClick={handleFormSubmit}
                   >
-                    Save
+                    保存
                   </Button>
                 </Col>
               </Row>
@@ -972,133 +972,136 @@ const PeerUpdate = (props: any) => {
           {/* --- */}
           {!isGroupUpdateView && (
             <>
-              {routeAddAllowed(peer.os) &&
-              <Card
-                bordered={true}
-                // loading={loading}ƒ
-                style={{ marginBottom: "7px" }}
-              >
-                <div style={{ maxWidth: "800px" }}>
-                  <Paragraph
-                    style={{
-                      textAlign: "left",
-                      whiteSpace: "pre-line",
-                      fontSize: "16px",
-                      fontWeight: "500",
-                    }}
-                  >
-                    Network routes
-                  </Paragraph>
-                  <Row
-                    gutter={21}
-                    style={{ marginTop: "-16px", marginBottom: "10px" }}
-                  >
-                    <Col
-                      xs={24}
-                      sm={24}
-                      md={20}
-                      lg={20}
-                      xl={20}
-                      xxl={20}
-                      span={20}
-                    >
-                      <Paragraph
-                        type={"secondary"}
-                        style={{ textAlign: "left", whiteSpace: "pre-line" }}
-                      >
-                        Access other networks without installing NetBird on
-                        every resource.
-                      </Paragraph>
-                    </Col>
-                    <Col
-                      xs={24}
-                      sm={24}
-                      md={1}
-                      lg={1}
-                      xl={1}
-                      xxl={1}
-                      span={1}
-                      style={{ marginTop: "-16px" }}
-                    >
-                      {peerRoutes && peerRoutes.length > 0 && (
-                        <Button type="primary" onClick={onClickAddNewRoute}>
-                          Add route
-                        </Button>
-                      )}
-                    </Col>
-                  </Row>
-                  {peerRoutes && peerRoutes.length > 0 && (
-                    <Table
-                      size={"small"}
-                      style={{ marginTop: "-10px" }}
-                      showHeader={false}
-                      scroll={{ x: 800 }}
-                      pagination={false}
-                      dataSource={peerRoutes}
-                    >
-                      <Column title="Name" dataIndex="network_id" />
-                      <Column title="Name" dataIndex="network" />
-                      <Column
-                        title="enabled"
-                        dataIndex="network"
-                        render={(e, record: any, index) => {
-                          return (
-                            <>
-                              <Switch
-                                defaultChecked={record.enabled}
-                                size="small"
-                                onChange={(checked) =>
-                                  onRouteEnableChange(checked, record)
-                                }
-                              />
-                            </>
-                          );
-                        }}
-                      />
-
-                      <Column
-                        align="right"
-                        render={(text, record: any, index) => {
-                          return (
-                            <Button
-                              danger={true}
-                              type={"text"}
-                              onClick={() => {
-                                showConfirmDelete(record.id, record.network_id);
-                              }}
-                            >
-                              Delete
-                            </Button>
-                          );
-                        }}
-                      />
-                    </Table>
-                  )}
-                  <Divider style={{ marginTop: "-12px" }}></Divider>
-                  {(peerRoutes === null || peerRoutes.length === 0) && (
-                    <Space
-                      direction="vertical"
-                      size="small"
-                      align="start"
+              {routeAddAllowed(peer.os) && (
+                <Card
+                  bordered={true}
+                  // loading={loading}ƒ
+                  style={{ marginBottom: "7px" }}
+                >
+                  <div style={{ maxWidth: "800px" }}>
+                    <Paragraph
                       style={{
-                        display: "flex",
-                        padding: "35px 0px",
-                        marginTop: "-40px",
-                        justifyContent: "center",
+                        textAlign: "left",
+                        whiteSpace: "pre-line",
+                        fontSize: "16px",
+                        fontWeight: "500",
                       }}
                     >
-                      <Paragraph
-                        style={{ textAlign: "start", whiteSpace: "pre-line" }}
+                      网络路由
+                    </Paragraph>
+                    <Row
+                      gutter={21}
+                      style={{ marginTop: "-16px", marginBottom: "10px" }}
+                    >
+                      <Col
+                        xs={24}
+                        sm={24}
+                        md={20}
+                        lg={20}
+                        xl={20}
+                        xxl={20}
+                        span={20}
                       >
-                        You don't have any routes yet
-                      </Paragraph>
-                      <Button type="primary" onClick={onClickAddNewRoute}>
-                        Add route
-                      </Button>
-                    </Space>
-                  )}
-                </div>
-              </Card>}
+                        <Paragraph
+                          type={"secondary"}
+                          style={{ textAlign: "left", whiteSpace: "pre-line" }}
+                        >
+                          在不在每个资源上安装 NetBird 的情况下访问其他网络。
+                        </Paragraph>
+                      </Col>
+                      <Col
+                        xs={24}
+                        sm={24}
+                        md={1}
+                        lg={1}
+                        xl={1}
+                        xxl={1}
+                        span={1}
+                        style={{ marginTop: "-16px" }}
+                      >
+                        {peerRoutes && peerRoutes.length > 0 && (
+                          <Button type="primary" onClick={onClickAddNewRoute}>
+                            添加路由
+                          </Button>
+                        )}
+                      </Col>
+                    </Row>
+                    {peerRoutes && peerRoutes.length > 0 && (
+                      <Table
+                        size={"small"}
+                        style={{ marginTop: "-10px" }}
+                        showHeader={false}
+                        scroll={{ x: 800 }}
+                        pagination={false}
+                        dataSource={peerRoutes}
+                      >
+                        <Column title="名称" dataIndex="network_id" />
+                        <Column title="名称" dataIndex="network" />
+                        <Column
+                          title="启用"
+                          dataIndex="network"
+                          render={(e, record: any, index) => {
+                            return (
+                              <>
+                                <Switch
+                                  defaultChecked={record.enabled}
+                                  size="small"
+                                  onChange={(checked) =>
+                                    onRouteEnableChange(checked, record)
+                                  }
+                                />
+                              </>
+                            );
+                          }}
+                        />
+
+                        <Column
+                          align="right"
+                          render={(text, record: any, index) => {
+                            return (
+                              <Button
+                                danger={true}
+                                type={"text"}
+                                onClick={() => {
+                                  showConfirmDelete(
+                                    record.id,
+                                    record.network_id
+                                  );
+                                }}
+                              >
+                                删除
+                              </Button>
+                            );
+                          }}
+                        />
+                      </Table>
+                    )}
+                    <Divider style={{ marginTop: "-12px" }}></Divider>
+                    {(peerRoutes === null || peerRoutes.length === 0) && (
+                      <Space
+                        direction="vertical"
+                        size="small"
+                        align="start"
+                        style={{
+                          display: "flex",
+                          padding: "35px 0px",
+                          marginTop: "-40px",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <Paragraph
+                          style={{ textAlign: "start", whiteSpace: "pre-line" }}
+                        >
+                          您还没有任何路由
+                        </Paragraph>
+                        <Button type="primary" onClick={onClickAddNewRoute}>
+                          添加路由
+                        </Button>
+                      </Space>
+                    )}
+                  </div>
+                </Card>
+              )}
 
               <Card bordered={true} style={{ marginBottom: "50px" }}>
                 <Col span={24}>
@@ -1120,7 +1123,7 @@ const PeerUpdate = (props: any) => {
                             margin: "0",
                           }}
                         >
-                          System info
+                          系统信息
                         </Paragraph>
                       }
                       className="system-info-panel"
@@ -1139,7 +1142,7 @@ const PeerUpdate = (props: any) => {
                               display: "inline-block",
                             }}
                           >
-                            Hostname:
+                            主机名:
                           </Text>
                           <Text type="secondary">{formPeer.hostname}</Text>
                         </Col>
@@ -1156,7 +1159,7 @@ const PeerUpdate = (props: any) => {
                               display: "inline-block",
                             }}
                           >
-                            Operating system:
+                            操作系统:
                           </Text>
                           <Text type={"secondary"}>{formPeer.os}</Text>
                         </Col>
@@ -1173,7 +1176,7 @@ const PeerUpdate = (props: any) => {
                               display: "inline-block",
                             }}
                           >
-                            Agent version:
+                            代理版本:
                           </Text>
                           <Text type="secondary">{formPeer.version}</Text>
                         </Col>
@@ -1191,7 +1194,7 @@ const PeerUpdate = (props: any) => {
                                 display: "inline-block",
                               }}
                             >
-                              UI version:
+                              UI 版本:
                             </Text>
                             <Text type={"secondary"}>
                               {formPeer.ui_version}

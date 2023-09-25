@@ -144,7 +144,7 @@ const RouteAddNew = () => {
     form
       .validateFields()
       .then(() => {
-        if (!setupNewRouteHA || formRoute.peer != "") {
+        if (!setupNewRouteHA || formRoute.peer !== "") {
           const routeToSave = createRouteToSave(formRoute);
           dispatch(
             routeActions.saveRoute.request({
@@ -155,7 +155,7 @@ const RouteAddNew = () => {
         } else {
           let groupedDataTable = transformGroupedDataTable(routes, peers);
           groupedDataTable.forEach((group) => {
-            if (group.key == previousRouteKey) {
+            if (group.key === previousRouteKey) {
               group.groupedRoutes.forEach((route) => {
                 let updateRoute: FormRoute = {
                   ...formRoute,
@@ -163,7 +163,7 @@ const RouteAddNew = () => {
                   peer: route.peer,
                   metric: route.metric,
                   enabled:
-                    formRoute.enabled != group.enabled
+                    formRoute.enabled !== group.enabled
                       ? formRoute.enabled
                       : route.enabled,
                 };
@@ -224,7 +224,7 @@ const RouteAddNew = () => {
   };
 
   const peerValidator = (_: RuleObject, value: string) => {
-    if (value == "" && newRoute) {
+    if (value === "" && newRoute) {
       return Promise.reject(new Error("Please select routing one peer"));
     }
 
@@ -232,7 +232,7 @@ const RouteAddNew = () => {
   };
 
   const selectPreValidator = (obj: RuleObject, value: string[]) => {
-    if (setupNewRouteHA && formRoute.peer == "") {
+    if (setupNewRouteHA && formRoute.peer === "") {
       let [, newGroups] = getExistingAndToCreateGroupsLists(value);
       if (newGroups.length > 0) {
         return Promise.reject(
@@ -298,7 +298,7 @@ const RouteAddNew = () => {
     <>
       {route && (
         <Modal
-          open={setupEditRouteVisible}
+          visible={setupEditRouteVisible}
           onCancel={onCancel}
           footer={
             <Space style={{ display: "flex", justifyContent: "end" }}>
@@ -337,7 +337,7 @@ const RouteAddNew = () => {
                       fontWeight: 500,
                     }}
                   >
-                    Add new routing peer
+                    添加新的路由对等点
                   </Paragraph>
                   <Paragraph
                     type={"secondary"}
@@ -350,8 +350,7 @@ const RouteAddNew = () => {
                       marginBottom: "4px",
                     }}
                   >
-                    When you add multiple routing peers, NetBird enables high
-                    availability
+                    当您添加多个路由对等点时，NetBird会启用高可用性
                   </Paragraph>
 
                   <Row align="top">
@@ -364,7 +363,7 @@ const RouteAddNew = () => {
                             fontWeight: "500",
                           }}
                         >
-                          Network Identifier
+                          网络标识符
                         </label>
                         <Paragraph
                           type={"secondary"}
@@ -374,7 +373,7 @@ const RouteAddNew = () => {
                             marginBottom: "5px",
                           }}
                         >
-                          Network name and CIDR that you are adding the route to
+                          要添加路由的网络名称和CIDR
                         </Paragraph>
                         <Form.Item
                           // name="network_id"
@@ -382,14 +381,13 @@ const RouteAddNew = () => {
                           rules={[
                             {
                               required: true,
-                              message:
-                                "Please add an identifier for this access route",
+                              message: "请为此访问路由添加标识符",
                               whitespace: true,
                             },
                           ]}
                         >
                           <Input
-                            placeholder="for example “e.g. aws-eu-central-1-vpc”"
+                            placeholder="例如“aws-eu-central-1-vpc”"
                             ref={inputNameRef}
                             disabled={true}
                             onPressEnter={() => toggleEditName(false)}
@@ -418,7 +416,7 @@ const RouteAddNew = () => {
                     fontWeight: "500",
                   }}
                 >
-                  Routing Peer
+                  路由对等点
                 </label>
                 <Paragraph
                   type={"secondary"}
@@ -428,14 +426,13 @@ const RouteAddNew = () => {
                     marginBottom: "5px",
                   }}
                 >
-                  Assign a routing peer to the network. This peer has to reside
-                  in the network
+                  将路由对等点分配给网络。此对等点必须位于网络中
                 </Paragraph>
                 <Form.Item name="peer" rules={[{ validator: peerValidator }]}>
                   <Select
                     showSearch
                     style={{ width: "100%" }}
-                    placeholder="Select Peer"
+                    placeholder="选择对等点"
                     dropdownRender={peerDropDownRender}
                     options={options}
                     allowClear={true}
@@ -450,7 +447,7 @@ const RouteAddNew = () => {
                     fontWeight: "500",
                   }}
                 >
-                  Distribution groups
+                  分发组
                 </label>
                 <Paragraph
                   type={"secondary"}
@@ -460,8 +457,7 @@ const RouteAddNew = () => {
                     marginBottom: "5px",
                   }}
                 >
-                  Advertise this route to peers that belong to the following
-                  groups
+                  将此路由广播到属于以下组的对等点
                 </Paragraph>
                 <Form.Item
                   name="groups"
@@ -471,7 +467,7 @@ const RouteAddNew = () => {
                   <Select
                     mode="tags"
                     style={{ width: "100%" }}
-                    placeholder="Associate groups with the network route"
+                    placeholder="将组与网络路由关联"
                     tagRender={blueTagRender}
                     onChange={handleChangeTags}
                     dropdownRender={dropDownRender}

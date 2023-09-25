@@ -165,12 +165,12 @@ const SetupKeyNew = () => {
   };
 
   const onChange = (data: any) => {
-    let ifReusbaleEdit = Object.keys(data).includes("reusable");
+    let ifReusableEdit = Object.keys(data).includes("reusable");
 
-    if (ifReusbaleEdit && data.reusable) {
+    if (ifReusableEdit && data.reusable) {
       form.setFieldValue("usage_limit", "unlimited");
     }
-    if (ifReusbaleEdit && !data.reusable) {
+    if (ifReusableEdit && !data.reusable) {
       form.setFieldValue("usage_limit", "1");
     }
     setFormSetupKey({ ...formSetupKey, ...data });
@@ -223,7 +223,7 @@ const SetupKeyNew = () => {
   );
 
   const changesDetected = (): boolean => {
-     return (
+    return (
       formSetupKey.name == null ||
       formSetupKey.name !== setupKey.name ||
       formSetupKey?.usage_limit !== setupKey.usage_limit
@@ -231,7 +231,7 @@ const SetupKeyNew = () => {
   };
 
   const groupsChanged = (): boolean => {
-     if (
+    if (
       setupKey &&
       setupKey?.auto_groups &&
       formSetupKey?.autoGroupNames &&
@@ -278,7 +278,7 @@ const SetupKeyNew = () => {
         >
           {!showPlainToken && (
             <>
-              <Button onClick={onCancel}>Cancel</Button>
+              <Button onClick={onCancel}>取消</Button>
               <Button
                 type="primary"
                 style={{
@@ -289,7 +289,7 @@ const SetupKeyNew = () => {
                 disabled={savedSetupKey.loading || !!!formSetupKey.name}
                 onClick={handleFormSubmit}
               >
-                Create key
+                创建密钥
               </Button>
             </>
           )}
@@ -299,7 +299,7 @@ const SetupKeyNew = () => {
               disabled={!showPlainToken}
               onClick={onCancel}
             >
-              Done
+              完成
             </Button>
           )}
         </Container>,
@@ -321,8 +321,8 @@ const SetupKeyNew = () => {
           }}
         >
           {showPlainToken
-            ? "Setup key created successfully!"
-            : " Create setup key"}
+            ? "密钥创建成功！"
+            : "创建设置密钥"}
         </Paragraph>
         <Paragraph
           type={"secondary"}
@@ -336,8 +336,8 @@ const SetupKeyNew = () => {
           }}
         >
           {showPlainToken
-            ? "This key will not be shown again, so be sure to copy it and store in a secure location"
-            : "Use this key to register new machines in your network"}
+            ? "此密钥将不再显示，请确保复制并妥善存放"
+            : "使用此密钥注册新的设备到您的网络"}
         </Paragraph>
         {!showPlainToken && (
           <Form
@@ -352,12 +352,12 @@ const SetupKeyNew = () => {
           >
             <Row>
               <Col span={24}>
-                <Paragraph style={{ fontWeight: "500" }}>Name</Paragraph>
+                <Paragraph style={{ fontWeight: "500" }}>名称</Paragraph>
                 <Paragraph
                   type={"secondary"}
                   style={{ marginTop: "-15px", marginBottom: "-5px" }}
                 >
-                  Set an easily identifiable name for your key
+                  为密钥设置一个易于识别的名称
                 </Paragraph>
               </Col>
 
@@ -366,10 +366,10 @@ const SetupKeyNew = () => {
                   style={{ marginBottom: "0px", marginTop: "10px" }}
                   name="name"
                   rules={[
-                    { required: true, message: "Please enter key name." },
+                    { required: true, message: "请输入密钥名称。" },
                   ]}
                 >
-                  <Input placeholder={`e.g. "AWS servers"`} />
+                  <Input placeholder={`例如："AWS服务器"`} />
                 </Form.Item>
               </Col>
             </Row>
@@ -383,13 +383,13 @@ const SetupKeyNew = () => {
                     fontWeight: "500",
                   }}
                 >
-                  Reusable
+                  可重复使用
                 </Paragraph>
                 <Paragraph
                   type={"secondary"}
                   style={{ whiteSpace: "pre-line", margin: 0 }}
                 >
-                  Use this type to enroll multiple peers
+                  使用此类型注册多个设备
                 </Paragraph>
               </Col>
               <Col span={6}>
@@ -418,7 +418,7 @@ const SetupKeyNew = () => {
                     fontWeight: "500",
                   }}
                 >
-                  Usage limit
+                  使用限制
                 </Paragraph>
               </Col>
 
@@ -428,7 +428,7 @@ const SetupKeyNew = () => {
                   rules={[
                     {
                       pattern: new RegExp(/(^unlimited$|[0-9])/),
-                      message: "Please enter correct usage limit.",
+                      message: "请输入正确的使用限制。",
                     },
                   ]}
                 >
@@ -442,7 +442,7 @@ const SetupKeyNew = () => {
                   type={"secondary"}
                   style={{ marginTop: "-18px", marginBottom: 0 }}
                 >
-                  For example, set to 30 if you want to enroll 30 peers
+                  例如，如果要注册30个设备，请将其设置为30
                 </Paragraph>
               </Col>
             </Row>
@@ -456,7 +456,7 @@ const SetupKeyNew = () => {
                     fontWeight: "500",
                   }}
                 >
-                  Expires in
+                  过期时间
                 </Paragraph>
               </Col>
               <Col>
@@ -468,15 +468,15 @@ const SetupKeyNew = () => {
                       min: 1,
                       max: 365,
                       message:
-                        "The expiration should be set between 1 and 365 days",
+                        "过期时间应设置在1到365天之间",
                     },
-                    { required: true, message: "Please enter expiration date" },
+                    { required: true, message: "请输入过期日期" },
                   ]}
                 >
                   <InputNumber
                     placeholder={`2`}
                     type="number"
-                    addonAfter=" Days"
+                    addonAfter=" 天"
                     value={setupKey.expires_in}
                     style={{ width: "160px", marginTop: "5px" }}
                   />
@@ -485,7 +485,7 @@ const SetupKeyNew = () => {
                   type={"secondary"}
                   style={{ marginTop: "-18px", marginBottom: 0 }}
                 >
-                  Should be between 1 and 365 days
+                  应设置在1到365天之间
                 </Paragraph>
               </Col>
             </Row>
@@ -499,14 +499,13 @@ const SetupKeyNew = () => {
                     fontWeight: "500",
                   }}
                 >
-                  Ephemeral peers
+                  临时设备
                 </Paragraph>
                 <Paragraph
                   type={"secondary"}
                   style={{ whiteSpace: "pre-line", margin: 0 }}
                 >
-                  Peers that are offline for over 10 minutes will be removed
-                  automatically
+                  超过10分钟离线的设备将被自动移除
                 </Paragraph>
               </Col>
               <Col span={6}>
@@ -535,11 +534,10 @@ const SetupKeyNew = () => {
                     fontWeight: "500",
                   }}
                 >
-                  Auto-assigned groups
+                  自动分配的设备组
                 </Paragraph>
                 <Text type={"secondary"}>
-                  These groups will be automatically assigned to peers enrolled
-                  with this key
+                  这些设备组将自动分配给使用此密钥注册的设备
                 </Text>
               </Col>
               <Col span={24}>
@@ -550,10 +548,10 @@ const SetupKeyNew = () => {
                   <Select
                     mode="tags"
                     style={{ width: "100%" }}
-                    placeholder="Associate groups with the key"
+                    placeholder="与密钥关联的设备组"
                     tagRender={blueTagRender}
                     dropdownRender={dropDownRender}
-                    // enabled only when we have a new key !setupkey.id or when the key is valid
+                    // 仅在新密钥 !setupkey.id 或密钥有效时启用
                     disabled={!(!setupKey.id || setupKey.valid)}
                     optionFilterProp="serchValue"
                   >
@@ -568,14 +566,14 @@ const SetupKeyNew = () => {
             </Row>
             <Row style={{ marginTop: "24px", marginBottom: "24px" }}>
               <Text type={"secondary"}>
-                Learn more about
+                了解更多关于
                 <a
                   target="_blank"
                   rel="noreferrer"
                   href="https://docs.netbird.io/how-to/register-machines-using-setup-keys"
                 >
                   {" "}
-                  setup keys
+                  设置密钥
                 </a>
               </Text>
             </Row>

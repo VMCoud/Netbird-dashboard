@@ -541,7 +541,7 @@ const NameServerGroupAdd = () => {
                   fontWeight: "500",
                 }}
               >
-                Add nameserver
+                添加命名服务器
               </Paragraph>
               <Paragraph
                 type={"secondary"}
@@ -554,7 +554,7 @@ const NameServerGroupAdd = () => {
                   marginBottom: "4px",
                 }}
               >
-                Use this nameserver to resolve domains in your network
+                使用此命名服务器解析网络中的域名
               </Paragraph>
             </Col>
           </Row>
@@ -602,7 +602,7 @@ const NameServerGroupAdd = () => {
                           >
                             {formNSGroup.id
                               ? formNSGroup.name
-                              : "New nameserver group"}
+                              : "新建命名服务器组"}
                           </div>
                         ) : (
                           <div style={{ lineHeight: "15px" }}>
@@ -613,15 +613,14 @@ const NameServerGroupAdd = () => {
                                 fontWeight: "500",
                               }}
                             >
-                              Name
+                              名称
                             </label>
                             <Form.Item
                               name="name"
                               rules={[
                                 {
                                   required: true,
-                                  message:
-                                    "Please add an identifier for this nameserver group",
+                                  message: "请为此命名服务器组添加一个标识符",
                                   whitespace: true,
                                 },
                                 {
@@ -634,7 +633,7 @@ const NameServerGroupAdd = () => {
                               }}
                             >
                               <Input
-                                placeholder="e.g. Public DNS"
+                                placeholder="例如：公共DNS"
                                 ref={inputNameRef}
                                 onPressEnter={() => toggleEditName(false)}
                                 onBlur={() => toggleEditName(false)}
@@ -655,7 +654,7 @@ const NameServerGroupAdd = () => {
                             {formNSGroup.description &&
                             formNSGroup.description.trim() !== ""
                               ? formNSGroup.description
-                              : "Add description"}
+                              : "添加描述"}
                           </div>
                         ) : (
                           <div
@@ -668,14 +667,14 @@ const NameServerGroupAdd = () => {
                                 fontWeight: "500",
                               }}
                             >
-                              Description
+                              描述
                             </label>
                             <Form.Item
                               name="description"
                               style={{ marginTop: "8px" }}
                             >
                               <Input
-                                placeholder="Add description..."
+                                placeholder="添加描述..."
                                 ref={inputDescriptionRef}
                                 onPressEnter={() =>
                                   toggleEditDescription(false)
@@ -709,7 +708,7 @@ const NameServerGroupAdd = () => {
                       fontWeight: "500",
                     }}
                   >
-                    Distribution groups
+                    分发组
                   </label>
                   <Paragraph
                     type={"secondary"}
@@ -719,8 +718,7 @@ const NameServerGroupAdd = () => {
                       marginBottom: "4px",
                     }}
                   >
-                    Advertise this route to peers that belong to the following
-                    groups
+                    将此路由广播给属于以下组的对等方
                   </Paragraph>
                   <Form.Item
                     name="groups"
@@ -729,7 +727,7 @@ const NameServerGroupAdd = () => {
                     <Select
                       mode="tags"
                       style={{ width: "100%" }}
-                      placeholder="Associate groups with the NS group"
+                      placeholder="将组与NS组关联"
                       tagRender={blueTagRender}
                       onChange={handleChangeTags}
                       dropdownRender={dropDownRender}
@@ -764,7 +762,7 @@ const NameServerGroupAdd = () => {
                             fontWeight: "500",
                           }}
                         >
-                          Enabled
+                          启用
                         </label>
                         <Paragraph
                           type={"secondary"}
@@ -775,8 +773,8 @@ const NameServerGroupAdd = () => {
                           }}
                         >
                           {formNSGroup.enabled
-                            ? "Disable this server if you don't want it to apply immediately"
-                            : " Enable this server if you want it to apply immediately"}
+                            ? "如果您不希望立即应用此服务器，请禁用它"
+                            : "如果您希望立即应用此服务器，请启用它"}
                         </Paragraph>
                       </div>
                     </div>
@@ -787,7 +785,7 @@ const NameServerGroupAdd = () => {
                   style={{ marginTop: "10px", marginBottom: "24px" }}
                 >
                   <Text type={"secondary"}>
-                    Learn more about
+                    了解更多关于
                     <a
                       target="_blank"
                       rel="noreferrer"
@@ -811,14 +809,14 @@ const NameServerGroupAdd = () => {
                     }}
                   >
                     <Button onClick={onCancel} disabled={savedNSGroup.loading}>
-                      Cancel
+                      取消
                     </Button>
                     <Button
                       type="primary"
                       onClick={handleFormSubmit}
                       disabled={savedNSGroup.loading}
                     >
-                      Create nameserver
+                      创建命名服务器
                     </Button>
                   </Space>
                 </Col>
@@ -830,7 +828,7 @@ const NameServerGroupAdd = () => {
                 <Row align="middle">
                   <Col span={24} style={{ textAlign: "left" }}>
                     <span className="ant-form-item font-500">
-                      Select a predefined one
+                      选择预定义的命名服务器
                     </span>
                   </Col>
                 </Row>
@@ -867,7 +865,7 @@ const NameServerGroupAdd = () => {
                         <Typography.Link
                           onClick={() => handleSelectChange(customChoice)}
                         >
-                          or create custom
+                          或创建自定义
                         </Typography.Link>
                       </span>
                     </Col>
@@ -882,7 +880,7 @@ const NameServerGroupAdd = () => {
                 }}
               >
                 <Button onClick={onCancel} type="primary">
-                  Cancel
+                  取消
                 </Button>
               </Space>
             </>
