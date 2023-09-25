@@ -798,7 +798,7 @@ const PeerUpdate = (props: any) => {
                                 fontWeight: "500",
                               }}
                             >
-                              NetBird IP
+                              内网IP
                             </span>
 
                             {formPeer.connected ? (

@@ -35,14 +35,14 @@ const Navbar = () => {
   const [isRefreshingUserState, setIsRefreshingUserState] = useState(false);
 
   const items = [
-    { label: <Link data-testid="peers-page" to="/peers">设备</Link>, key: "/peers" },
-    { label: <Link data-testid="setup-keys-page" to="/setup-keys">设置密钥</Link>, key: "/setup-keys" },
+    { label: <Link data-testid="peers-page" to="/peers">设备管理</Link>, key: "/peers" },
+    { label: <Link data-testid="setup-keys-page" to="/setup-keys">密钥配置</Link>, key: "/setup-keys" },
     { label: <Link data-testid="access-control-page" to="/acls">访问控制</Link>, key: "/acls" },
-    { label: <Link data-testid="network-routes-page" to="/routes">网络路由</Link>, key: "/routes" },
-    { label: <Link data-testid="dns-page" to="/dns">DNS</Link>, key: "/dns" },
-    { label: <Link data-testid="usersf-page" to="/users">用户</Link>, key: "/users" },
-    { label: <Link to="/activity">活动</Link>, key: "/activity" },
-    { label: <Link to="/settings">设置</Link>, key: "/settings" },
+    { label: <Link data-testid="network-routes-page" to="/routes">路由配置</Link>, key: "/routes" },
+    { label: <Link data-testid="dns-page" to="/dns">DNS解析</Link>, key: "/dns" },
+    { label: <Link data-testid="usersf-page" to="/users">用户管理</Link>, key: "/users" },
+    { label: <Link to="/activity">活动日志</Link>, key: "/activity" },
+    { label: <Link to="/settings">设置选项</Link>, key: "/settings" },
   ] as ItemType[];
 
   const userEmailKey = "user-email";

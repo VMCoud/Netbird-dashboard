@@ -632,7 +632,7 @@ export const Peers = () => {
           <Container style={{ paddingTop: "40px" }}>
             <Row>
               <Col span={24}>
-                <Title className="page-heading">{isAdmin ? "Peers" : "My peers"}</Title>
+                <Title className="page-heading">{isAdmin ? "设备" : "我的设备"}</Title>
                 {peers.length ? (
                   <Paragraph style={{ marginTop: "5px" }}>
                     {isAdmin ? "您私有网络中连接的所有机器和设备的列表。使用此视图管理设备" :
