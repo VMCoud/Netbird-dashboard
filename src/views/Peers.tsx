@@ -220,7 +220,7 @@ export const Peers = () => {
       message.loading({ content: "正在删除...", key: deleteKey, style });
     } else if (deletedPeer.success) {
       message.success({
-        content: "已成功删除 Peer。",
+        content: "已成功删除设备。",
         key: deleteKey,
         duration: 2,
         style,
@@ -228,7 +228,7 @@ export const Peers = () => {
       dispatch(peerActions.resetDeletedPeer(null));
     } else if (deletedPeer.error) {
       message.error({
-        content: "删除 Peer 失败。您可能没有足够的权限。",
+        content: "删除设备失败。您可能没有足够的权限。",
         key: deleteKey,
         duration: 2,
         style,
@@ -313,13 +313,13 @@ export const Peers = () => {
 
     let content = (
       <Paragraph>
-        确定要从您的帐户中删除 Peer 吗？
+        确定要从您的帐户中删除设备吗？
       </Paragraph>
     );
     let contentModule = <div>{content}</div>;
     if (peerRoutes.length) {
       let contentWithRoutes =
-        "删除此 Peer 将禁用以下路由: " + peerRoutes;
+        "删除此设备将禁用以下路由: " + peerRoutes;
       let B = (
         <Alert
           message={contentWithRoutes}
@@ -337,7 +337,7 @@ export const Peers = () => {
               message={
                 <div>
                   <>
-                    此 Peer 是一个或多个网络路由的一部分。删除此 Peer 将禁用以下路由:
+                    此 Peer 是一个或多个网络路由的一部分。删除此设备将禁用以下路由:
                   </>
                   <List
                     dataSource={peerRoutes}
@@ -363,7 +363,7 @@ export const Peers = () => {
     let name = record ? record.name : "";
     confirmModal.confirm({
       icon: <ExclamationCircleOutlined />,
-      title: <span className="font-500">删除 Peer {name}</span>,
+      title: <span className="font-500">删除设备{name}</span>,
       width: 600,
       content: contentModule,
       onOk() {

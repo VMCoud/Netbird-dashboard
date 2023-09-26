@@ -354,7 +354,7 @@ const NameServerGroupUpdate = (props: any) => {
               display: "block",
             }}
           >
-            Nameservers
+            域名服务器
           </label>
 
           {!!fields.length && (
@@ -364,7 +364,7 @@ const NameServerGroupUpdate = (props: any) => {
               </Col>
               <Col span={10} style={{ textAlign: "left" }}>
                 <Text style={{ color: "#818183", paddingLeft: "5px" }}>
-                  Nameserver IP
+                域名服务器 IP
                 </Text>
               </Col>
               <Col span={4} style={{ textAlign: "left" }}>
@@ -448,7 +448,7 @@ const NameServerGroupUpdate = (props: any) => {
                   disabled={fields.length > 1}
                   icon={<PlusOutlined />}
                 >
-                  Add Nameserver
+                  添加域名服务器
                 </Button>
                 <Form.ErrorList errors={errors} />
               </Form.Item>
@@ -476,7 +476,7 @@ const NameServerGroupUpdate = (props: any) => {
                 fontWeight: "500",
               }}
             >
-              Match domains
+              匹配域名
             </label>
             <Paragraph
               type={"secondary"}
@@ -485,7 +485,7 @@ const NameServerGroupUpdate = (props: any) => {
                 marginBottom: "10px",
               }}
             >
-              Add domain if you want to have a specific one
+              如果您想要添加特定的域名，请提供域名。
             </Paragraph>
           </Col>
         </Space>
