@@ -58,9 +58,6 @@ export const Activity = () => {
       })
     );
   }, []);
-  // useEffect(() => {
-  //   setDataTable(transformDataTable(events));
-  // }, [events]);
 
   useEffect(() => {
     setDataTable(transformDataTable(filterDataTable("")));
@@ -108,11 +105,6 @@ export const Activity = () => {
     storeFilterState("activityFilter", "search", e.target.value);
   };
 
-  // const searchDataTable = () => {
-  //   const data = filterDataTable();
-  //   setDataTable(transformDataTable(data));
-  // };
-
   const getActivityRow = (objectType: string, name: string, text: string) => {
     return (
       <Row>
@@ -128,40 +120,40 @@ export const Activity = () => {
     let body = <Text>{event.activity}</Text>;
     switch (event.activity_code) {
       case "peer.group.add":
-        return getActivityRow("Group", event.meta.group, "added to peer");
+        return getActivityRow("群组", event.meta.group, "加入到对等群组中");
       case "peer.group.delete":
-        return getActivityRow("Group", event.meta.group, "removed from peer");
+        return getActivityRow("群组", event.meta.group, "从对等群组中移除");
       case "user.group.add":
-        return getActivityRow("Group", event.meta.group, "added to user");
+        return getActivityRow("群组", event.meta.group, "加入到用户群组中");
       case "user.group.delete":
-        return getActivityRow("Group", event.meta.group, "removed from user");
+        return getActivityRow("群组", event.meta.group, "从用户群组中移除");
       case "setupkey.group.add":
-        return getActivityRow("Group", event.meta.group, "added to setup key");
+        return getActivityRow("群组", event.meta.group, "加入到设置密钥中");
       case "setupkey.group.delete":
-        return getActivityRow("Group", event.meta.group, "removed setup key");
+        return getActivityRow("群组", event.meta.group, "从设置密钥中移除");
       case "dns.setting.disabled.management.group.add":
         return getActivityRow(
-          "Group",
+          "群组",
           event.meta.group,
-          "added to disabled management DNS setting"
+          "加入到禁用管理DNS设置中"
         );
       case "dns.setting.disabled.management.group.delete":
         return getActivityRow(
-          "Group",
+          "群组",
           event.meta.group,
-          "removed from disabled management DNS setting"
+          "从禁用管理DNS设置中移除"
         );
       case "personal.access.token.create":
         return getActivityRow(
-          "Personal access token",
+          "个人访问令牌",
           event.meta.name,
-          "added to user"
+          "添加到用户中"
         );
       case "personal.access.token.delete":
         return getActivityRow(
-          "Personal access token",
+          "个人访问令牌",
           event.meta.name,
-          "removed from user"
+          "从用户中移除"
         );
     }
     return body;
@@ -178,7 +170,7 @@ export const Activity = () => {
           }}
         >
           <Row>
-            <Text type="secondary">System</Text>
+            <Text type="secondary">系统</Text>
           </Row>
         </span>
       );
@@ -194,7 +186,7 @@ export const Activity = () => {
             }}
           >
             <Row>
-              <Text type="secondary">System</Text>
+              <Text type="secondary">系统</Text>
             </Row>
           </span>
         );
@@ -216,7 +208,7 @@ export const Activity = () => {
               </Row>
               <Row>
                 {" "}
-                <Text type="secondary">Setup Key</Text>{" "}
+                <Text type="secondary">设置密钥</Text>{" "}
               </Row>
             </span>
           );
@@ -243,7 +235,7 @@ export const Activity = () => {
               <Row>
                 {" "}
                 <Text type="secondary">
-                  {event.initiator_email ? event.initiator_email : "User"}
+                  {event.initiator_email ? event.initiator_email : "用户"}
                 </Text>{" "}
               </Row>
             </span>
@@ -288,11 +280,11 @@ export const Activity = () => {
       case "rule.add":
       case "rule.delete":
       case "rule.update":
-        return renderMultiRowSpan(event.meta.name, "Rule");
+        return renderMultiRowSpan(event.meta.name, "规则");
       case "policy.add":
       case "policy.delete":
       case "policy.update":
-        return renderMultiRowSpan(event.meta.name, "Policy");
+        return renderMultiRowSpan(event.meta.name, "策略");
       case "setupkey.add":
       case "setupkey.revoke":
       case "setupkey.update":
@@ -301,16 +293,16 @@ export const Activity = () => {
         cType = capitalize(event.meta.type);
         return renderMultiRowSpan(
           event.meta.name,
-          cType + " setup key " + event.meta.key
+          cType + "设置密钥 " + event.meta.key
         );
       case "group.add":
       case "group.update":
       case "group.delete":
-        return renderMultiRowSpan(event.meta.name, "Group");
+        return renderMultiRowSpan(event.meta.name, "群组");
       case "nameserver.group.add":
       case "nameserver.group.update":
       case "nameserver.group.delete":
-        return renderMultiRowSpan(event.meta.name, "Nameserver group");
+        return renderMultiRowSpan(event.meta.name, "DNS服务器群组");
       case "setupkey.peer.add":
       case "user.peer.add":
       case "user.peer.delete":
@@ -327,7 +319,7 @@ export const Activity = () => {
       case "route.update":
         return renderMultiRowSpan(
           event.meta.name,
-          "Route for range " + event.meta.network_range
+          "范围为 " + event.meta.network_range + " 的路由"
         );
       case "user.group.add":
       case "user.group.delete":
@@ -335,19 +327,19 @@ export const Activity = () => {
         if (event.meta.email || event.meta.username || event.target_id) {
           return renderMultiRowSpan(
             event.meta.username ? event.meta.username : event.target_id,
-            event.meta.email ? event.meta.email : "User"
+            event.meta.email ? event.meta.email : "用户"
           );
         }
         if (event.meta.user_name) {
           return renderMultiRowSpan(
             event.meta.user_name,
-            event.meta.is_service_user ? "Service User" : "User"
+            event.meta.is_service_user ? "服务用户" : "用户"
           );
         }
         return "-";
       case "setupkey.group.add":
       case "setupkey.group.delete":
-        return renderMultiRowSpan(event.meta.setupkey, "Setup Key");
+        return renderMultiRowSpan(event.meta.setupkey, "设置密钥");
       case "peer.group.add":
       case "peer.group.delete":
         return renderMultiRowSpan(event.meta.peer_fqdn, event.meta.peer_ip);
@@ -356,25 +348,25 @@ export const Activity = () => {
       case "account.setting.peer.login.expiration.enable":
       case "account.setting.peer.login.expiration.disable":
       case "account.setting.peer.login.expiration.update":
-        return renderMultiRowSpan("", "System setting");
+        return renderMultiRowSpan("", "系统设置");
       case "personal.access.token.create":
       case "personal.access.token.delete":
         if (event.meta.email || event.meta.username || event.target_id) {
           return renderMultiRowSpan(
             event.meta.username ? event.meta.username : event.target_id,
-            event.meta.email ? event.meta.email : "User"
+            event.meta.email ? event.meta.email : "用户"
           );
         }
         if (event.meta.user_name) {
           return renderMultiRowSpan(
             event.meta.user_name,
-            event.meta.is_service_user ? "Service User" : "User"
+            event.meta.is_service_user ? "服务用户" : "用户"
           );
         }
         return "-";
       case "service.user.create":
       case "service.user.delete":
-        return renderMultiRowSpan(event.meta.username, "Service User");
+        return renderMultiRowSpan(event.meta.username, "服务用户");
       case "user.invite":
       case "user.block":
       case "user.delete":
@@ -382,12 +374,12 @@ export const Activity = () => {
         if (event.meta.email || event.meta.username || event.target_id) {
           return renderMultiRowSpan(
             event.meta.username ? event.meta.username : event.target_id,
-            event.meta.email ? event.meta.email : "User"
+            event.meta.email ? event.meta.email : "用户"
           );
         }
         break;
       default:
-        console.error("unknown event - missing handling", event.activity_code);
+        console.error("未知事件 - 缺少处理", event.activity_code);
     }
 
     return event.target_id;
@@ -398,15 +390,15 @@ export const Activity = () => {
       <Container style={{ paddingTop: "40px" }}>
         <Row>
           <Col span={24}>
-            <Title className="page-heading">Activity</Title>
+            <Title className="page-heading">活动记录</Title>
             <Paragraph type="secondary">
-              Here you can see all the account and network activity events.{" "}
+              在这里您可以查看所有账户和网络活动事件。{" "}
               <a
                 rel="noreferrer"
                 target="_blank"
                 href="https://docs.netbird.io/how-to/monitor-system-and-network-activity"
               >
-                Learn more
+                了解更多
               </a>
             </Paragraph>
             <Space
@@ -419,8 +411,7 @@ export const Activity = () => {
                   <Input
                     allowClear
                     value={textToSearch}
-                    // onPressEnter={searchDataTable}
-                    placeholder="Search..."
+                    placeholder="搜索..."
                     onChange={onChangeTextToSearch}
                   />
                 </Col>
@@ -452,7 +443,7 @@ export const Activity = () => {
                     pageSize,
                     showSizeChanger: false,
                     showTotal: (total, range) =>
-                      `Showing ${range[0]} to ${range[1]} of ${total} activity events`,
+                      `显示 ${range[0]} 到 ${range[1]} 共 ${total} 条活动记录`,
                   }}
                   className="card-table"
                   showSorterTooltip={false}
@@ -461,28 +452,28 @@ export const Activity = () => {
                   dataSource={dataTable}
                 >
                   <Column
-                    title="Timestamp"
+                    title="时间戳"
                     dataIndex="timestamp"
                     render={(text, record, index) => {
                       return formatDateTime(text);
                     }}
                   />
                   <Column
-                    title="Activity"
+                    title="活动"
                     dataIndex="activity"
                     render={(text, record, index) => {
                       return renderActivity(record as EventDataTable);
                     }}
                   />
                   <Column
-                    title="Initiated By"
+                    title="发起人"
                     dataIndex="initiator_id"
                     render={(text, record, index) => {
                       return renderInitiator(record as EventDataTable);
                     }}
                   />
                   <Column
-                    title="Target"
+                    title="目标"
                     dataIndex="target_id"
                     render={(text, record, index) => {
                       return renderTarget(record as EventDataTable);
