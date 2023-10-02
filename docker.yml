@@ -1,0 +1,115 @@
+version: "3.4"
+services:
+  # Caddy reverse proxy
+  caddy:
+    image: caddy
+    restart: unless-stopped
+    networks: [ netbird ]
+    ports:
+      - '443:443'
+      - '80:80'
+      - '8080:8080'
+    volumes:
+      - netbird_caddy_data:/data
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    networks:
+      netbird:
+        ipv4_address: 172.20.0.2  # 添加固定IP
+  #UI dashboard
+  dashboard:
+    image: kicunlock/dashboard:v1.16.6
+    restart: unless-stopped
+    networks: [netbird]
+    env_file:
+      - ./dashboard.env
+    networks:
+      netbird:
+        ipv4_address: 172.20.0.3  # 添加固定IP
+  # Signal
+  signal:
+    image: netbirdio/signal:latest
+    restart: unless-stopped
+    networks: [netbird]
+    networks:
+      netbird:
+        ipv4_address: 172.20.0.4  # 添加固定IP
+  # Management
+  management:
+    image: netbirdio/management:latest
+    restart: unless-stopped
+    networks: [netbird]
+    volumes:
+      - netbird_management:/var/lib/netbird
+      - ./management.json:/etc/netbird/management.json
+    command: [
+      "--port", "80",
+      "--log-file", "console",
+      "--log-level", "info",
+      "--disable-anonymous-metrics=false",
+      "--single-account-mode-domain=netbird.selfhosted",
+      "--dns-domain=netbird.selfhosted",
+      "--idp-sign-key-refresh-enabled",
+    ]
+    networks:
+      netbird:
+        ipv4_address: 172.20.0.5  # 添加固定IP
+  # Coturn, AKA relay server
+  coturn:
+    image: coturn/coturn
+    restart: unless-stopped
+    domainname: netbird.relay.selfhosted
+    volumes:
+      - ./turnserver.conf:/etc/turnserver.conf:ro
+    network_mode: host
+    command:
+      - -c /etc/turnserver.conf
+  # Zitadel - identity provider
+  zitadel:
+    restart: 'always'
+    networks: [netbird]
+    image: 'ghcr.io/zitadel/zitadel:v2.31.3'
+    command: 'start-from-init --masterkeyFromEnv --tlsMode external'
+    env_file:
+      - ./zitadel.env
+    depends_on:
+      crdb:
+        condition: 'service_healthy'
+    volumes:
+      - ./machinekey:/machinekey
+      - netbird_zitadel_certs:/crdb-certs:ro
+    networks:
+      netbird:
+        ipv4_address: 172.20.0.6  # 添加固定IP
+  # CockroachDB for zitadel
+  crdb:
+    restart: 'always'
+    networks: [netbird]
+    image: 'cockroachdb/cockroach:v22.2.2'
+    command: 'start-single-node --advertise-addr crdb'
+    volumes:
+      - netbird_crdb_data:/cockroach/cockroach-data
+      - netbird_crdb_certs:/cockroach/certs
+      - netbird_zitadel_certs:/zitadel-certs
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/health?ready=1" ]
+      interval: '10s'
+      timeout: '30s'
+      retries: 5
+      start_period: '20s'
+    networks:
+      netbird:
+        ipv4_address: 172.20.0.7  # 添加固定IP
+
+volumes:
+  netbird_management:
+  netbird_caddy_data:
+  netbird_crdb_data:
+  netbird_crdb_certs:
+  netbird_zitadel_certs:
+
+networks:
+  netbird:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16
