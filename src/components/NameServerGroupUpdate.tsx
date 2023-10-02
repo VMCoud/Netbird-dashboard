@@ -325,7 +325,7 @@ const NameServerGroupUpdate = (props: any) => {
                   fontWeight: "500",
                 }}
               >
-                Enabled
+                启用
               </label>
               <Paragraph
                 type={"secondary"}
@@ -336,8 +336,8 @@ const NameServerGroupUpdate = (props: any) => {
                 }}
               >
                 {formNSGroup.enabled
-                  ? "Disable this server if you don't want the configuration to apply immediately"
-                  : " Enable this server if you want the configuration to apply immediately"}
+                  ? "如果您不希望立即应用配置，请禁用此服务器"
+                  : " 如果您希望配置立即应用，请启用此服务器"}
               </Paragraph>
             </div>
           </div>
@@ -369,7 +369,7 @@ const NameServerGroupUpdate = (props: any) => {
               </Col>
               <Col span={4} style={{ textAlign: "left" }}>
                 <Text style={{ color: "#818183", paddingLeft: "5px" }}>
-                  Port
+                  端口
                 </Text>
               </Col>
               <Col span={4} />
@@ -536,7 +536,7 @@ const NameServerGroupUpdate = (props: any) => {
               icon={<PlusOutlined />}
               style={{ marginTop: "5px", maxWidth: "280px" }}
             >
-              Add Domain
+              添加域名
             </Button>
           </Form.Item>
         </Col>
@@ -606,7 +606,7 @@ const NameServerGroupUpdate = (props: any) => {
                             >
                               {formNSGroup.id
                                 ? formNSGroup.name
-                                : "New nameserver group"}
+                                : "新名称服务器组"}
                             </div>
                           ) : (
                             <Row>
@@ -732,7 +732,7 @@ const NameServerGroupUpdate = (props: any) => {
                     display: "block",
                   }}
                 >
-                  Distribution groups
+                  关联组
                 </label>
                 <Form.Item
                   name="groups"
