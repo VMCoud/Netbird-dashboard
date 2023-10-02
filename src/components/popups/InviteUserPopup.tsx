@@ -120,7 +120,7 @@ const InviteUserPopup = () => {
 
     if (hasSpaceNamed.length) {
       return Promise.reject(
-        new Error("Group names with just spaces are not allowed")
+        new Error("仅含空格的群组名称是不被允许的")
       );
     }
 
@@ -224,7 +224,7 @@ const InviteUserPopup = () => {
               paddingBottom: "25px",
             }}
           >
-            {"Invite a user to your network and set their permissions."}
+            {"邀请用户加入您的网络并设置他们的权限。"}
           </Paragraph>
           <Form
             layout="vertical"
@@ -237,17 +237,17 @@ const InviteUserPopup = () => {
             <Row gutter={16}>
               <Col span={24}>
                 <Paragraph style={{ fontWeight: "500", marginTop: "-10px" }}>
-                  Name
+                  名称
                 </Paragraph>
                 <Paragraph type={"secondary"} style={{ marginTop: "-15px" }}>
-                  Set a name to easily identify the user
+                  设置一个名称以便轻松识别用户
                 </Paragraph>
                 <Form.Item
                   name="name"
                   rules={[
                     {
                       required: true,
-                      message: "Please add a name for this user",
+                      message: "请为此用户添加一个名字",
                       whitespace: true,
                     },
                   ]}
@@ -262,17 +262,17 @@ const InviteUserPopup = () => {
               </Col>
               <Col span={24}>
                 <Paragraph style={{ fontWeight: "500", marginTop: "0px" }}>
-                  Email
+                  邮箱
                 </Paragraph>
                 <Paragraph type={"secondary"} style={{ marginTop: "-15px" }}>
-                  Provide the email address of the user
+                  提供用户的电子邮件地址
                 </Paragraph>
                 <Form.Item
                   name="email"
                   rules={[
                     {
                       required: true,
-                      message: "Please add a valid email address for this user",
+                      message: "请为此用户添加一个有效的电子邮件地址",
                       whitespace: false,
                       pattern: new RegExp(
                         /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
@@ -290,17 +290,17 @@ const InviteUserPopup = () => {
               </Col>
               <Col span={24}>
                 <Paragraph style={{ fontWeight: "500", marginTop: "0px" }}>
-                  Role
+                  角色
                 </Paragraph>
                 <Paragraph type={"secondary"} style={{ marginTop: "-15px" }}>
-                  Set a role for the user to assign access permissions
+                  为用户设置角色以分配访问权限
                 </Paragraph>
                 <Form.Item
                   name="role"
                   rules={[
                     {
                       required: true,
-                      message: "Please select a role for this user",
+                      message: "请为此用户选择一个角色",
                       whitespace: true,
                     },
                   ]}
@@ -314,21 +314,21 @@ const InviteUserPopup = () => {
               </Col>
               <Col span={24}>
                 <Paragraph style={{ fontWeight: "500", marginTop: "0px" }}>
-                  Auto-assigned groups
+                  自动分配的群组
                 </Paragraph>
                 <Paragraph type={"secondary"} style={{ marginTop: "-15px" }}>
-                  Add groups, that will be assigned to peers added by this user
+                  添加群组，将被分配给由此用户添加的同伴
                 </Paragraph>
                 <Form.Item
                   name="autoGroupsNames"
-                  tooltip="Every peer enrolled with this user will be automatically added to these groups"
+                  tooltip="所有注册此用户的同伴将自动添加到这些组中。"
                   rules={[{ validator: selectValidator }]}
                   style={{ marginTop: "-8px" }}
                 >
                   <Select
                     mode="tags"
                     style={{ width: "100%" }}
-                    placeholder="Associate groups with the user"
+                    placeholder="将用户与群组关联"
                     tagRender={blueTagRender}
                     onChange={handleChangeTags}
                     optionFilterProp="serchValue"
@@ -344,14 +344,14 @@ const InviteUserPopup = () => {
               </Col>
               <Col span={24}>
                 <Text type={"secondary"}>
-                  Learn more about
+                  了解更多关于
                   <a
                     target="_blank"
                     rel="noreferrer"
                     href="https://docs.netbird.io/how-to/add-users-to-your-network"
                   >
                     {" "}
-                    user management
+                    用户管理
                   </a>
                 </Text>
               </Col>

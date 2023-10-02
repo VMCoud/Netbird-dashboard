@@ -826,8 +826,7 @@ const AccessControlNew = () => {
                     style={{ fontWeight: "500" }}
                     rules={[
                       {
-                        message:
-                          "有向流量需要至少一个端口",
+                        message:"有向流量需要至少一个端口",
                         validator: selectPortProtocolValidator,
                         required: false,
                       },

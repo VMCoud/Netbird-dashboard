@@ -79,7 +79,7 @@ export const AddPeerPopup: React.FC<Props> = ({
                        textAlign: "center",
                        whiteSpace: "pre-line",
                    }}>
-            To get started, install NetBird and log in using your {"\n"} email account.
+            要开始，请安装NetBird并使用您的 {"\n"} 邮箱账户登录。
         </Paragraph>
 
         <Tabs centered={!isMobile}
@@ -89,11 +89,9 @@ export const AddPeerPopup: React.FC<Props> = ({
                    style={{
                        marginTop: "15px",
                    }}>
-            After that you should be connected. Add more devices to your network or manage your existing devices in the
-            admin panel.
-            If you have further questions check out our {<Link target="_blank"
-                                                               href={"https://docs.netbird.io/how-to/getting-started#installation"}>installation
-            guide</Link>}
+            之后，你应该就能连接上了。在管理员面板中将更多设备添加到你的网络或管理你现有的设备。
+如果你还有其他问题，请查看我们的{<Link target="_blank"
+                                                               href={"https://docs.netbird.io/how-to/getting-started#installation"}>安装文档</Link>}
         </Paragraph>
     </>
 }

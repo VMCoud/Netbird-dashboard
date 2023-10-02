@@ -131,12 +131,33 @@ const NameServerGroupAdd = () => {
     setFormNSGroup({ ...formNSGroup, ...changedValues });
   };
 
+  let aliyunChoice = "Aliyun DNS";
   let googleChoice = "Google DNS";
   let cloudflareChoice = "Cloudflare DNS";
   let quad9Choice = "Quad9 DNS";
   let customChoice = "Add custom nameserver";
 
   let defaultDNSOptions: NameServerGroup[] = [
+    {
+      name: aliyunChoice,
+      description: "Aliyun DNS servers",
+      domains: [],
+      primary: true,
+      nameservers: [
+        {
+          ip: "223.5.5.5",
+          ns_type: "udp",
+          port: 53,
+        },
+        {
+          ip: "223.6.6.6",
+          ns_type: "udp",
+          port: 53,
+        },
+      ],
+      groups: [],
+      enabled: true,
+    },
     {
       name: googleChoice,
       description: "Google DNS servers",
@@ -838,6 +859,10 @@ const NameServerGroupAdd = () => {
                       style={{ width: "100%" }}
                       onChange={handleSelectChange}
                       options={[
+                        {
+                          value: aliyunChoice,
+                          label: aliyunChoice,
+                        },
                         {
                           value: googleChoice,
                           label: googleChoice,

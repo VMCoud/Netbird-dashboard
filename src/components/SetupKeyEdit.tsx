@@ -185,7 +185,7 @@ const SetupKeyNew = (props: any) => {
 
     if (hasSpaceNamed.length) {
       return Promise.reject(
-        new Error("Group names with just spaces are not allowed")
+        new Error("仅含空格的群组名称是不被允许的")
       );
     }
 
@@ -199,7 +199,7 @@ const SetupKeyNew = (props: any) => {
       <Row style={{ padding: "0 8px 4px" }}>
         <Col flex="auto">
           <span style={{ color: "#9CA3AF" }}>
-            Add new group by pressing "Enter"
+            通过按"Enter"键添加新的组。
           </span>
         </Col>
         <Col flex="none">

@@ -110,7 +110,7 @@ const Navbar = () => {
       fs.push({
         label: (
           <Button type="link" block onClick={logoutWithRedirect}>
-            Logout
+            注销
           </Button>
         ),
         key: userLogoutKey,
@@ -181,7 +181,7 @@ const Navbar = () => {
         {
           label: (
             <Link to="/logout" onClick={logoutWithRedirect}>
-              Logout
+              注销
             </Link>
           ),
           key: "1",

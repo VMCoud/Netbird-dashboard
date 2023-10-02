@@ -77,7 +77,7 @@ const AddPATPopup = () => {
     const createKey = 'saving';
     useEffect(() => {
         if (savedPersonalAccessToken.loading) {
-            message.loading({content: 'Saving...', key: createKey, duration: 0, style: styleNotification});
+            message.loading({content: '保存中...', key: createKey, duration: 0, style: styleNotification});
         } else if (savedPersonalAccessToken.success) {
             message.destroy(createKey)
             setPlainToken(savedPersonalAccessToken.data.plain_token)
@@ -85,7 +85,7 @@ const AddPATPopup = () => {
             form.resetFields()
         } else if (savedPersonalAccessToken.error) {
             message.error({
-                content: 'Failed to create personal access token. You might not have enough permissions.',
+                content: '创建个人访问令牌失败。您可能没有足够的权限。',
                 key: createKey,
                 duration: 2,
                 style: styleNotification
@@ -106,10 +106,10 @@ const AddPATPopup = () => {
                 onCancel={onCancel}
                 footer={
                     <Space style={{display: 'flex', justifyContent: 'end'}}>
-                        {!showPlainToken && <Button disabled={savedPersonalAccessToken.loading} onClick={onCancel}>{"Cancel"}</Button>}
+                        {!showPlainToken && <Button disabled={savedPersonalAccessToken.loading} onClick={onCancel}>{"取消"}</Button>}
                         {!showPlainToken && <Button type="primary" disabled={showPlainToken}
-                                onClick={handleFormSubmit}>{"Create token"}</Button>}
-                        {showPlainToken && <Button type="primary" disabled={!showPlainToken} onClick={onCancel}>Done</Button>}
+                                onClick={handleFormSubmit}>{"创建令牌"}</Button>}
+                        {showPlainToken && <Button type="primary" disabled={!showPlainToken} onClick={onCancel}>完成</Button>}
                     </Space>
                 }
                 width={460}
@@ -117,7 +117,7 @@ const AddPATPopup = () => {
                 <Container style={{textAlign: "start", marginLeft: "-15px", marginRight: "-15px"}}>
                     <Paragraph
                         style={{textAlign: "start", whiteSpace: "pre-line", fontSize: "18px",fontWeight:"500"}}>
-                        {showPlainToken ? "Token created successfully!" : "Create token"}
+                        {showPlainToken ? "令牌创建成功！" : "创建令牌"}
                     </Paragraph>
                     {!showPlainToken && <Paragraph type={"secondary"}
                                style={{
@@ -126,13 +126,13 @@ const AddPATPopup = () => {
                                    marginTop: "-23px",
                                    paddingBottom: "25px",
                                }}>
-                        {"Use this token to access NetBird's public API"}
+                        {"使用此令牌访问NetBird的公共API"}
                     </Paragraph>}
                     {showPlainToken && <Paragraph type={"secondary"} style={{
                         textAlign: "start",
                         whiteSpace: "pre-line",
                         marginTop: "25px",
-                    }}>{"This token won't be shown again, so be sure to copy and store it in a secure location"}</Paragraph>}
+                    }}>{"此令牌不会再次显示，请确保将其复制并存储在安全的位置"}</Paragraph>}
                     {!showPlainToken && <Form layout="vertical" hideRequiredMark form={form}
                                               initialValues={{
                                                   expires_in: ExpiresInDefault,
@@ -149,7 +149,7 @@ const AddPATPopup = () => {
                                             style={{marginTop: "-10px"}}
                                             rules={[{
                                                 required: true,
-                                                message: 'Please add a name for this token',
+                                                message: '请为此令牌添加一个名称',
                                                 whitespace: true
                                             }]}
                                         >
@@ -162,8 +162,8 @@ const AddPATPopup = () => {
                                 </Row>
                             </Col>
                             <Col span={24} style={{textAlign: "left", marginTop: "10px"}}>
-                                <Paragraph style={{fontWeight: "500", marginTop: "-10px"}}>Expires in</Paragraph>
-                                <Paragraph type={"secondary"} style={{marginTop: "-15px"}}>Number of days this token will be valid for</Paragraph>
+                                <Paragraph style={{fontWeight: "500", marginTop: "-10px"}}>有效期至</Paragraph>
+                                <Paragraph type={"secondary"} style={{marginTop: "-15px"}}>此令牌有效的天数</Paragraph>
                                 <Form.Item
                                     name="expires_in"
                                     style={{marginTop: "-10px"}}
@@ -171,11 +171,11 @@ const AddPATPopup = () => {
                                         type: 'number',
                                         min: 1,
                                         max: 365,
-                                        message: 'The expiration should be set between 1 and 365 days'
+                                        message: '过期时间应设置在1到365天之间。'
                                     }]}>
                                     <InputNumber addonAfter=" Days" style={{maxWidth: "150px"}}/>
                                 </Form.Item>
-                                <Paragraph type={"secondary"} style={{fontSize: "14px", marginTop: "-18px"}}>Should be between 1 and 365 days</Paragraph>
+                                <Paragraph type={"secondary"} style={{fontSize: "14px", marginTop: "-18px"}}>应在1到365天之间</Paragraph>
                             </Col>
                             <Col span={24} style={{marginTop: "15px"}}>
                                 <Text type={"secondary"}>
@@ -186,7 +186,7 @@ const AddPATPopup = () => {
                                         href="https://docs.netbird.io/how-to/access-netbird-public-api"
                                     >
                                         {" "}
-                                        access tokens
+                                        访问令牌
                                     </a>
                                 </Text>
                             </Col>

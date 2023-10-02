@@ -121,7 +121,7 @@ const AddServiceUserPopup = () => {
 
     if (hasSpaceNamed.length) {
       return Promise.reject(
-        new Error("Group names with just spaces are not allowed")
+        new Error("仅含空格的群组名称是不被允许的")
       );
     }
 
@@ -165,7 +165,7 @@ const AddServiceUserPopup = () => {
       <Row style={{ padding: "0 8px 4px" }}>
         <Col flex="auto">
           <span style={{ color: "#9CA3AF" }}>
-            Add new group by pressing "Enter"
+          通过按"Enter"键添加新的组。
           </span>
         </Col>
         <Col flex="none">
@@ -226,10 +226,10 @@ const AddServiceUserPopup = () => {
         footer={
           <Space style={{ display: "flex", justifyContent: "end" }}>
             <Button disabled={loading} onClick={onCancel}>
-              Cancel
+              取消
             </Button>
             <Button type="primary" onClick={handleFormSubmit}>
-              Create user
+              创建用户
             </Button>
           </Space>
         }
@@ -262,7 +262,7 @@ const AddServiceUserPopup = () => {
             }}
           >
             {
-              "Service users are non-login users that are not associated with any specific person."
+              "服务用户是未登录的用户，他们并未与任何特定个人关联。"
             }
           </Paragraph>
           <Form
@@ -276,10 +276,10 @@ const AddServiceUserPopup = () => {
             <Row gutter={16}>
               <Col span={24}>
                 <Paragraph style={{ fontWeight: "500", marginTop: "-10px" }}>
-                  Name
+                  名称
                 </Paragraph>
                 <Paragraph type={"secondary"} style={{ marginTop: "-15px" }}>
-                  Set a name to easily identify the user
+                  设置一个名称以便轻松识别用户
                 </Paragraph>
                 <Form.Item
                   name="name"
@@ -301,13 +301,13 @@ const AddServiceUserPopup = () => {
               </Col>
               <Col span={24}>
                 <Paragraph style={{ fontWeight: "500", marginTop: "0px" }}>
-                  Role
+                  角色
                 </Paragraph>
                 <Paragraph
                   type={"secondary"}
                   style={{ fontSize: "14px", marginTop: "-15px" }}
                 >
-                  Set a role for the user to assign access permissions
+                  为用户设置角色以分配访问权限
                 </Paragraph>
                 <Form.Item
                   name="role"

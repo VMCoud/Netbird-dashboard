@@ -134,13 +134,33 @@ const NameServerGroupUpdate = (props: any) => {
     }
     setFormNSGroup({ ...formNSGroup, ...changedValues });
   };
-
+  let aliyunChoice = "Aliyun DNS";
   let googleChoice = "Google DNS";
   let cloudflareChoice = "Cloudflare DNS";
   let quad9Choice = "Quad9 DNS";
   let customChoice = "Add custom nameserver";
 
   let defaultDNSOptions: NameServerGroup[] = [
+    {
+      name: aliyunChoice,
+      description: "Aliyun DNS servers",
+      domains: [],
+      primary: true,
+      nameservers: [
+        {
+          ip: "223.5.5.5",
+          ns_type: "udp",
+          port: 53,
+        },
+        {
+          ip: "223.6.6.6",
+          ns_type: "udp",
+          port: 53,
+        },
+      ],
+      groups: [],
+      enabled: true,
+    },
     {
       name: googleChoice,
       description: "Google DNS servers",
@@ -218,7 +238,7 @@ const NameServerGroupUpdate = (props: any) => {
       })
       .then(() => onCancel())
       .catch((errorInfo) => {
-        let msg = "please check the fields and try again";
+        let msg = "请检查各项内容并再试一次。";
         if (errorInfo.errorFields) {
           msg = errorInfo.errorFields[0].errors[0];
         }
@@ -265,7 +285,7 @@ const NameServerGroupUpdate = (props: any) => {
     if (found) {
       return Promise.reject(
         new Error(
-          "Please enter a unique name for your nameserver configuration"
+          "请为您的域名服务器配置输入一个独特的名称"
         )
       );
     }
@@ -276,7 +296,7 @@ const NameServerGroupUpdate = (props: any) => {
   const ipValidator = (_: RuleObject, value: string) => {
     if (!cidrRegex().test(value + "/32")) {
       return Promise.reject(
-        new Error("Please enter a valid IP, e.g. 192.168.1.1 or 8.8.8.8")
+        new Error("请输入有效的IP地址，例如192.168.1.1或8.8.8.8")
       );
     }
 
@@ -287,11 +307,11 @@ const NameServerGroupUpdate = (props: any) => {
   const formListValidator = (_: RuleObject, names) => {
     if (names.length >= 3) {
       return Promise.reject(
-        new Error("Exceeded maximum number of Nameservers. (Max is 2)")
+        new Error("超过了域名服务器的最大数量。（最多为2）")
       );
     }
     if (names.length < 1) {
-      return Promise.reject(new Error("You should add at least 1 Nameserver"));
+      return Promise.reject(new Error("你应该至少添加1个域名服务器"));
     }
     return Promise.resolve();
   };
@@ -619,7 +639,7 @@ const NameServerGroupUpdate = (props: any) => {
                                       fontWeight: "500",
                                     }}
                                   >
-                                    Name
+                                    名称
                                   </label>
                                   <Form.Item
                                     name="name"
@@ -627,7 +647,7 @@ const NameServerGroupUpdate = (props: any) => {
                                       {
                                         required: true,
                                         message:
-                                          "Please add an identifier for this nameserver group",
+                                          "请为此名称服务器组添加一个名称",
                                         whitespace: true,
                                       },
                                       {
@@ -663,7 +683,7 @@ const NameServerGroupUpdate = (props: any) => {
                               {formNSGroup.description &&
                               formNSGroup.description.trim() !== ""
                                 ? formNSGroup.description
-                                : "Add description"}
+                                : "添加描述"}
                             </div>
                           ) : (
                             <Row>
@@ -681,14 +701,14 @@ const NameServerGroupUpdate = (props: any) => {
                                       fontWeight: "500",
                                     }}
                                   >
-                                    Description
+                                    描述
                                   </label>
                                   <Form.Item
                                     name="description"
                                     style={{ marginTop: "8px" }}
                                   >
                                     <Input
-                                      placeholder="Add description..."
+                                      placeholder="添加描述..."
                                       ref={inputDescriptionRef}
                                       onPressEnter={() =>
                                         toggleEditDescription(false)
@@ -742,7 +762,7 @@ const NameServerGroupUpdate = (props: any) => {
                   <Select
                     mode="tags"
                     style={{ width: "100%" }}
-                    placeholder="Associate groups with the NS group"
+                    placeholder="将群组与NS群组关联"
                     tagRender={blueTagRender}
                     onChange={handleChangeTags}
                     dropdownRender={dropDownRender}
@@ -770,14 +790,14 @@ const NameServerGroupUpdate = (props: any) => {
                   }}
                 >
                   <Button onClick={onCancel} disabled={savedNSGroup.loading}>
-                    Cancel
+                    取消
                   </Button>
                   <Button
                     type="primary"
                     onClick={handleFormSubmit}
                     disabled={savedNSGroup.loading}
                   >
-                    Save
+                    保存
                   </Button>
                 </Space>
               </Col>

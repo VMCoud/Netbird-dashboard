@@ -180,7 +180,7 @@ const UserEdit = (props: any) => {
 
     if (hasSpaceNamed.length) {
       return Promise.reject(
-        new Error("Group names with just spaces are not allowed")
+        new Error("仅含空格的群组名称是不被允许的")
       );
     }
 
@@ -194,7 +194,7 @@ const UserEdit = (props: any) => {
       <Row style={{ padding: "0 8px 4px" }}>
         <Col flex="auto">
           <span style={{ color: "#9CA3AF" }}>
-            Add new group by pressing "Enter"
+            通过按"Enter"键添加新的组。
           </span>
         </Col>
         <Col flex="none">
@@ -238,11 +238,11 @@ const UserEdit = (props: any) => {
   const showConfirmDelete = (token: TokenDataTable) => {
     confirmModal.confirm({
       icon: <ExclamationCircleOutlined />,
-      title: <span className="font-500">Delete token {token.name}</span>,
+      title: <span className="font-500">删除令牌 {token.name}</span>,
       width: 600,
       content: (
         <Space direction="vertical" size="small">
-          <Paragraph>Are you sure you want to delete this token?</Paragraph>
+          <Paragraph>你确定要删除这个令牌吗？</Paragraph>
         </Space>
       ),
       onOk() {
@@ -383,7 +383,7 @@ const UserEdit = (props: any) => {
                   >
                     <Form.Item
                       name="email"
-                      label={<Text style={{}}>Email</Text>}
+                      label={<Text style={{}}>邮箱</Text>}
                       style={{ marginRight: "70px", fontWeight: "500" }}
                     >
                       <Input
@@ -398,7 +398,7 @@ const UserEdit = (props: any) => {
                 <Col xs={24} sm={24} md={5} lg={5} xl={5} xxl={5} span={5}>
                   <Form.Item
                     name="role"
-                    label={<Text style={{ fontWeight: "500" }}>Role</Text>}
+                    label={<Text style={{ fontWeight: "500" }}>角色</Text>}
                     style={{ marginRight: "50px", fontWeight: "500" }}
                   >
                     <Select
@@ -430,10 +430,10 @@ const UserEdit = (props: any) => {
                       name="autoGroupsNames"
                       label={
                         <Text style={{ fontWeight: "500" }}>
-                          Auto-assigned groups
+                          自动分配的群组
                         </Text>
                       }
-                      tooltip="Every peer enrolled with this user will be automatically added to these groups"
+                      tooltip="所有注册此用户的同伴将自动添加到这些组中。"
                       rules={[{ validator: selectValidator }]}
                       style={{
                         marginRight: `${!isGroupUpdateView ? "70px" : "0"}`,
@@ -441,7 +441,7 @@ const UserEdit = (props: any) => {
                     >
                       <Select
                         mode="tags"
-                        placeholder="Associate groups with the user"
+                        placeholder="将用户与群组关联"
                         tagRender={blueTagRender}
                         dropdownRender={dropDownRender}
                         disabled={!isAdmin}
@@ -486,10 +486,10 @@ const UserEdit = (props: any) => {
                 }}
               >
                 <Button disabled={loading} onClick={onCancel}>
-                  Cancel
+                  取消
                 </Button>
                 <Button type="primary" onClick={handleFormSubmit}>
-                  Save
+                  保存
                 </Button>
               </Space>
             </Form>
@@ -513,7 +513,7 @@ const UserEdit = (props: any) => {
                     fontWeight: "500",
                   }}
                 >
-                  Access tokens
+                  访问令牌
                 </Paragraph>
                 <Row
                   gutter={21}
@@ -532,7 +532,7 @@ const UserEdit = (props: any) => {
                       type={"secondary"}
                       style={{ textAlign: "left", whiteSpace: "pre-line" }}
                     >
-                      Access tokens give access to NetBird API
+                      访问令牌赋予对NetBird API的访问权限
                     </Paragraph>
                   </Col>
                   <Col
@@ -551,7 +551,7 @@ const UserEdit = (props: any) => {
                           type="primary"
                           onClick={onClickAddNewPersonalAccessToken}
                         >
-                          Create token
+                          创建令牌
                         </Button>
                       )}
                   </Col>
@@ -638,7 +638,7 @@ const UserEdit = (props: any) => {
                               type={"secondary"}
                               style={{ textAlign: "left", fontSize: "11px" }}
                             >
-                              Expires on
+                              到期日期为
                             </Paragraph>
                             <Paragraph
                               type={"secondary"}
@@ -665,7 +665,7 @@ const UserEdit = (props: any) => {
                               type={"secondary"}
                               style={{ textAlign: "left", fontSize: "11px" }}
                             >
-                              Last used
+                              最后使用
                             </Paragraph>
                             <Paragraph
                               type={"secondary"}
@@ -695,7 +695,7 @@ const UserEdit = (props: any) => {
                               showConfirmDelete(record as TokenDataTable);
                             }}
                           >
-                            Delete
+                            删除
                           </Button>
                         );
                       }}
@@ -719,13 +719,13 @@ const UserEdit = (props: any) => {
                     <Paragraph
                       style={{ textAlign: "start", whiteSpace: "pre-line" }}
                     >
-                      You don’t have any access tokens yet
+                      你还没有任何访问令牌
                     </Paragraph>
                     <Button
                       type="primary"
                       onClick={onClickAddNewPersonalAccessToken}
                     >
-                      Create token
+                      创建令牌
                     </Button>
                   </Space>
                 )}

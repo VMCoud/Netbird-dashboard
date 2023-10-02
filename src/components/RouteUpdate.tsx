@@ -225,7 +225,7 @@ const RouteAddNew = () => {
 
   const peerValidator = (_: RuleObject, value: string) => {
     if (value === "" && newRoute) {
-      return Promise.reject(new Error("Please select routing one peer"));
+      return Promise.reject(new Error("请选择路由设备"));
     }
 
     return Promise.resolve();
@@ -237,7 +237,7 @@ const RouteAddNew = () => {
       if (newGroups.length > 0) {
         return Promise.reject(
           new Error(
-            "You can't add new Groups from the group update view, please remove:\"" +
+            "您不能从群组更新视图中添加新的群组，请移除:\"" +
               newGroups +
               '"'
           )
@@ -253,14 +253,14 @@ const RouteAddNew = () => {
   useEffect(() => {
     if (savedRoute.loading) {
       message.loading({
-        content: "Saving...",
+        content: "保存中...",
         key: saveKey,
         duration: 0,
         style: styleNotification,
       });
     } else if (savedRoute.success) {
       message.success({
-        content: "Route has been successfully added.",
+        content: "路由已成功添加。",
         key: saveKey,
         duration: 2,
         style: styleNotification,
@@ -271,11 +271,11 @@ const RouteAddNew = () => {
       dispatch(routeActions.setSavedRoute({ ...savedRoute, success: false }));
       dispatch(routeActions.resetSavedRoute(null));
     } else if (savedRoute.error) {
-      let errorMsg = "Failed to update network route";
+      let errorMsg = "更新网络路由失败";
       switch (savedRoute.error.statusCode) {
         case 403:
           errorMsg =
-            "Failed to update network route. You might not have enough permissions.";
+            "更新网络路由失败。您可能没有足够的权限。";
           break;
         default:
           errorMsg = savedRoute.error.data.message
@@ -303,14 +303,14 @@ const RouteAddNew = () => {
           footer={
             <Space style={{ display: "flex", justifyContent: "end" }}>
               <Button onClick={onCancel} disabled={savedRoute.loading}>
-                Cancel
+                取消
               </Button>
               <Button
                 type="primary"
                 disabled={savedRoute.loading}
                 onClick={handleFormSubmit}
               >
-                Add route
+                添加路由
               </Button>
             </Space>
           }
@@ -337,7 +337,7 @@ const RouteAddNew = () => {
                       fontWeight: 500,
                     }}
                   >
-                    添加新的路由对等点
+                    添加新的路由设备
                   </Paragraph>
                   <Paragraph
                     type={"secondary"}
@@ -350,7 +350,7 @@ const RouteAddNew = () => {
                       marginBottom: "4px",
                     }}
                   >
-                    当您添加多个路由对等点时，NetBird会启用高可用性
+                    当您添加多个路由设备时，NetBird会启用高可用性
                   </Paragraph>
 
                   <Row align="top">
@@ -416,7 +416,7 @@ const RouteAddNew = () => {
                     fontWeight: "500",
                   }}
                 >
-                  路由对等点
+                  路由设备
                 </label>
                 <Paragraph
                   type={"secondary"}
@@ -426,13 +426,13 @@ const RouteAddNew = () => {
                     marginBottom: "5px",
                   }}
                 >
-                  将路由对等点分配给网络。此对等点必须位于网络中
+                  将路由设备分配给网络。此设备必须位于网络中
                 </Paragraph>
                 <Form.Item name="peer" rules={[{ validator: peerValidator }]}>
                   <Select
                     showSearch
                     style={{ width: "100%" }}
-                    placeholder="选择对等点"
+                    placeholder="选择设备"
                     dropdownRender={peerDropDownRender}
                     options={options}
                     allowClear={true}
@@ -457,7 +457,7 @@ const RouteAddNew = () => {
                     marginBottom: "5px",
                   }}
                 >
-                  将此路由广播到属于以下组的对等点
+                  将此路由分配到属于以下组的设备
                 </Paragraph>
                 <Form.Item
                   name="groups"

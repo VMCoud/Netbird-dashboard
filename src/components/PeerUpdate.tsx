@@ -398,13 +398,13 @@ const PeerUpdate = (props: any) => {
       const style = { marginTop: 85 };
       if (savedGroups.loading) {
         message.loading({
-          content: "正在更新对等组...",
+          content: "正在更新设备组...",
           key: saveGroupsKey,
           style,
         });
       } else if (savedGroups.success) {
         message.success({
-          content: "对等组已成功更新。",
+          content: "设备组已成功更新。",
           key: saveGroupsKey,
           duration: 2,
           style,
@@ -417,7 +417,7 @@ const PeerUpdate = (props: any) => {
       } else if (savedGroups.error) {
         message.error({
           content:
-            "无法更新对等组。您可能没有足够的权限。",
+            "无法更新设备组。您可能没有足够的权限。",
           key: saveGroupsKey,
           duration: 2,
           style,
@@ -432,7 +432,7 @@ const PeerUpdate = (props: any) => {
     const style = { marginTop: 85 };
     if (updatedPeers.loading) {
       message.loading({
-        content: "正在更新对等...",
+        content: "正在更新设备...",
         key: updatePeerKey,
         duration: 0,
         style,
@@ -443,14 +443,14 @@ const PeerUpdate = (props: any) => {
       (!noUpdateToName() || !noUpdateToLoginExpiration())
     ) {
       message.loading({
-        content: "正在更新对等...",
+        content: "正在更新设备...",
         key: updatePeerKey,
         duration: 0,
         style,
       });
     } else if (updatedPeers.success) {
       message.success({
-        content: "对等已成功更新。",
+        content: "设备已成功更新。",
         key: updatePeerKey,
         duration: 2,
         style,
@@ -726,7 +726,7 @@ const PeerUpdate = (props: any) => {
                                 <div>
                                   {!formPeer.connected &&
                                   formPeer.login_expired ? (
-                                    <Tooltip title="该对等体离线，并且需要重新验证，因为其登录已过期">
+                                    <Tooltip title="该设备离线，并且需要重新验证，因为其登录已过期">
                                       <Tag color="red">
                                         <Text
                                           style={{
@@ -755,7 +755,7 @@ const PeerUpdate = (props: any) => {
                                   rules={[
                                     {
                                       required: true,
-                                      message: "请为此对等体添加一个新名称",
+                                      message: "请为此设备添加一个新名称",
                                       whitespace: true,
                                     },
                                     { validator: nameValidator },
@@ -897,7 +897,7 @@ const PeerUpdate = (props: any) => {
                               margin: "0",
                             }}
                           >
-                            SSO 登录对等体在其登录过期时需要重新验证
+                            SSO 登录设备在其登录过期时需要重新验证
                           </Paragraph>
                         </div>
                       </div>
@@ -915,7 +915,7 @@ const PeerUpdate = (props: any) => {
                     组
                   </Paragraph>
                   <Text type={"secondary"}>
-                    使用组来控制此对等体可以访问的内容
+                    使用组来控制此设备可以访问的内容
                   </Text>
                   <Form.Item
                     name="groupsNames"
