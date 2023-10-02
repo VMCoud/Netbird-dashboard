@@ -581,6 +581,7 @@ export const RegularUsers = () => {
 
                       if ((record as User).is_current) {
                         return (
+<<<<<<< HEAD
                           <>
                             <div>
                               {btn}
@@ -588,11 +589,21 @@ export const RegularUsers = () => {
                             </div>
                             {((record as User).last_login && <Text type={"secondary"} style={{ paddingLeft: "15px" }}>上次登录：{String(timeAgo((record as User).last_login))}</Text>)}
                           </>
+=======
+                            <>
+                              <div>
+                                {btn}
+                                <Tag color="blue">me</Tag>
+                              </div>
+                              {(isNetBirdHosted() || isLocalDev()) && ((record as User).last_login && <Text type={"secondary"} style={{paddingLeft: "15px"}}>Last login: {String(timeAgo((record as User).last_login))}</Text>)}
+                            </>
+>>>>>>> 21e69e642a37f0b8285a9f16eacc4491f1677513
                         );
                       }
 
                       if ((record as User).status === "invited") {
                         return (
+<<<<<<< HEAD
                           <>
                             <div>
                               {btn}
@@ -600,11 +611,21 @@ export const RegularUsers = () => {
                             </div>
                             {((record as User).last_login && <Text type={"secondary"} style={{ paddingLeft: "15px", paddingTop: "0px" }}>上次登录：{String(timeAgo((record as User).last_login))}</Text>)}
                           </>
+=======
+                            <>
+                              <div>
+                                {btn}
+                                <Tag color="gold">invited</Tag>
+                              </div>
+                              {(isNetBirdHosted() || isLocalDev()) && ((record as User).last_login && <Text type={"secondary"} style={{paddingLeft: "15px", paddingTop: "0px"}}>Last login: {String(timeAgo((record as User).last_login))}</Text>)}
+                            </>
+>>>>>>> 21e69e642a37f0b8285a9f16eacc4491f1677513
                         );
                       }
 
                       if ((record as User).status === "blocked") {
                         return (
+<<<<<<< HEAD
                           <>
                             <div>
                               {btn}
@@ -612,16 +633,34 @@ export const RegularUsers = () => {
                             </div>
                             {((record as User).last_login && <Text type={"secondary"} style={{ paddingLeft: "15px" }}>上次登录：{String(timeAgo((record as User).last_login))}</Text>)}
                           </>
+=======
+                            <>
+                              <div>
+                                {btn}
+                                <Tag color="red">blocked</Tag>
+                              </div>
+                              {(isNetBirdHosted() || isLocalDev()) && ((record as User).last_login && <Text type={"secondary"} style={{paddingLeft: "15px"}}>Last login: {String(timeAgo((record as User).last_login))}</Text>)}
+                            </>
+>>>>>>> 21e69e642a37f0b8285a9f16eacc4491f1677513
                         );
                       }
 
                       return (
+<<<<<<< HEAD
                         <>
                           <div>
                             {btn}
                           </div>
                           {((record as User).last_login && <Text type={"secondary"} style={{ paddingLeft: "15px", paddingTop: "0px" }}>上次登录：{String(timeAgo((record as User).last_login))}</Text>)}
                         </>
+=======
+                          <>
+                            <div>
+                              {btn}
+                            </div>
+                            {(isNetBirdHosted() || isLocalDev()) && ((record as User).last_login && <Text type={"secondary"} style={{paddingLeft: "15px", paddingTop: "0px"}}>Last login: {String(timeAgo((record as User).last_login))}</Text>)}
+                          </>
+>>>>>>> 21e69e642a37f0b8285a9f16eacc4491f1677513
                       );
                     }}
                   />
@@ -692,7 +731,7 @@ export const RegularUsers = () => {
                     />
                   )}
 
-                  {isAdmin && (
+                  {/*{isAdmin && (
                     <Column
                       title="删除用户"
                       align="center"
@@ -728,7 +767,7 @@ export const RegularUsers = () => {
                         return witch;
                       }}
                     />
-                  )}
+                  )}*/}
                 </Table>
               </Card>
             </Space>

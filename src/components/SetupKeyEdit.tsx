@@ -472,8 +472,6 @@ const SetupKeyNew = (props: any) => {
                       placeholder="将群组与密钥关联"
                       tagRender={blueTagRender}
                       dropdownRender={dropDownRender}
-                      // enabled only when we have a new key !setupkey.id or when the key is valid
-                      disabled={!(!setupKey.id || setupKey.valid)}
                       optionFilterProp="searchValue"
                     >
                       {tagGroups.map((m, index) => (

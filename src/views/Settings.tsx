@@ -768,7 +768,7 @@ export const Settings = () => {
                 </Form.Item>
               </Col>
             </Row>
-            {(isNetBirdHosted() || isLocalDev()) && (
+            {(!isNetBirdHosted() || isLocalDev()) && (
               <>
                 <Row>
                   <Col span={12}>
@@ -830,7 +830,12 @@ export const Settings = () => {
                         marginBottom: "5px",
                       }}
                     >
+<<<<<<< HEAD
                       指定从中提取组名的JWT声明，例如角色或组，以添加到帐户组
+=======
+                      Specify the JWT claim for extracting group names, e.g.,
+                      roles or groups, to add to account groups (this claim should contain a list of group names).
+>>>>>>> 21e69e642a37f0b8285a9f16eacc4491f1677513
                     </Paragraph>
                   </Col>
                 </Row>
