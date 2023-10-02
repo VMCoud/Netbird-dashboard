@@ -15,9 +15,9 @@ export const formatOS = (os) => {
 
 export const formatDate = date => {
     if (new Date(date).getTime() > new Date("2099-12-31").getTime()) {
-        return new Date(date).toLocaleDateString("en-GB", { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+        return new Date(date).toLocaleDateString("zh-CN", { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
     }
-    return new Date(date).toLocaleDateString("en-GB", { weekday: 'short', year: '2-digit', month: 'short', day: 'numeric' });
+    return new Date(date).toLocaleDateString("zh-CN", { weekday: 'short', year: '2-digit', month: 'short', day: 'numeric' });
 }
 
 export const capitalize = text => {
@@ -36,9 +36,9 @@ export const checkExpiresIn = (_, value) => {
 
 export const formatDateTime = date => {
     if (new Date(date).getTime() > new Date("2099-12-31").getTime()) {
-        return new Date(date).toLocaleDateString("en-GB", { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' });
+        return new Date(date).toLocaleDateString("zh-CN", { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' });
     }
-    return new Date(date).toLocaleDateString("en-GB", { weekday: 'short', year: '2-digit', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' });
+    return new Date(date).toLocaleDateString("zh-CN", { weekday: 'short', year: '2-digit', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' });
 }
 
 export const classNames = (...classes) => {
@@ -46,8 +46,8 @@ export const classNames = (...classes) => {
 }
 
 const MONTH_NAMES = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
+    '一月', '二月', '三月', '四月', '五月', '六月',
+    '七月', '八月', '九月', '十月', '十一月', '十二月'
 ];
 
 
@@ -105,24 +105,24 @@ export const timeAgo = (dateParam) => {
     if (seconds < -1) {
         return getFormattedDate(date, false, true);
     } else if (seconds < 5) {
-        return 'just now';
+        return '刚刚';
     } else if (seconds < 60) {
-        return `${seconds} seconds ago`;
+        return `${seconds} 秒前`;
     } else if (seconds < 90) {
-        return 'about a minute ago';
+        return '大约 1 分钟前';
     } else if (minutes < 60) {
-        return `${minutes} minutes ago`;
+        return `${minutes} 分钟前`;
     } else if (isToday) {
-        return getFormattedDate(date, 'today'); // Today at 10:20
+        return getFormattedDate(date, '今天'); // 今天 10:20
     } else if (isYesterday) {
-        return getFormattedDate(date, 'yesterday'); // Yesterday at 10:20
+        return getFormattedDate(date, '昨天'); // 昨天 10:20
     } else if (isThisYear) {
-        return getFormattedDate(date, false, true); // 10. January at 10:20
+        return getFormattedDate(date, false, true); // 1 月 10 日 10:20
     } else if (never) {
-        return 'never';
+        return '从不';
     }
 
-    return getFormattedDate(date); // 10. January 2017. at 10:20
+    return getFormattedDate(date); // 2017 年 1 月 10 日 10:20
 }
 
 export const copyToClipboard = (copyText) => {
@@ -147,7 +147,7 @@ export const domainValidator = (_, domain) => {
     // setIsPrimary(false);
     return Promise.reject(
         new Error(
-            "Please enter a valid domain, e.g. example.com or intra.example.com"
+            "请输入一个有效的域名，例如 example.com 或 intra.example.com"
         )
     );
 };
