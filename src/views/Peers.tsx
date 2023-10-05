@@ -457,7 +457,7 @@ export const Peers = () => {
   ) => {
     const content = groups?.map((g, i) => {
       const _g = g as Group;
-      const peersCount = ` - ${_g.peers_count || 0} ${!_g.peers_count || parseInt(_g.peers_count) !== 1 ? "peers" : "peer"
+      const peersCount = ` - 共 ${_g.peers_count || 0} ${!_g.peers_count || parseInt(_g.peers_count) !== 1 ? "个设备" : "个设备"
         } `;
       return (
         <div key={i}>
@@ -629,19 +629,19 @@ export const Peers = () => {
             <Row>
               <Col span={24}>
                 <Title className="page-heading">
-                  {isAdmin ? "Peers" : "My peers"}
+                  {isAdmin ? "设备" : "我的设备"}
                 </Title>
                 {peers.length ? (
                   <Paragraph style={{ marginTop: "5px" }}>
                     {isAdmin
-                      ? "A list of all machines and devices connected to your private network. Use this view to manage peers"
-                      : "A list of all your machines and devices that you connected to NetBird."}
+                      ? "您私有网络中连接的所有机器和设备的列表。使用此视图管理设备"
+                      : "您连接到 NetBird 的所有机器和设备的列表。"}
                   </Paragraph>
                 ) : (
                   <Paragraph style={{ marginTop: "5px" }} type={"secondary"}>
                     {isAdmin
-                      ? "A list of all machines and devices connected to your private network. Use this view to manage peers"
-                      : "A list of all your machines and devices that you connected to NetBird."}
+                      ? "您私有网络中连接的所有机器和设备的列表。使用此视图管理设备"
+                      : "您连接到 NetBird 的所有机器和设备的列表。"}
                   </Paragraph>
                 )}
 

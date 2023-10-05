@@ -298,7 +298,7 @@ const RouteAddNew = () => {
                 disabled={savedRoute.loading}
                 onClick={handleFormSubmit}
               >
-                {formRoute.peer_groups ? "Save" : "Add route"}
+                {formRoute.peer_groups ? "保存" : "添加路由"}
               </Button>
             </Space>
           }
@@ -326,8 +326,8 @@ const RouteAddNew = () => {
                     }}
                   >
                     {formRoute.peer_groups
-                      ? "Configure peer group"
-                      : "Add new routing peer"}
+                      ? "配置设备组"
+                      : "添加新设备"}
                   </Paragraph>
                   <Paragraph
                     type={"secondary"}
@@ -341,8 +341,8 @@ const RouteAddNew = () => {
                     }}
                   >
                     {formRoute.peer_groups
-                      ? "Add peer group with multiple peers to enable high availability"
-                      : "When you add multiple routing peers, NetBird enables high availability"}
+                      ? "添加具有多个设备的设备组，以实现高可用性"
+                      : "添加多个路由设备时，NetBird 可实现高可用性"}
                   </Paragraph>
 
                   <Row align="top">
@@ -409,7 +409,7 @@ const RouteAddNew = () => {
                         fontWeight: "500",
                       }}
                     >
-                      Peer group
+                      设备组
                     </label>
                     <Paragraph
                       type={"secondary"}
@@ -419,15 +419,15 @@ const RouteAddNew = () => {
                         marginBottom: "5px",
                       }}
                     >
-                      Assign peer group with Linux machines to be used as
-                      routing peers
+                      指定设备组，将 Linux 机器用作
+                      路由设备
                     </Paragraph>
                     <Form.Item
                       name="peer_groups"
                       rules={[
                         {
                           required: true,
-                          message: "Please select peer group",
+                          message: "请选择一个设备组",
                         },
                       ]}
                     >
@@ -456,7 +456,7 @@ const RouteAddNew = () => {
                         fontWeight: "500",
                       }}
                     >
-                      Routing Peer
+                      路由设备
                     </label>
                     <Paragraph
                       type={"secondary"}
@@ -466,15 +466,15 @@ const RouteAddNew = () => {
                         marginBottom: "5px",
                       }}
                     >
-                      Assign a routing peer to the network. This peer has to
-                      reside in the network
+                      为网络指定一个路由设备。该设备必须
+                      位于网络中
                     </Paragraph>
                     <Form.Item
                       name="peer"
                       rules={[
                         {
                           required: true,
-                          message: "Please select routing one peer",
+                          message: "请选择一个路由设备",
                         },
                       ]}
                     >

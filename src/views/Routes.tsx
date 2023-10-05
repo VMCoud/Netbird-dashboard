@@ -285,20 +285,20 @@ export const Routes = () => {
 
   const styleNotification = { marginTop: 85 };
 
-  const saveKey = isUpdating ? "Updating" : "Saving";
+  const saveKey = isUpdating ? "更新" : "保存";
   useEffect(() => {
     if (!route || setupEditRouteVisible || setupNewRouteVisible) {
       if (savedRoute.loading) {
         message.loading({
-          content: isUpdating ? "Updating..." : "Saving...",
+          content: isUpdating ? "更新中..." : "保存中...",
           key: saveKey,
           duration: 0,
           style: styleNotification,
         });
       } else if (savedRoute.success) {
         message.success({
-          content: `Route has been successfully ${
-            isUpdating ? "updated" : "added"
+          content: `路由已成功 ${
+            isUpdating ? "更新" : "增加"
           }`,
           key: saveKey,
           duration: 2,
@@ -311,13 +311,13 @@ export const Routes = () => {
         dispatch(routeActions.resetSavedRoute(null));
         setIsUpdating(false);
       } else if (savedRoute.error) {
-        let errorMsg = `Failed to ${
-          isUpdating ? "update" : "added"
-        } network route`;
+        let errorMsg = `未能 ${
+          isUpdating ? "更新" : "增加"
+        } 网络路由`;
         switch (savedRoute.error.statusCode) {
           case 403:
             errorMsg =
-              "Failed to update network route. You might not have enough permissions.";
+              "更新网络路由失败。您可能没有足够的权限。";
             break;
           default:
             errorMsg = savedRoute.error.data.message
@@ -532,7 +532,7 @@ export const Routes = () => {
 
     const content = displayGroups?.map((g, i) => {
       const _g = g as Group;
-      const peersCount = ` - ${_g.peers_count || 0} ${!_g.peers_count || parseInt(_g.peers_count) !== 1 ? "peers" : "peer"
+      const peersCount = ` - 共${_g.peers_count || 0} ${!_g.peers_count || parseInt(_g.peers_count) !== 1 ? "个设备" : "个设备"
         } `;
       return (
         <div key={i}>
@@ -585,11 +585,11 @@ export const Routes = () => {
               <ExclamationCircleFilled />
             </div>
             <p className="avail-para">
-              To configure High Availability, you must add more peers to a group
-              in this route. You can do it in the Peers menu.
+              要配置 "高可用性"，必须在此路由的组中添加更多对等设备
+              组。您可以在设备管理菜单中进行添加。
               <br />
               <Link to="/peers" className="peer-lnk">
-                Go to Peers
+                前往
               </Link>
             </p>
           </div>
@@ -966,9 +966,9 @@ export const Routes = () => {
                                 ? "Routing Group"
                                 : "Routing Peer"}
                             </p>
-                            <p>Metric</p>
-                            <p>Enabled</p>
-                            <p>Distribution groups</p>
+                            <p>度量</p>
+                            <p>启用</p>
+                            <p>分配组</p>
                           </div>
                           {record.groupedRoutes &&
                             record.groupedRoutes.length &&

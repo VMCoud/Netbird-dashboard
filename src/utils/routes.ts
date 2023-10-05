@@ -9,10 +9,10 @@ import { Route } from "../store/route/types";
 export const routePeerSeparator = " - ";
 
 export const masqueradeDisabledMSG =
-  "Enabling this option hides other NetBird network IPs behind the routing peer local address when accessing the target Network CIDR. This option allows access to your private networks without configuring routes on your local routers or other devices.";
+  "访问目标网络 CIDR 时，启用此选项可隐藏路由对等本地地址后面的其他 NetBird 网络 IP。该选项允许访问您的私人网络，而无需在本地路由器或其他设备上配置路由。";
 
 export const masqueradeEnabledMSG =
-  "Disabling this option stops hiding all traffic coming from other NetBird peers behind the routing peer local address when accessing the target Network CIDR. You will need to configure routes for your NetBird network pointing to your routing peer on your local routers or other devices.";
+  "禁用此选项后，在访问目标网络 CIDR 时，将不再隐藏来自路由对等网络本地地址后面的其他 NetBird 对等网络的所有流量。您需要在本地路由器或其他设备上为 NetBird 网络配置指向路由对等网络的路由。";
 
 export const peerToPeerIP = (name: string, ip: string): string => {
   return name + routePeerSeparator + ip;
