@@ -144,7 +144,7 @@ const InviteUserPopup = () => {
       <Row style={{ padding: "0 8px 4px" }}>
         <Col flex="auto">
           <span style={{ color: "#9CA3AF" }}>
-            Add new group by pressing "Enter"
+            按 "Enter "键添加新组
           </span>
         </Col>
         <Col flex="none">

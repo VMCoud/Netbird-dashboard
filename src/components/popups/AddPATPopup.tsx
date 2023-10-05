@@ -142,8 +142,8 @@ const AddPATPopup = () => {
                             <Col span={24}>
                                 <Row align="top">
                                     <Col flex="auto">
-                                        <Paragraph style={{fontWeight: "500", marginTop: "-10px"}}>Name</Paragraph>
-                                        <Paragraph type={"secondary"} style={{marginTop: "-15px"}}>Set an easily identifiable name for your token</Paragraph>
+                                        <Paragraph style={{fontWeight: "500", marginTop: "-10px"}}>名称</Paragraph>
+                                        <Paragraph type={"secondary"} style={{marginTop: "-15px"}}>为令牌设置一个易于识别的名称</Paragraph>
                                         <Form.Item
                                             name="name"
                                             style={{marginTop: "-10px"}}
