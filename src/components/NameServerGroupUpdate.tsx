@@ -626,7 +626,7 @@ const NameServerGroupUpdate = (props: any) => {
                             >
                               {formNSGroup.id
                                 ? formNSGroup.name
-                                : "新名称服务器组"}
+                                : "新DNS服务器组"}
                             </div>
                           ) : (
                             <Row>
@@ -647,7 +647,7 @@ const NameServerGroupUpdate = (props: any) => {
                                       {
                                         required: true,
                                         message:
-                                          "请为此名称服务器组添加一个名称",
+                                          "请为此DNS服务器组添加一个名称",
                                         whitespace: true,
                                       },
                                       {

@@ -254,7 +254,7 @@ const NameServerGroupAdd = () => {
       })
       .then(() => onCancel())
       .catch((errorInfo) => {
-        let msg = "please check the fields and try again";
+        let msg = "请检查字段并重试";
         if (errorInfo.errorFields) {
           msg = errorInfo.errorFields[0].errors[0];
         }
@@ -301,7 +301,7 @@ const NameServerGroupAdd = () => {
     if (found) {
       return Promise.reject(
         new Error(
-          "Please enter a unique name for your nameserver configuration"
+          "请为您的DNS服务器配置输入一个唯一的名称"
         )
       );
     }
@@ -312,7 +312,7 @@ const NameServerGroupAdd = () => {
   const ipValidator = (_: RuleObject, value: string) => {
     if (!cidrRegex().test(value + "/32")) {
       return Promise.reject(
-        new Error("Please enter a valid IP, e.g. 192.168.1.1 or 8.8.8.8")
+        new Error("请输入有效的 IP，例如 192.168.1.1 或 8.8.8.8")
       );
     }
 
@@ -323,11 +323,11 @@ const NameServerGroupAdd = () => {
   const formListValidator = (_: RuleObject, names) => {
     if (names.length >= 3) {
       return Promise.reject(
-        new Error("Exceeded maximum number of Nameservers. (Max is 2)")
+        new Error("超过了名称服务器的最大数量。(最大为 2）")
       );
     }
     if (names.length < 1) {
-      return Promise.reject(new Error("You should add at least 1 Nameserver"));
+      return Promise.reject(new Error("您应至少添加 1 个DNS服务器"));
     }
     return Promise.resolve();
   };
@@ -348,7 +348,7 @@ const NameServerGroupAdd = () => {
           display: "block",
         }}
       >
-        Nameservers
+        DNS服务器
       </label>
 
       {!!fields.length && (
@@ -360,12 +360,12 @@ const NameServerGroupAdd = () => {
           </Col>
           <Col span={10} style={{ textAlign: "left" }}>
             <Typography.Text style={{ color: "#818183", paddingLeft: "5px" }}>
-              Nameserver IP
+              DNS服务器 IP
             </Typography.Text>
           </Col>
           <Col span={4} style={{ textAlign: "left" }}>
             <Typography.Text style={{ color: "#818183", paddingLeft: "5px" }}>
-              Port
+              端口
             </Typography.Text>
           </Col>
           <Col span={4} />
@@ -442,7 +442,7 @@ const NameServerGroupAdd = () => {
               disabled={fields.length > 1}
               icon={<PlusOutlined />}
             >
-              Add nameserver
+              添加DNS服务器
             </Button>
             <Form.ErrorList errors={errors} />
           </Form.Item>
@@ -478,7 +478,7 @@ const NameServerGroupAdd = () => {
                 marginBottom: "4px",
               }}
             >
-              Add domain if you want to have a specific one
+              如果您想拥有一个特定的域名，请添加域名
             </Paragraph>
           </Col>
         </Space>
@@ -527,7 +527,7 @@ const NameServerGroupAdd = () => {
               icon={<PlusOutlined />}
               style={{ marginTop: "5px" }}
             >
-              Add Domain
+              添加域名
             </Button>
           </Form.Item>
         </Col>
@@ -562,7 +562,7 @@ const NameServerGroupAdd = () => {
                   fontWeight: "500",
                 }}
               >
-                添加命名服务器
+                添加DNS服务器
               </Paragraph>
               <Paragraph
                 type={"secondary"}
@@ -575,7 +575,7 @@ const NameServerGroupAdd = () => {
                   marginBottom: "4px",
                 }}
               >
-                使用此命名服务器解析网络中的域名
+                使用此DNS服务器解析网络中的域名
               </Paragraph>
             </Col>
           </Row>
@@ -623,7 +623,7 @@ const NameServerGroupAdd = () => {
                           >
                             {formNSGroup.id
                               ? formNSGroup.name
-                              : "新建命名服务器组"}
+                              : "新建DNS服务器组"}
                           </div>
                         ) : (
                           <div style={{ lineHeight: "15px" }}>
@@ -641,7 +641,7 @@ const NameServerGroupAdd = () => {
                               rules={[
                                 {
                                   required: true,
-                                  message: "请为此命名服务器组添加一个标识符",
+                                  message: "请为此DNS服务器组添加一个标识符",
                                   whitespace: true,
                                 },
                                 {
@@ -729,7 +729,7 @@ const NameServerGroupAdd = () => {
                       fontWeight: "500",
                     }}
                   >
-                    分发组
+                    分配组
                   </label>
                   <Paragraph
                     type={"secondary"}
@@ -739,7 +739,7 @@ const NameServerGroupAdd = () => {
                       marginBottom: "4px",
                     }}
                   >
-                    将此路由广播给属于以下组的对等方
+                    将此路由广播给属于以下组的设备
                   </Paragraph>
                   <Form.Item
                     name="groups"
@@ -837,7 +837,7 @@ const NameServerGroupAdd = () => {
                       onClick={handleFormSubmit}
                       disabled={savedNSGroup.loading}
                     >
-                      创建命名服务器
+                      创建DNS服务器
                     </Button>
                   </Space>
                 </Col>
@@ -849,7 +849,7 @@ const NameServerGroupAdd = () => {
                 <Row align="middle">
                   <Col span={24} style={{ textAlign: "left" }}>
                     <span className="ant-form-item font-500">
-                      选择预定义的命名服务器
+                      选择预定义的DNS服务器
                     </span>
                   </Col>
                 </Row>

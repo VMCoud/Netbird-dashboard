@@ -498,7 +498,7 @@ const RouteAddNew = () => {
                     fontWeight: "500",
                   }}
                 >
-                  分发组
+                  分配组
                 </label>
                 <Paragraph
                   type={"secondary"}
