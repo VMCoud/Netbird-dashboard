@@ -5,10 +5,10 @@ services:
     image: caddy
     restart: unless-stopped
     networks: [ netbird ]
-    ports:
-      - '443:443'
-      - '80:80'
-      - '8080:8080'
+   # ports:
+     # - '443:443'
+     # - '80:80'
+     # - '8080:8080'
     volumes:
       - netbird_caddy_data:/data
       - ./Caddyfile:/etc/caddy/Caddyfile
@@ -17,7 +17,7 @@ services:
         ipv4_address: 172.20.0.2  # 添加固定IP
   #UI dashboard
   dashboard:
-    image: kicunlock/dashboard:v1.16.6
+    image: kicunlock/dashboard:v1.16.8
     restart: unless-stopped
     networks: [netbird]
     env_file:
@@ -35,7 +35,7 @@ services:
         ipv4_address: 172.20.0.4  # 添加固定IP
   # Management
   management:
-    image: netbirdio/management:latest
+    image: netbirdio/management:0.23.7
     restart: unless-stopped
     networks: [netbird]
     volumes:
@@ -49,6 +49,7 @@ services:
       "--single-account-mode-domain=netbird.selfhosted",
       "--dns-domain=netbird.selfhosted",
       "--idp-sign-key-refresh-enabled",
+      "--disable-single-account-mode"
     ]
     networks:
       netbird:
