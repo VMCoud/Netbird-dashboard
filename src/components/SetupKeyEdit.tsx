@@ -364,7 +364,7 @@ const SetupKeyNew = (props: any) => {
                       <Tooltip title="离线超过10分钟的节点将自动移除">
                         <Tag>
                           <Text type="secondary" style={{ fontSize: 10 }}>
-                            临时
+                             短暂
                           </Text>
                         </Tag>
                       </Tooltip>

@@ -35,6 +35,7 @@ import {
   LockOutlined,
   EditOutlined,
   ExclamationCircleOutlined,
+  ExclamationCircleFilled,
 } from "@ant-design/icons";
 import { RuleObject } from "antd/lib/form";
 import { useGetTokenSilently } from "../utils/token";
@@ -145,10 +146,22 @@ const PeerUpdate = (props: any) => {
 
   useEffect(() => {
     setPeerRoutes([]);
+    const temp: any[] = [];
+    if (peer && peer.groups) {
+      peer?.groups?.forEach((pg: any) => {
+        routes.forEach((route: any) => {
+          if (route.peer_groups?.includes(pg.id)) {
+            temp.push(route);
+          }
+        });
+      });
+    }
+
     const filterPeerRoutes: any = routes.filter(
       (route) => route.peer === peer.id
     );
-    setPeerRoutes(filterPeerRoutes);
+    let mergeArr: any = [...filterPeerRoutes, ...temp];
+    setPeerRoutes(mergeArr);
     const filterNotPeerRoutes: any = routes.filter(
       (route) => route.peer !== peer.id
     );
@@ -661,6 +674,48 @@ const PeerUpdate = (props: any) => {
     }
   }, [deletedRoute]);
 
+  const renderGroupRouting = (rowGroups: string[] | null) => {
+    let groupsMap = new Map<string, Group>();
+    groups.forEach((g) => {
+      groupsMap.set(g.id!, g);
+    });
+
+    let displayGroups: Group[] = [];
+    if (rowGroups) {
+      displayGroups = rowGroups
+        .filter((g) => groupsMap.get(g))
+        .map((g) => groupsMap.get(g)!);
+    }
+
+    const groupToCompare =
+      peer &&
+      peer.groups &&
+      peer?.groups.map((element1) => {
+        return element1.id;
+      });
+
+    return (
+      <div className="gp-main-wrapper">
+        {displayGroups &&
+          displayGroups.length > 0 &&
+          displayGroups.map((group) => {
+            if (group.id && !groupToCompare?.includes(group?.id)) {
+              return null;
+            }
+            return (
+              <div className="g-r-wrapper">
+                <span className="f-r-name">
+                  <Tag color={"blue"} style={{ marginRight: 3 }}>
+                    {group.name}
+                  </Tag>
+                </span>{" "}
+              </div>
+            );
+          })}
+      </div>
+    );
+  };
+
   return (
     <>
       {peer && (
@@ -1041,7 +1096,9 @@ const PeerUpdate = (props: any) => {
                           title="启用"
                           dataIndex="network"
                           render={(e, record: any, index) => {
-                            return (
+                            return record.peer_groups ? (
+                              renderGroupRouting(record.peer_groups)
+                            ) : (
                               <>
                                 <Switch
                                   defaultChecked={record.enabled}
@@ -1058,7 +1115,19 @@ const PeerUpdate = (props: any) => {
                         <Column
                           align="right"
                           render={(text, record: any, index) => {
-                            return (
+                            return record.peer_groups ? (
+                              <Tooltip
+                                color="#fff"
+                                overlayClassName="peer-avail-tooltip"
+                                title={`设备"${formPeer.name}"是网络路由中使用的组的一部分。
+                                要从网络路由中删除此对等节点，需要将其从该路由使用的组中删除。
+                                该路由中使用的组。`}
+                              >
+                                <Button type={"text"} disabled={true}>
+                                  删除
+                                </Button>
+                              </Tooltip>
+                            ) : (
                               <Button
                                 danger={true}
                                 type={"text"}
