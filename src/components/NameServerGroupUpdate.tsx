@@ -138,7 +138,7 @@ const NameServerGroupUpdate = (props: any) => {
   let googleChoice = "Google DNS";
   let cloudflareChoice = "Cloudflare DNS";
   let quad9Choice = "Quad9 DNS";
-  let customChoice = "Add custom nameserver";
+  let customChoice = "自定义DNS服务器";
 
   let defaultDNSOptions: NameServerGroup[] = [
     {

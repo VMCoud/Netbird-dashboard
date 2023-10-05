@@ -445,7 +445,7 @@ const RouteAddNew = (selectedPeer: any) => {
   const items: TabsProps["items"] = [
     {
       key: "routingPeer",
-      label: "Routing Peer",
+      label: "路由设备",
       children: (
         <>
           <Paragraph
@@ -476,7 +476,7 @@ const RouteAddNew = (selectedPeer: any) => {
     },
     {
       key: "groupOfPeers",
-      label: "Peer group",
+      label: "设备组",
       children: (
         <>
           <Paragraph
@@ -790,7 +790,7 @@ const RouteAddNew = (selectedPeer: any) => {
                     fontWeight: "500",
                   }}
                 >
-                  分发组
+                  分配组
                 </label>
                 <Paragraph
                   type={"secondary"}

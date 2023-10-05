@@ -135,7 +135,7 @@ const NameServerGroupAdd = () => {
   let googleChoice = "Google DNS";
   let cloudflareChoice = "Cloudflare DNS";
   let quad9Choice = "Quad9 DNS";
-  let customChoice = "Add custom nameserver";
+  let customChoice = "自定义DNS服务器";
 
   let defaultDNSOptions: NameServerGroup[] = [
     {
@@ -468,7 +468,7 @@ const NameServerGroupAdd = () => {
                 fontWeight: "500",
               }}
             >
-              Match domains
+              匹配域名
             </label>
             <Paragraph
               type={"secondary"}

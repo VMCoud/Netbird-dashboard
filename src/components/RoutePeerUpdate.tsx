@@ -329,7 +329,7 @@ const RoutePeerUpdate = () => {
   const items: TabsProps["items"] = [
     {
       key: "routingPeer",
-      label: "Routing Peer",
+      label: "路由设备",
       disabled: true,
       children: (
         <>
@@ -367,7 +367,7 @@ const RoutePeerUpdate = () => {
     },
     {
       key: "groupOfPeers",
-      label: "Peer group",
+      label: "设备组",
       disabled: true,
       children: (
         <>
