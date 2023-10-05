@@ -323,7 +323,7 @@ const NameServerGroupAdd = () => {
   const formListValidator = (_: RuleObject, names) => {
     if (names.length >= 3) {
       return Promise.reject(
-        new Error("超过了名称服务器的最大数量。(最大为 2）")
+        new Error("超过了DNS服务器的最大数量。(最大为 2）")
       );
     }
     if (names.length < 1) {

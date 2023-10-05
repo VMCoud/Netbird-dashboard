@@ -213,12 +213,12 @@ export const Nameservers = () => {
     let name = record ? record.name : "";
     confirm({
       icon: <ExclamationCircleOutlined />,
-      title: '删除命名服务器组 "' + name + '"',
+      title: '删除DNS服务器组 "' + name + '"',
       width: 600,
       content: (
         <Space direction="vertical" size="small">
           <Paragraph>
-            确定要从您的帐户中删除此命名服务器组吗？
+            确定要从您的帐户中删除此DNS服务器组吗？
           </Paragraph>
         </Space>
       ),
@@ -378,7 +378,7 @@ export const Nameservers = () => {
       });
     } else if (savedNSGroup.success) {
       message.success({
-        content: "命名服务器已成功保存。",
+        content: "DNS服务器已成功保存。",
         key: createKey,
         duration: 2,
         style: styleNotification,
@@ -392,10 +392,10 @@ export const Nameservers = () => {
       );
       dispatch(nsGroupActions.resetSavedNameServerGroup(null));
     } else if (savedNSGroup.error) {
-      let errorMsg = "更新命名服务器组失败";
+      let errorMsg = "更新DNS服务器组失败";
       switch (savedNSGroup.error.statusCode) {
         case 403:
-          errorMsg = "更新命名服务器组失败。您可能没有足够的权限。";
+          errorMsg = "更新DNS服务器组失败。您可能没有足够的权限。";
           break;
         default:
           errorMsg = savedNSGroup.error.data.message
@@ -427,17 +427,17 @@ export const Nameservers = () => {
       });
     } else if (deleteNSGroup.success) {
       message.success({
-        content: "命名服务器已成功删除。",
+        content: "DNS服务器已成功删除。",
         key: createDeleteKey,
         duration: 2,
         style: styleNotification,
       });
       dispatch(nsGroupActions.resetDeletedNameServerGroup(null));
     } else if (deleteNSGroup.error) {
-      let errorMsg = "删除命名服务器组失败";
+      let errorMsg = "删除DNS服务器组失败";
       switch (deleteNSGroup.error.statusCode) {
         case 403:
-          errorMsg = "删除命名服务器组失败。您可能没有足够的权限。";
+          errorMsg = "删除DNS服务器组失败。您可能没有足够的权限。";
           break;
         default:
           errorMsg = deleteNSGroup.error.data.message
@@ -497,7 +497,7 @@ export const Nameservers = () => {
       <>
         {nsGroup.length ? (
           <Paragraph style={{ marginTop: "5px" }}>
-            在您的 NetBird 网络中添加用于域名解析的命名服务器。
+            在您的 NetBird 网络中添加用于域名解析的DNS服务器。
             <a
               target="_blank"
               rel="noreferrer"
@@ -509,7 +509,7 @@ export const Nameservers = () => {
           </Paragraph>
         ) : (
           <Paragraph style={{ marginTop: "5px" }} type={"secondary"}>
-            在您的 NetBird 网络中添加用于域名解析的命名服务器。
+            在您的 NetBird 网络中添加用于域名解析的DNS服务器。
             <a
               target="_blank"
               rel="noreferrer"
@@ -527,7 +527,7 @@ export const Nameservers = () => {
                 allowClear
                 value={textToSearch}
                 // onPressEnter={searchDataTable}
-                placeholder="按名称、域名或命名服务器搜索..."
+                placeholder="按名称、域名或DNS服务器搜索..."
                 onChange={onChangeTextToSearch}
               />
             </Col>
@@ -561,7 +561,7 @@ export const Nameservers = () => {
                       onClick={onClickAddNewNSGroup}
                       disabled={savedNSGroup.loading}
                     >
-                      添加命名服务器
+                      添加DNS服务器
                     </Button>
                   )}
                 </Col>
@@ -590,7 +590,7 @@ export const Nameservers = () => {
                 }}
               >
                 <Title level={4} style={{ textAlign: "center" }}>
-                  创建命名服务器
+                  创建DNS服务器
                 </Title>
                 <Paragraph
                   style={{
@@ -598,7 +598,7 @@ export const Nameservers = () => {
                     whiteSpace: "pre-line",
                   }}
                 >
-                  您似乎没有任何命名服务器。{"\n"}
+                  您似乎没有任何DNS服务器。{"\n"}
                   通过向您的网络添加一个来开始。
                   <a
                     target="_blank"
@@ -614,7 +614,7 @@ export const Nameservers = () => {
                   type="primary"
                   onClick={() => onClickAddNewNSGroup()}
                 >
-                  添加命名服务器
+                  添加DNS服务器
                 </Button>
               </Space>
             ) : (
@@ -623,7 +623,7 @@ export const Nameservers = () => {
                   pageSize,
                   showSizeChanger: false,
                   showTotal: (total, range) =>
-                    `显示 ${range[0]} 到 ${range[1]} 共 ${total} 个命名服务器`,
+                    `显示 ${range[0]} 到 ${range[1]} 共 ${total} 个DNS服务器`,
                 }}
                 className={`access-control-table ${showTutorial
                     ? "card-table card-table-no-placeholder"
@@ -687,7 +687,7 @@ export const Nameservers = () => {
                   }}
                 />
                 <Column
-                  title="命名服务器"
+                  title="DNS服务器"
                   dataIndex="nameservers"
                   render={(nameservers: NameServer[]) => (
                     <>
