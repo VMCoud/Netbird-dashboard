@@ -81,7 +81,7 @@ export const useGetGroupTagHelpers = () => {
     let peersCount = "";
     const g = groups.find((_g) => _g.id === id);
     if (g)
-      peersCount = ` - 共${g.peers_count || 0} ${
+      peersCount = ` - 共 ${g.peers_count || 0} ${
         !g.peers_count || parseInt(g.peers_count) !== 1 ? "个设备" : "个设备"
       } `;
     return (

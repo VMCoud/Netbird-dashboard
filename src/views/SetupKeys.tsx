@@ -370,7 +370,7 @@ export const SetupKeys = () => {
 
     const content = displayGroups?.map((g, i) => {
       const _g = g as Group;
-      const peersCount = ` - 共${_g.peers_count || 0} ${!_g.peers_count || parseInt(_g.peers_count) !== 1 ? "个设备" : "个设备"
+      const peersCount = ` - 共 ${_g.peers_count || 0} ${!_g.peers_count || parseInt(_g.peers_count) !== 1 ? "个设备" : "个设备"
         } `;
       return (
         <div key={i}>
