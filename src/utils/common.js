@@ -46,8 +46,8 @@ export const classNames = (...classes) => {
 }
 
 const MONTH_NAMES = [
-    '一月', '二月', '三月', '四月', '五月', '六月',
-    '七月', '八月', '九月', '十月', '十一月', '十二月'
+    '1月', '2月', '3月', '4月', '5月', '6月',
+    '7月', '8月', '9月', '10月', '11月', '12月'
 ];
 
 
@@ -69,12 +69,12 @@ function getFormattedDate(date, preformattedDate = false, hideYear = false) {
     }
 
     if (hideYear) {
-        // 10. January
-        return `${day}. ${month}`;
+        // 1月1日
+        return `${month}${day}日`;
     }
 
-    // 10. January 2017.
-    return `${day}. ${month} ${year}`;
+    // 2023年3月4日
+    return `${year}年${month}${day}日`;
 }
 
 export const fullDate = (dateParam) => {
