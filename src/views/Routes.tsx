@@ -963,8 +963,8 @@ export const Routes = () => {
                             <p>
                               {record.groupedRoutes[0].peer_groups &&
                               record.groupedRoutes[0].peer_groups.length > 0
-                                ? "Routing Group"
-                                : "Routing Peer"}
+                                ? "路由组"
+                                : "路由设备"}
                             </p>
                             <p>度量</p>
                             <p>启用</p>
