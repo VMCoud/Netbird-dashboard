@@ -757,7 +757,7 @@ const NameServerGroupAdd = () => {
                               fontWeight: "500",
                             }}
                           >
-                            Mark match domains as search domains
+                            将匹配域标记为搜索域
                           </label>
                           <Paragraph
                             type={"secondary"}
@@ -767,8 +767,8 @@ const NameServerGroupAdd = () => {
                               marginBottom: "0",
                             }}
                           >
-                            E.g., "peer.example.com" will be accessible with
-                            "peer"
+                            例如，"peer.example.com "可以通过
+                            "peer "访问
                           </Paragraph>
                         </div>
                       </div>

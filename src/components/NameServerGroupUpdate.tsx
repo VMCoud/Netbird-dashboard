@@ -414,7 +414,7 @@ const NameServerGroupUpdate = (props: any) => {
                   fontWeight: "500",
                 }}
               >
-                Match domains
+                匹配域名
               </label>
               <Paragraph
                 type={"secondary"}
@@ -423,7 +423,7 @@ const NameServerGroupUpdate = (props: any) => {
                   marginBottom: "10px",
                 }}
               >
-                Add domain if you want to have a specific one
+                如果您想拥有一个特定的域名，请添加域名
               </Paragraph>
             </Col>
           </Space>
