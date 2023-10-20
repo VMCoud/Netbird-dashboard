@@ -17,13 +17,11 @@ import {
   Table,
   Tag,
   Typography,
-  Tooltip,
 } from "antd";
 import { User } from "../store/user/types";
 import { filter } from "lodash";
 import tableSpin from "../components/Spin";
 import { useGetTokenSilently } from "../utils/token";
-import { ReloadOutlined } from "@ant-design/icons";
 import { actions as groupActions } from "../store/group";
 import { capitalize, isLocalDev, isNetBirdHosted } from "../utils/common";
 import { usePageSizeHelpers } from "../utils/pageSize";
@@ -55,7 +53,6 @@ export const ServiceUsers = () => {
   );
   const savedUser = useSelector((state: RootState) => state.user.savedUser);
   const deletedUser = useSelector((state: RootState) => state.user.deletedUser);
-  const [isRefreshButtonDisabled, setIsRefreshButtonDisabled] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
 
   const [confirmModal, confirmModalContextHolder] = Modal.useModal();
@@ -80,34 +77,6 @@ export const ServiceUsers = () => {
       })
     );
   }, [savedUser, deletedUser]);
-
-  const fetchData = async () => {
-    setIsRefreshButtonDisabled(true);
-      dispatch(
-        userActions.getUsers.request({
-          getAccessTokenSilently: getTokenSilently,
-          payload: null,
-        })
-      );
-    dispatch(
-      userActions.getServiceUsers.request({
-        getAccessTokenSilently: getTokenSilently,
-        payload: null,
-      })
-    );
-    dispatch(
-      groupActions.getGroups.request({
-        getAccessTokenSilently: getTokenSilently,
-        payload: null,
-      })
-    );
-    await new Promise((resolve) => setTimeout(resolve, 5000)).then(() =>
-      setIsRefreshButtonDisabled(false)
-    );
-  };
-  // useEffect(() => {
-  //   setDataTable(transformDataTable(users));
-  // }, [users, groups]);
 
   useEffect(() => {
     if (users.length > 0) {
@@ -304,7 +273,6 @@ export const ServiceUsers = () => {
                   >
                     <Space size="middle">
                       <Select
-                        style={{ marginRight: "10px" }}
                         value={pageSize.toString()}
                         options={pageSizeOptions}
                         onChange={(value) => {
@@ -314,21 +282,6 @@ export const ServiceUsers = () => {
                         disabled={showTutorial}
                       />
                     </Space>
-                    <Tooltip
-                      title={
-                        isRefreshButtonDisabled
-                          ? "您可以在 5 秒内再次刷新"
-                          : "刷新"
-                      }
-                    >
-                      <Button
-                        onClick={fetchData}
-                        disabled={isRefreshButtonDisabled}
-                        style={{ marginLeft: "5px", color: "#1890ff" }}
-                      >
-                        <ReloadOutlined />
-                      </Button>
-                    </Tooltip>
                   </Col>
                   {!showTutorial && (
                     <Col xs={24} sm={24} md={5} lg={5} xl={5} xxl={5} span={5}>

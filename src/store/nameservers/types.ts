@@ -7,7 +7,6 @@ export interface NameServerGroup {
   nameservers: NameServer[];
   groups: string[];
   enabled: boolean;
-  search_domains_enabled: boolean;
 }
 
 export interface NameServer {

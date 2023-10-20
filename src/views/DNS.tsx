@@ -42,7 +42,7 @@ export const DNS = () => {
   const items: TabsProps["items"] = [
     {
       key: nsTabKey,
-      label: "DNS服务器",
+      label: "名称服务器",
       children: <Nameservers />,
     },
     {

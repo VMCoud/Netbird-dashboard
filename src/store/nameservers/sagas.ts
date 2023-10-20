@@ -69,9 +69,8 @@ export function* saveNameServerGroup(action: ReturnType<typeof actions.saveNameS
         nameservers: nameserverGroupToSave.nameservers,
         groups: newGroups,
         enabled: nameserverGroupToSave.enabled,
-        search_domains_enabled: nameserverGroupToSave.search_domains_enabled,
-      } as NameServerGroup,
-    };
+      } as NameServerGroup
+    }
 
     let effect
     if (!nameserverGroupToSave.id) {

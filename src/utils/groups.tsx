@@ -56,7 +56,7 @@ export const useGetGroupTagHelpers = () => {
       <Row style={{ padding: "0 8px 4px" }}>
         <Col flex="auto">
           <span style={{ color: "#9CA3AF" }}>
-            按 "Enter "键添加新组
+            Add new group by pressing "Enter"
           </span>
         </Col>
         <Col flex="none">
