@@ -552,8 +552,8 @@ export const RegularUsers = () => {
                   <Tooltip
                     title={
                       isRefreshButtonDisabled
-                        ? "You can refresh it again in 5 seconds"
-                        : "Refresh"
+                        ? "您可以在 5 秒内再次刷新"
+                        : "刷新"
                     }
                   >
                     <Button

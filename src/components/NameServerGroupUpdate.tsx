@@ -474,7 +474,7 @@ const NameServerGroupUpdate = (props: any) => {
                 icon={<PlusOutlined />}
                 style={{ marginTop: "5px", maxWidth: "280px" }}
               >
-                Add Domain
+                添加域名
               </Button>
             </Form.Item>
           </Col>
@@ -551,7 +551,7 @@ const NameServerGroupUpdate = (props: any) => {
                           >
                             {formNSGroup.id
                               ? formNSGroup.name
-                              : "New nameserver group"}
+                              : "新DNS服务器组"}
                           </div>
                         ) : (
                           <Row>
@@ -564,7 +564,7 @@ const NameServerGroupUpdate = (props: any) => {
                                     fontWeight: "500",
                                   }}
                                 >
-                                  Name
+                                  名称
                                 </label>
                                 <Form.Item
                                   name="name"
@@ -572,7 +572,7 @@ const NameServerGroupUpdate = (props: any) => {
                                     {
                                       required: true,
                                       message:
-                                        "Please add an identifier for this nameserver group",
+                                        "请为该DNS服务器组添加一个标识符",
                                       whitespace: true,
                                     },
                                     {
@@ -608,7 +608,7 @@ const NameServerGroupUpdate = (props: any) => {
                             {formNSGroup.description &&
                             formNSGroup.description.trim() !== ""
                               ? formNSGroup.description
-                              : "Add description"}
+                              : "添加描述"}
                           </div>
                         ) : (
                           <Row>
@@ -626,14 +626,14 @@ const NameServerGroupUpdate = (props: any) => {
                                     fontWeight: "500",
                                   }}
                                 >
-                                  Description
+                                  描述
                                 </label>
                                 <Form.Item
                                   name="description"
                                   style={{ marginTop: "8px" }}
                                 >
                                   <Input
-                                    placeholder="Add description..."
+                                    placeholder="添加描述..."
                                     ref={inputDescriptionRef}
                                     onPressEnter={() =>
                                       toggleEditDescription(false)
