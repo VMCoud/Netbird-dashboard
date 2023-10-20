@@ -154,7 +154,7 @@ const AddPATPopup = () => {
                                             }]}
                                         >
                                             <Input
-                                                placeholder={"for example \"Infra token\""}
+                                                placeholder={"例如 \"我的令牌\""}
                                                 ref={inputNameRef}
                                                 autoComplete="off"/>
                                         </Form.Item>
@@ -173,13 +173,13 @@ const AddPATPopup = () => {
                                         max: 365,
                                         message: '过期时间应设置在1到365天之间。'
                                     }]}>
-                                    <InputNumber addonAfter=" Days" style={{maxWidth: "150px"}}/>
+                                    <InputNumber addonAfter=" 天" style={{maxWidth: "150px"}}/>
                                 </Form.Item>
                                 <Paragraph type={"secondary"} style={{fontSize: "14px", marginTop: "-18px"}}>应在1到365天之间</Paragraph>
                             </Col>
                             <Col span={24} style={{marginTop: "15px"}}>
                                 <Text type={"secondary"}>
-                                    Learn more about
+                                    了解更多
                                     <a
                                         target="_blank"
                                         rel="noreferrer"

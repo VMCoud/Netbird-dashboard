@@ -73,6 +73,7 @@ const NameServerGroupAdd = () => {
   const inputNameRef = useRef<any>(null);
   const inputDescriptionRef = useRef<any>(null);
   const [selectCustom, setSelectCustom] = useState(false);
+  const [matchDomains, setMatchDomains] = useState(0);
 
   useEffect(() => {
     if (editName)
@@ -87,7 +88,6 @@ const NameServerGroupAdd = () => {
         cursor: "end",
       });
   }, [editDescription]);
-
   useEffect(() => {
     if (!nsGroup) return;
 
@@ -117,6 +117,7 @@ const NameServerGroupAdd = () => {
         nameservers: [] as NameServer[],
         groups: [],
         enabled: false,
+        search_domains_enabled: false,
       } as NameServerGroup)
     );
     setEditName(false);
@@ -177,6 +178,7 @@ const NameServerGroupAdd = () => {
       ],
       groups: [],
       enabled: true,
+      search_domains_enabled: false,
     },
     {
       name: cloudflareChoice,
@@ -197,6 +199,7 @@ const NameServerGroupAdd = () => {
       ],
       groups: [],
       enabled: true,
+      search_domains_enabled: false,
     },
     {
       name: quad9Choice,
@@ -217,6 +220,7 @@ const NameServerGroupAdd = () => {
       ],
       groups: [],
       enabled: true,
+      search_domains_enabled: false,
     },
   ];
 
@@ -283,6 +287,8 @@ const NameServerGroupAdd = () => {
       groups: existingGroups,
       groupsToCreate: newGroups,
       enabled: values.enabled,
+      search_domains_enabled:
+        matchDomains > 0 ? formNSGroup.search_domains_enabled : false,
     } as NameServerGroupToSave;
   };
 
@@ -483,6 +489,7 @@ const NameServerGroupAdd = () => {
           </Col>
         </Space>
       </Row>
+      {setMatchDomains(fields.length)}
       {fields.map((field, index) => {
         return (
           <Row key={index} style={{ marginBottom: "5px" }}>
@@ -540,6 +547,13 @@ const NameServerGroupAdd = () => {
     setFormNSGroup({
       ...formNSGroup,
       enabled: checked,
+    });
+  };
+
+  const handleChangeMarkDomain = (checked: boolean) => {
+    setFormNSGroup({
+      ...formNSGroup,
+      search_domains_enabled: checked,
     });
   };
 
@@ -721,6 +735,46 @@ const NameServerGroupAdd = () => {
                 <Col span={24}>
                   <Form.List name="domains">{renderDomains}</Form.List>
                 </Col>
+
+                {matchDomains > 0 && (
+                  <Col span={24}>
+                    <Form.Item name="search_domains_enabled" label="">
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "15px",
+                        }}
+                      >
+                        <Switch
+                          onChange={handleChangeMarkDomain}
+                          size="small"
+                        />
+                        <div>
+                          <label
+                            style={{
+                              color: "rgba(0, 0, 0, 0.88)",
+                              fontSize: "14px",
+                              fontWeight: "500",
+                            }}
+                          >
+                            将匹配域标记为搜索域
+                          </label>
+                          <Paragraph
+                            type={"secondary"}
+                            style={{
+                              marginTop: "-2",
+                              fontWeight: "400",
+                              marginBottom: "0",
+                            }}
+                          >
+                            例如，"peer.example.com "可以通过
+                            "peer "访问
+                          </Paragraph>
+                        </div>
+                      </div>
+                    </Form.Item>
+                  </Col>
+                )}
                 <Col span={24}>
                   <label
                     style={{

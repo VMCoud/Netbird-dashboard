@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { capitalize, formatOS, timeAgo } from "../utils/common";
 import { useDispatch, useSelector } from "react-redux";
@@ -94,6 +95,7 @@ export const Peers = () => {
   const [groupPopupVisible, setGroupPopupVisible] = useState("");
   const [showTutorial, setShowTutorial] = useState(false);
   const [hadFirstRun, setHadFirstRun] = useState(true);
+  const [isRefreshButtonDisabled, setIsRefreshButtonDisabled] = useState(false);
   const [confirmModal, confirmModalContextHolder] = Modal.useModal();
 
   const optionsOnOff = [
@@ -180,6 +182,33 @@ export const Peers = () => {
           payload: null,
         })
       );
+  };
+
+  const fetchData = async () => {
+    setIsRefreshButtonDisabled(true);
+
+    dispatch(
+      userActions.getUsers.request({
+        getAccessTokenSilently: getTokenSilently,
+        payload: null,
+      })
+    );
+    dispatch(
+      peerActions.getPeers.request({
+        getAccessTokenSilently: getTokenSilently,
+        payload: null,
+      })
+    );
+    dispatch(
+      groupActions.getGroups.request({
+        getAccessTokenSilently: getTokenSilently,
+        payload: null,
+      })
+    );
+
+    await new Promise((resolve) => setTimeout(resolve, 5000)).then(() =>
+      setIsRefreshButtonDisabled(false)
+    );
   };
 
   useEffect(() => {
@@ -663,11 +692,11 @@ export const Peers = () => {
                     <Col
                       xs={24}
                       sm={24}
-                      md={11}
-                      lg={11}
-                      xl={11}
-                      xxl={11}
-                      span={11}
+                      md={12}
+                      lg={12}
+                      xl={12}
+                      xxl={12}
+                      span={12}
                     >
                       <Space size="middle" style={{ marginRight: "15px" }}>
                         <Radio.Group
@@ -688,10 +717,10 @@ export const Peers = () => {
                           className="select-rows-per-page-en"
                         />
                       </Space>
-
                       {isAdmin && (
                         <Select
                           mode="tags"
+                          style={{ marginRight: "10px" }}
                           placeholder="按组筛选"
                           tagRender={blueTagRender}
                           // dropdownRender={dropDownRender}
@@ -711,8 +740,24 @@ export const Peers = () => {
                           ))}
                         </Select>
                       )}
+
+                      <Tooltip
+                        title={
+                          isRefreshButtonDisabled
+                            ? "您可以在 5 秒内再次刷新"
+                            : "刷新"
+                        }
+                      >
+                        <Button
+                          onClick={fetchData}
+                          disabled={isRefreshButtonDisabled}
+                          style={{ marginLeft: "5px", color: "#1890ff" }}
+                        >
+                          <ReloadOutlined />
+                        </Button>
+                      </Tooltip>
                     </Col>
-                    <Col xs={24} sm={24} md={5} lg={5} xl={5} xxl={5} span={5}>
+                    <Col xs={24} sm={24} md={4} lg={4} xl={4} xxl={4} span={4}>
                       <Row justify="end">
                         <Col>
                           {!showTutorial && (

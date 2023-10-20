@@ -460,8 +460,8 @@ export const Settings = () => {
       formAccount.peer_login_expiration_enabled
     ) {
       let content = newValues.peer_login_expiration_enabled
-        ? "启用对等登录过期将导致使用SSO登录添加的某些对等方断开连接，并需要重新进行身份验证。您想要启用对等登录过期吗？"
-        : "禁用对等登录过期将导致使用SSO登录添加的对等方永不过期。出于安全原因，通常最好定期让对等方过期。您想要禁用对等登录过期吗？";
+        ? "启用设备登录过期将导致使用SSO登录添加的某些设备断开连接，并需要重新进行身份验证。您想要启用设备登录过期吗？"
+        : "禁用设备登录过期将导致使用SSO登录添加的设备永不过期。出于安全原因，通常最好定期让设备过期。您想要禁用设备登录过期吗？";
       confirmModal.confirm({
         icon: <ExclamationCircleOutlined />,
         title: "在更新您的账户设置之前。",
@@ -643,9 +643,9 @@ export const Settings = () => {
                           fontWeight: "500",
                         }}
                       >
-                        对等登录过期{" "}
+                        设备登录过期{" "}
                         <Tooltip
-                          title="对等登录过期允许定期要求使用SSO登录添加的对等方重新进行身份验证。您可以在对等方选项卡中禁用对等方的过期。"
+                          title="设备登录过期允许定期要求使用SSO登录添加的设备重新进行身份验证。您可以在设备选项卡中禁用设备的过期。"
                         >
                           <Text
                             style={{
@@ -667,7 +667,7 @@ export const Settings = () => {
                           marginBottom: "0",
                         }}
                       >
-                        请求定期对使用SSO登录添加的对等方进行重新身份验证
+                        请求定期对使用SSO登录添加的设备进行重新身份验证
                       </Paragraph>
                     </div>
                   </div>
@@ -683,7 +683,7 @@ export const Settings = () => {
                     fontWeight: "500",
                   }}
                 >
-                  对等登录过期时间
+                  设备登录过期时间
                 </label>
                 <Paragraph
                   type={"secondary"}
@@ -693,7 +693,7 @@ export const Settings = () => {
                     marginBottom: "5px",
                   }}
                 >
-                  每个使用SSO登录添加的对等方需要重新进行身份验证的时间
+                  每个使用SSO登录添加的设备需要重新进行身份验证的时间
                 </Paragraph>
               </Col>
             </Row>
@@ -761,7 +761,7 @@ export const Settings = () => {
                           marginBottom: "0",
                         }}
                       >
-                        允许将用户的自动用户组传播给对等方，共享成员信息
+                        允许将用户的自动用户组传播给设备，共享成员信息
                       </Paragraph>
                     </div>
                   </div>
@@ -1069,7 +1069,7 @@ export const Settings = () => {
                                           fontSize: "12px",
                                         }}
                                       >
-                                        对等方
+                                        设备
                                       </Paragraph>
                                       <Paragraph
                                         type={"secondary"}
